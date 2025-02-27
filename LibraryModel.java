@@ -113,6 +113,7 @@ public class LibraryModel {
 	//	Add albums		//
 	//////////////////////
 	public String addSong(String title, String artist) {
+		// addSong(String title, String artist)
 		// Add song with name <title> to library.
 		// If the song not found in store, return
 		// a message explaining that the operation
@@ -142,6 +143,7 @@ public class LibraryModel {
 	}
 	
 	public String addAlbum(String title, String artist) {
+		// addAlbum(String title, String artist)
 		// Add album with name <title> to library.
 		// If the album is not found in store, return
 		// a message explaining that the operation
@@ -157,6 +159,7 @@ public class LibraryModel {
 	}
 	
 	public String addPlaylist(String title) {
+		// addPlaylist(String title)
 		// Add playlist with name <title> to library.
 		// If a playlist with the same name already exists,
 		// alert user and do not add a duplicate.
@@ -168,7 +171,12 @@ public class LibraryModel {
 	}
 	
 	public String addSongToPlaylist(String playlistTitle, String title, String artist) {
+		// addSongToPlaylist(String playlistTitle, String title, String artist)
 		// Add a song with name <title> by <artist> to a playlist
+		// Input:	String	title	title of song to favorite
+		//			String	artist	artist of song to favorite
+		// Output:	String			Confirmation of action or
+		//							alert of failure.
 		Playlist playlist = getPlaylist(playlistTitle);
 		if (playlist == null) {
 			return "Playlist " + playlistTitle + " does not exist. Please create playlist.\n";
@@ -178,5 +186,41 @@ public class LibraryModel {
 		}
 		playlist.addSong(title, artist);
 		return "Added song " + title + " by " + artist + " to " + playlistTitle + "\n";
+	}
+	
+	public String favorite(String title, String artist) {
+		// favorite(String title, String artist)
+		// Favorite a song with name <title> by <artist>
+		// Input:	String	title	title of song to favorite
+		//			String	artist	artist of song to favorite
+		// Output:	String			Confirmation of action or
+		//							alert of failure.
+		for (int i = 0; i < albums.size(); i++) {
+			if (albums.get(i).getArtist().equals(artist) && albums.get(i).containsSong(title)) {
+				albums.get(i).favorite(title);
+				return "Song " + title + " by " + artist + " set to favorite.\n";
+			}
+		}
+		return "Song " + title + " by " + artist + " could not be located.\n";
+	}
+	
+	public String rate(String title, String artist, int rating) {
+		// rate(String title, String artist)
+		// Rate a song with name <title> by <artist> from 1 to 5.
+		// Input:	String	title	title of song to favorite
+		//			String	artist	artist of song to favorite
+		//			int		rating	integer between 1 and 5.
+		// Output:	String			Confirmation of action or
+		//							alert of failure.
+		if (!(1 <= rating && rating <= 5)) {
+			return "Please enter a number from 1 to 5.\n";
+		}
+		for (int i = 0; i < albums.size(); i++) {
+			if (albums.get(i).getArtist().equals(artist) && albums.get(i).containsSong(title)) {
+				albums.get(i).rate(title, rating);
+				return "Song " + title + " by " + artist + " rated.\n";
+			}
+		}
+		return "Song " + title + " by " + artist + " could not be located.\n";
 	}
 }
