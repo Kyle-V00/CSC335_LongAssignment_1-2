@@ -37,9 +37,11 @@ public class Playlist {
 		return songList;
 	}
 	
-	public boolean containsSong(String title) {
+	public boolean containsSong(String title, String artist) {
+		// Check if a Song object with title <title> 
+		// and artist <artist> is contained in the playlist.
 		for (int i = 0; i < this.songs.size(); i ++) {
-			if (this.songs.get(i).getName().equals(title)) {
+			if (this.songs.get(i).getName().equals(title) && this.songs.get(i).getArtist().equals(artist)) {
 				return true;
 			}
 		}
