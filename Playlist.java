@@ -37,6 +37,15 @@ public class Playlist {
 		return songList;
 	}
 	
+	public boolean containsSong(String title) {
+		for (int i = 0; i < this.songs.size(); i ++) {
+			if (this.songs.get(i).getName().equals(title)) {
+				return true;
+			}
+		}
+		return false;
+	}
+	
 	/*
 	 * public void addSong(String songName, String songTitle)
 	 * Purpose: Add a song to the ArrayList
