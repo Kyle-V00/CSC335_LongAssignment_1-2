@@ -31,7 +31,7 @@ public class Album {
 	}
 	
 	public String getSongs() {
-		String songList = "Songs: ";
+		String songList = "Songs:\n";
 		for (int i = 0; i < this.songs.size(); i++) {
 			songList += songs.get(i).toString() + "\n";
 		}
