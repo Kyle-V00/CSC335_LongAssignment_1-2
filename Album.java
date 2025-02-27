@@ -55,9 +55,9 @@ public class Album {
 	 * 
 	 * @pre: songName != null, songTitle != null
 	 */
-	public void addSong(String songName, String songTitle) {
+	public void addSong(String songName, String artist) {
 		// Create and add a song name
-		this.songs.add(new Song(songName, songTitle));
+		this.songs.add(new Song(songName, artist));
 	}
 	
 	/*
