@@ -1,0 +1,154 @@
+/*
+ * Class Album
+ * Author: Liam Mohajeri Norris
+ * Purpose: simulate an album,
+ * containing an ArrayList of Song
+ * objects. Includes methods to search
+ * and return string representations of
+ * songs contained in album.
+ */
+
+import java.util.ArrayList;
+
+public class Album {
+	private String artist;
+	private String name;
+	private ArrayList<Song> songs;
+	
+	public Album(String name, String artist) {
+		this.artist = artist;
+		this.name = name;
+		songs = new ArrayList<Song>();
+	}
+	
+	// Getter methods:
+	public String getArtist() {
+		return artist;
+	}
+	
+	public String getName() {
+		return name;
+	}
+	
+	public String getSongs() {
+		String songList = "Songs: ";
+		for (int i = 0; i < this.songs.size(); i++) {
+			songList += songs.get(i).toString() + "\n";
+		}
+		return songList;
+	}
+	
+	/*
+	 * public void addSong(String songName, String songTitle)
+	 * Purpose: Add a song to the ArrayList
+	 * of songs in the album.
+	 * Input:	String songName		name of the song to add
+	 * 			String songTitle	title of the song to add
+	 * Output:	void
+	 * 
+	 * @pre: songName != null, songTitle != null
+	 */
+	public void addSong(String songName, String songTitle) {
+		// Create and add a song name
+		this.songs.add(new Song(songName, songTitle));
+	}
+	
+	/*
+	 * public String songSearch(String songName)
+	 * Purpose: Search for a song in the album by song name.
+	 * If the song is found, return a string representation
+	 * of the song.
+	 * Input:	String songName		name of the song to find
+	 * Output:	String				string representation of song,
+	 * 								or null if song not found.
+	 */
+	public String songSearch(String songName) {
+		for (int i = 0; i < this.songs.size(); i ++) {
+			if (this.songs.get(i).getName().equals(songName)) {
+				return this.songs.get(i).toString();
+			}
+		}
+		return null;
+	}
+	
+	/*
+	 * public String albumSongs(String songName)
+	 * Purpose: Return every song in this album.
+	 * Input:	None
+	 * Output:	String				string representation of every song
+	 * 								in the album, separated by newlines.
+	 */
+	public String albumSongs() {
+		String songsString = "";
+		for (int i = 0; i < this.songs.size(); i ++) {
+			songsString += this.songs.get(i).toString() + "\n";
+		}
+		return songsString;
+	}
+	
+	/*
+	 * public Song getSong(String songName)
+	 * Purpose: Search for a song in the album by song name.
+	 * If the song is found, return the Song object.
+	 * Input:	String songName		name of the song to find
+	 * Output:	Song				song with name songName
+	 */
+	private Song getSong(String songName) {
+		for (int i = 0; i < this.songs.size(); i ++) {
+			if (this.songs.get(i).getName().equals(songName)) {
+				return this.songs.get(i);
+			}
+		}
+		return null;
+	}
+	
+	/*
+	 * public boolean rate(String songName, int rating)
+	 * Purpose: Rate a song based on a song name and an
+	 * integer rating. Return true if song was found and rated.
+	 * Otherwise, return false.
+	 * Input:	String 	songName	name of the song to rate
+	 * 			int		rating		Rating between 1 and 5, inclusive.
+	 * Output:	boolean				true if found and rated; else false
+	 */
+	private boolean rate(String songName, int rating) {
+		Song songToRate = getSong(songName);
+		if (songToRate != null) {
+			songToRate.rate(rating);
+			return true;
+		}
+		else {
+			return false;
+		}
+	}
+	
+	/*
+	 * public boolean favorite(String songName)
+	 * Purpose: Favorite a song based on a song name. If song is
+	 * found, return true. Otherwise, return false.
+	 * Input:	String 	songName	name of the song to favorite
+	 * Output:	boolean				true if found, set favorite; 
+	 * 								else false
+	 */
+	private boolean favorite(String songName) {
+		Song songToFav = getSong(songName);
+		if (songToFav != null) {
+			songToFav.favorite();
+			return true;
+		}
+		else {
+			return false;
+		}
+	}
+	
+	/*
+	 * public String toString()
+	 * Purpose: Return a string representation of album info.
+	 * Input:	None
+	 * Output:	String				string representation of this album.
+	 */
+	@Override
+	public String toString() {
+		return "Album: " + this.name + " by " + artist;
+	}
+}
