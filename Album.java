@@ -38,6 +38,13 @@ public class Album {
 		return songList;
 	}
 	
+	public boolean containsSong(String title) {
+		if (this.getSong(title) == null) {
+			return false;
+		}
+		return true;
+	}
+	
 	/*
 	 * public void addSong(String songName, String songTitle)
 	 * Purpose: Add a song to the ArrayList
