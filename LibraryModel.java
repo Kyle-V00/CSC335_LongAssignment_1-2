@@ -24,32 +24,77 @@ public class LibraryModel {
 	}
 	
 	//////////////////////////////
+	// List methods (getters)	//
+	//////////////////////////////
+	public String allSongTitles() {
+		// TODO: Create method
+		return "";
+	}
+	
+	public String allArtists() {
+		// TODO: Create method
+		return "";
+	}
+	
+	public String allAlbumTitles() {
+		// TODO: Create method
+		return "";
+	}
+	
+	public String allPlaylists() {
+		// TODO: Create method
+		return "";
+	}
+	
+	public String allFavorites() {
+		// TODO: Create method
+		return "";
+	}
+	
+	//////////////////////////////
 	// Search methods (getters) //
 	//////////////////////////////
 	// -- Search by Song --
 	public String libSearchSongTitle(String title) {
 		// Return String with title, artist, and album
-		// Return null if album not found
-		// TODO: create method
-		return "";
+		// Return null if song not found
+		String retStr = "";
+		for (int i = 0; i < albums.size(); i++) {
+			String str = albums.get(i).getSongByTitle(title);
+			if (str != null) {
+				retStr += str + " from " + albums.get(i).getName() + "\n";
+			}
+		}
+		if (retStr.equals("")) {
+			return null;
+		}
+		return retStr;
 	}
 	
 	public String storeSearchSongTitle(String title) {
 		// Return String with title, artist, and album
-		// Return null if album not found
+		// Return null if song not found
 		return store.searchSongTitle(title);
 	}
 	
 	public String libSearchSongArtist(String artist) {
 		// Return String with title, artist, and album
-		// Return null if album not found
-		// TODO: create method
-		return "";
+		// Return null if song not found
+		String retStr = "";
+		for (int i = 0; i < albums.size(); i++) {
+			if (albums.get(i).getArtist().equals(artist)) {
+				retStr += albums.get(i).albumSongs();
+			}
+		}
+		if (retStr.equals("")) {
+			return null;
+		}
+		return retStr;
 	}
 	
 	public String storeSearchSongArtist(String artist) {
 		// Return String with title, artist, and album
-		// Return null if album not found
+		// Return null if song not found
 		return store.searchSongArtist(artist);
 	}
 	
@@ -67,8 +112,17 @@ public class LibraryModel {
 	public String libSearchAlbumTitle(String title) {
 		// Return String with title, artist, and songs
 		// Return null if album not found
-		// TODO: create method
-		return "";
+		String retStr = "";
+		for (int i = 0; i < albums.size(); i++) {
+			if (albums.get(i).getName().equals(title)) {
+				retStr += albums.get(i).toString() + "\n";
+				retStr += albums.get(i).getSongs();
+			}
+		}
+		if (retStr.equals("")) {
+			return null;
+		}
+		return retStr;
 	}
 	
 	public String storeSearchAlbumTitle(String title) {
@@ -80,8 +134,17 @@ public class LibraryModel {
 	public String libSearchAlbumArtist(String artist) {
 		// Return String with title, artist, and songs
 		// Return null if album not found
-		// TODO: create method
-		return "";
+		String retStr = "";
+		for (int i = 0; i < albums.size(); i++) {
+			if (albums.get(i).getArtist().equals(artist)) {
+				retStr += albums.get(i).toString() + "\n";
+				retStr += albums.get(i).getSongs();
+			}
+		}
+		if (retStr.equals("")) {
+			return null;
+		}
+		return retStr;
 	}
 	
 	public String storeSearchAlbumArtist(String artist) {
@@ -102,9 +165,18 @@ public class LibraryModel {
 	
 	public String libSearchPlaylist(String name) {
 		// Return String with title and songs
-		// Return null if album not found
-		// TODO: create method
-		return "";
+		// Return null if playlist not found
+		String retStr = "";
+		for (int i = 0; i < playlists.size(); i++) {
+			if (playlists.get(i).getName().equals(name)) {
+				retStr += playlists.get(i).toString() + "\n";
+				retStr += playlists.get(i).getSongs();
+			}
+		}
+		if (retStr.equals("")) {
+			return null;
+		}
+		return retStr;
 	}
 	
 	//////////////////////
