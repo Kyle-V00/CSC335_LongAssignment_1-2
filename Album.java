@@ -38,11 +38,27 @@ public class Album {
 		return songList;
 	}
 	
+	public String getSongsWithoutHeader() {
+		String songList = "";
+		for (int i = 0; i < this.songs.size(); i++) {
+			songList += songs.get(i).toString() + "\n";
+		}
+		return songList;
+	}
+	
 	public boolean containsSong(String title) {
 		if (this.getSong(title) == null) {
 			return false;
 		}
 		return true;
+	}
+	
+	public String getSongByTitle(String title) {
+		Song query = getSong(title);
+		if (query != null) {
+			return query.toString();
+		}
+		return null;
 	}
 	
 	/*
