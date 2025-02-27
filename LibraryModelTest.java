@@ -85,27 +85,59 @@ class LibraryModelTest {
 		System.out.print(lib.addSong("In My Place", "Coldplay"));
 		assertEquals(lib.libSearchSongTitle("In My Place"), 
 				"In My Place by Coldplay from A Rush of Blood to the Head\n");
+		assertEquals(lib.allAlbumTitles(), "Album: A Rush of Blood to the Head by Coldplay\n");
 	}
 	
-//	@Test
-//	void testAddAlbum() {
-//		fail("Not yet implemented");
-//	}
-//	
-//	@Test
-//	void testAddPlaylist() {
-//		fail("Not yet implemented");
-//	}
-//	
-//	@Test
-//	void testAddSongToPlaylist() {
-//		fail("Not yet implemented");
-//	}
-//	
-//	@Test
-//	void testFavorite() {
-//		fail("Not yet implemented");
-//	}
+	@Test
+	void testAddSong2() {
+		System.out.print(lib.addSong("Hello", "Coldplay"));
+		assertEquals(lib.libSearchSongTitle("In My Place"), null);
+	}
+	
+	@Test
+	void testAddAlbum() {
+		System.out.print(lib.addAlbum("A Rush of Blood to the Head", "Coldplay"));
+		assertEquals(lib.allAlbumTitles(), "Album: A Rush of Blood to the Head by Coldplay\n");
+	}
+	
+	@Test
+	void testAddAlbumAfterSong() {
+		System.out.print(lib.addSong("In My Place", "Coldplay"));
+		System.out.print(lib.addAlbum("A Rush of Blood to the Head", "Coldplay"));
+		assertEquals(lib.allAlbumTitles(), "Album: A Rush of Blood to the Head by Coldplay\n");
+	}
+	
+	@Test
+	void testAddPlaylist() {
+		lib.addAlbum("A Rush of Blood to the Head", "Coldplay");
+		lib.addPlaylist("Good vibes");
+		lib.addSongToPlaylist("Good vibes", "Politik", "Coldplay");
+		assertEquals(lib.allPlaylists(), "Playlist: Good vibes | 1 songs\n");
+	}
+	
+	@Test
+	void testAddSongToPlaylist() {
+		lib.addAlbum("A Rush of Blood to the Head", "Coldplay");
+		lib.addPlaylist("Good vibes");
+		lib.addSongToPlaylist("Good vibes", "Politik", "Coldplay");
+		lib.addSongToPlaylist("Good vibes", "Politik", "Coldplay");
+		lib.addSongToPlaylist("Good vibes", "Amsterdam", "Coldplay");
+		assertEquals(lib.allPlaylists(), "Playlist: Good vibes | 2 songs\n");
+		assertEquals(lib.libSearchPlaylist("Good vibes"), "Playlist: Good vibes | 2 songs\nSongs in playlist:\n"
+				+ "Politik by Coldplay\nAmsterdam by Coldplay\n");
+	}
+	
+	@Test
+	void testFavorite() {
+		lib.addAlbum("A Rush of Blood to the Head", "Coldplay");
+		lib.addPlaylist("Good vibes");
+		lib.addSongToPlaylist("Good vibes", "Politik", "Coldplay");
+		lib.addSongToPlaylist("Good vibes", "Politik", "Coldplay");
+		lib.addSongToPlaylist("Good vibes", "Amsterdam", "Coldplay");
+		assertEquals(lib.allPlaylists(), "Playlist: Good vibes | 2 songs\n");
+		assertEquals(lib.libSearchPlaylist("Good vibes"), "Playlist: Good vibes | 2 songs\nSongs in playlist:\n"
+				+ "Politik by Coldplay\nAmsterdam by Coldplay\n");
+	}
 //	
 //	@Test
 //	void testRate() {
