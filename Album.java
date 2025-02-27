@@ -10,7 +10,7 @@
 
 import java.util.ArrayList;
 
-public class Album {
+public class Album extends Object {
 	private String artist;
 	private String name;
 	private ArrayList<Song> songs;
@@ -193,6 +193,21 @@ public class Album {
 		else {
 			return false;
 		}
+	}
+	
+	/*
+	 * public Album copy()
+	 * Purpose: Return a copy of this album,
+	 * with copies of all the songs
+	 * Input:	None
+	 * Output:	Album				copy of this album
+	 */
+	public Album copy() {
+		Album newAlbum = new Album(this.name, this.artist);
+		for (int i = 0; i < songs.size(); i ++) {
+			newAlbum.addSong(songs.get(i).getName(), songs.get(i).getArtist());
+		}
+		return newAlbum;
 	}
 	
 	/*
