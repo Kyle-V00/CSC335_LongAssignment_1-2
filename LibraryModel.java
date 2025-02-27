@@ -27,28 +27,62 @@ public class LibraryModel {
 	// List methods (getters)	//
 	//////////////////////////////
 	public String allSongTitles() {
-		// TODO: Create method
-		return "";
+		String retStr = "";
+		for (int i = 0; i < albums.size(); i++) {
+			retStr += albums.get(i).getSongs();
+		}
+		if (retStr.equals("")) {
+			return "Library is empty.\n";
+		}
+		return retStr;
 	}
 	
 	public String allArtists() {
-		// TODO: Create method
-		return "";
+		ArrayList<String> artists = new ArrayList<String>();
+		String retStr = "";
+		for (int i = 0; i < albums.size(); i++) {
+			if (!artists.contains(albums.get(i).getArtist())) {
+				artists.add(albums.get(i).getArtist());
+				retStr += albums.get(i).getArtist() + "\n";
+			}
+		}
+		if (retStr.equals("")) {
+			return "Library is empty.\n";
+		}
+		return retStr;
 	}
 	
 	public String allAlbumTitles() {
-		// TODO: Create method
-		return "";
+		String retStr = "";
+		for (int i = 0; i < albums.size(); i++) {
+			retStr += albums.get(i).toString() + "\n";
+		}
+		if (retStr.equals("")) {
+			return "Library is empty.\n";
+		}
+		return retStr;
 	}
 	
 	public String allPlaylists() {
-		// TODO: Create method
-		return "";
+		String retStr = "";
+		for (int i = 0; i < playlists.size(); i++) {
+			retStr += playlists.get(i).toString() + "\n";
+		}
+		if (retStr.equals("")) {
+			return "Library contains no playlists.\n";
+		}
+		return retStr;
 	}
 	
 	public String allFavorites() {
-		// TODO: Create method
-		return "";
+		String retStr = "";
+		for (int i = 0; i < albums.size(); i++) {
+			retStr += albums.get(i).getFavorites();
+		}
+		if (retStr.equals("")) {
+			return "No favorite songs.\n";
+		}
+		return retStr;
 	}
 	
 	//////////////////////////////

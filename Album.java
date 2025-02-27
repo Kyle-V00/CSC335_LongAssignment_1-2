@@ -46,6 +46,16 @@ public class Album {
 		return songList;
 	}
 	
+	public String getFavorites() {
+		String favorites = "";
+		for (int i = 0; i < this.songs.size(); i++) {
+			if (songs.get(i).getFavorite()) {
+				favorites += songs.get(i).toString() + "\n";
+			}
+		}
+		return favorites;
+	}
+	
 	public boolean containsSong(String title) {
 		if (this.getSong(title) == null) {
 			return false;
