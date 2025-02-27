@@ -1,5 +1,24 @@
+import java.util.ArrayList;
 
-public class MusicStore {
+public class MusicStore extends Object {
+	
+	private ArrayList<Album> albums;
+	
+	public MusicStore() {
+		albums = new ArrayList<Album>();
+		albums.add(new Album("A Rush of Blood to the Head", "Coldplay"));
+		albums.get(0).addSong("Politik", albums.get(0).getArtist());
+		albums.get(0).addSong("In My Place", albums.get(0).getArtist());
+		albums.get(0).addSong("God Put a Smile Upon Your Face", albums.get(0).getArtist());
+		albums.get(0).addSong("The Scientist", albums.get(0).getArtist());
+		albums.get(0).addSong("Clocks", albums.get(0).getArtist());
+		albums.get(0).addSong("Daylight", albums.get(0).getArtist());
+		albums.get(0).addSong("Green Eyes", albums.get(0).getArtist());
+		albums.get(0).addSong("Warning Sign", albums.get(0).getArtist());
+		albums.get(0).addSong("A Whisper", albums.get(0).getArtist());
+		albums.get(0).addSong("A Rush of Blood to the Head", albums.get(0).getArtist());
+		albums.get(0).addSong("Amsterdam", albums.get(0).getArtist());
+	}
 
 	public String searchSongTitle(String title) {
 		// TODO Auto-generated method stub
@@ -21,7 +40,7 @@ public class MusicStore {
 		return "";
 	}
 
-		public String[] searchSongTitleAndArtist(String title, String artist) {
+	public String[] searchSongTitleAndArtist(String title, String artist) {
 		// Return String[title, artist, album]
 		// Return null if not found.
 		for (int i = 0; i < albums.size(); i ++) {

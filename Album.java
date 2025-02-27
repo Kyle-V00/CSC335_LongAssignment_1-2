@@ -150,7 +150,7 @@ public class Album extends Object {
 	private Song getSong(String songName) {
 		for (int i = 0; i < this.songs.size(); i ++) {
 			if (this.songs.get(i).getName().equals(songName)) {
-				return this.songs.get(i);
+				return songs.get(i);
 			}
 		}
 		return null;

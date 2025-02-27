@@ -227,7 +227,7 @@ public class LibraryModel {
 		String[] song = store.searchSongTitleAndArtist(title, artist);
 		if (song != null) {
 			// If the album containing song is not in library, add album
-			if (getAlbum(song[3]) == null) {
+			if (getAlbum(song[2]) == null) {
 				this.albums.add(new Album(song[2], artist));
 				return "Song " + title + " by " + artist + "added.\n";
 			}
