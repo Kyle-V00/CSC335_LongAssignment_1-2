@@ -38,10 +38,10 @@ public class Album extends Object {
 		return songList;
 	}
 	
-	public String getSongsWithoutHeader() {
+	public String getSongsWithoutArtist() {
 		String songList = "";
 		for (int i = 0; i < this.songs.size(); i++) {
-			songList += songs.get(i).toString() + "\n";
+			songList += songs.get(i).getName() + "\n";
 		}
 		return songList;
 	}

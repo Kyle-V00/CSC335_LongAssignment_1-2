@@ -18,6 +18,19 @@ public class MusicStore extends Object {
 		albums.get(0).addSong("A Whisper", albums.get(0).getArtist());
 		albums.get(0).addSong("A Rush of Blood to the Head", albums.get(0).getArtist());
 		albums.get(0).addSong("Amsterdam", albums.get(0).getArtist());
+
+		albums.add(new Album("Waking Up", "OneRepublic"));
+		albums.get(1).addSong("Made for You", albums.get(1).getArtist());
+		albums.get(1).addSong("All the Right Moves", albums.get(1).getArtist());
+		albums.get(1).addSong("Secrets", albums.get(1).getArtist());
+		albums.get(1).addSong("Everybody Loves Me", albums.get(1).getArtist());
+		albums.get(1).addSong("Missing Persons 1 & 2", albums.get(1).getArtist());
+		albums.get(1).addSong("Good Life", albums.get(1).getArtist());
+		albums.get(1).addSong("All This Time", albums.get(1).getArtist());
+		albums.get(1).addSong("Fear", albums.get(1).getArtist());
+		albums.get(1).addSong("Waking Up", albums.get(1).getArtist());
+		albums.get(1).addSong("Marchin On", albums.get(1).getArtist());
+		albums.get(1).addSong("Lullaby", albums.get(1).getArtist());
 	}
 
 	public String searchSongTitle(String title) {
