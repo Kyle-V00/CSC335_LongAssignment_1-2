@@ -82,7 +82,7 @@ class LibraryModelTest {
 	
 	@Test
 	void testAddSong() {
-		lib.addSong("In My Place", "Coldplay");
+		System.out.print(lib.addSong("In My Place", "Coldplay"));
 		assertEquals(lib.libSearchSongTitle("In My Place"), 
 				"In My Place by Coldplay from A Rush of Blood to the Head\n");
 	}

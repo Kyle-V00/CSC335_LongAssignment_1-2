@@ -228,8 +228,10 @@ public class LibraryModel {
 		if (song != null) {
 			// If the album containing song is not in library, add album
 			if (getAlbum(song[2]) == null) {
-				this.albums.add(new Album(song[2], artist));
-				return "Song " + title + " by " + artist + "added.\n";
+				Album newAl = new Album(song[2], artist);
+				newAl.addSong(title, artist);
+				this.albums.add(newAl);
+				return "Song " + title + " by " + artist + " added.\n";
 			}
 			else {
 				Album toUpdate = getAlbum(song[2]);
