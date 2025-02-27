@@ -139,7 +139,7 @@ public class Album {
 	 * 			int		rating		Rating between 1 and 5, inclusive.
 	 * Output:	boolean				true if found and rated; else false
 	 */
-	private boolean rate(String songName, int rating) {
+	public boolean rate(String songName, int rating) {
 		Song songToRate = getSong(songName);
 		if (songToRate != null) {
 			songToRate.rate(rating);
@@ -158,7 +158,7 @@ public class Album {
 	 * Output:	boolean				true if found, set favorite; 
 	 * 								else false
 	 */
-	private boolean favorite(String songName) {
+	public boolean favorite(String songName) {
 		Song songToFav = getSong(songName);
 		if (songToFav != null) {
 			songToFav.favorite();
