@@ -12,8 +12,24 @@ class LibraryModelTest {
 	}
 	
 	@Test
-	void testAllArists_Albums() {
+	void testAllSongTitles_2Songs() {
+		lib.addSong("In My Place", "Coldplay");
+		System.out.print(lib.addSong("Good Life", "OneRepublic"));
+		assertEquals(lib.allAlbumTitles(),"Album: A Rush of Blood to the Head by Coldplay\n"
+				+ "Album: Waking Up by OneRepublic\n");
+		assertEquals(lib.allSongTitles(), "In My Place\nGood Life\n");
+	}
+	
+	@Test
+	void testAllArists_NoAlbums() {
 		assertEquals(lib.allArtists(), "Library is empty.\n");
+	}
+	
+	@Test
+	void testAllArists_2Albums() {
+		lib.addSong("In My Place", "Coldplay");
+		lib.addAlbum("Waking Up", "OneRepublic");
+		assertEquals(lib.allArtists(), "Coldplay\nOneRepublic\n");
 	}
 	
 	@Test
@@ -130,17 +146,32 @@ class LibraryModelTest {
 	@Test
 	void testFavorite() {
 		lib.addAlbum("A Rush of Blood to the Head", "Coldplay");
-		lib.addPlaylist("Good vibes");
-		lib.addSongToPlaylist("Good vibes", "Politik", "Coldplay");
-		lib.addSongToPlaylist("Good vibes", "Politik", "Coldplay");
-		lib.addSongToPlaylist("Good vibes", "Amsterdam", "Coldplay");
-		assertEquals(lib.allPlaylists(), "Playlist: Good vibes | 2 songs\n");
-		assertEquals(lib.libSearchPlaylist("Good vibes"), "Playlist: Good vibes | 2 songs\nSongs in playlist:\n"
-				+ "Politik by Coldplay\nAmsterdam by Coldplay\n");
+		lib.favorite("A Rush of Blood to the Head", "Coldplay");
+		lib.favorite("A Rush of Blood to the Head", "Coldplay");
+		lib.favorite("In My Place", "Coldplay");
+		assertEquals(lib.allFavorites(), ("In My Place by Coldplay\nA Rush of Blood to the Head by Coldplay\n"));
 	}
-//	
-//	@Test
-//	void testRate() {
-//		fail("Not yet implemented");
-//	}
+	
+	@Test
+	void testRate() {
+		lib.addAlbum("A Rush of Blood to the Head", "Coldplay");
+		lib.rate("A Rush of Blood to the Head", "Coldplay", 3);
+		lib.rate("A Rush of Blood to the Head", "Coldplay", 5);
+		lib.rate("In My Place", "Coldplay", 5);
+		assertEquals(lib.allFavorites(), ("In My Place by Coldplay\nA Rush of Blood to the Head by Coldplay\n"));
+	}
+	
+	@Test
+	void testAddSongTwice() {
+		System.out.print(lib.addSong("In My Place", "Coldplay"));
+		System.out.print(lib.addSong("In My Place", "Coldplay"));
+		assertEquals(lib.allSongTitles(), "In My Place\n");
+	}
+	
+	@Test
+	void testAddSongToExistingAlbum() {
+		System.out.print(lib.addSong("In My Place", "Coldplay"));
+		System.out.print(lib.addSong("Amsterdam", "Coldplay"));
+		assertEquals(lib.allSongTitles(), "In My Place\nAmsterdam\n");
+	}
 }

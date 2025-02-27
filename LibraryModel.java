@@ -29,7 +29,7 @@ public class LibraryModel {
 	public String allSongTitles() {
 		String retStr = "";
 		for (int i = 0; i < albums.size(); i++) {
-			retStr += albums.get(i).getSongs();
+			retStr += albums.get(i).getSongsWithoutArtist();
 		}
 		if (retStr.equals("")) {
 			return "Library is empty.\n";
@@ -239,7 +239,7 @@ public class LibraryModel {
 					return "Song " + title + " by " + artist + " is already in library.\n";
 				}
 				else {
-					toUpdate.addSong(artist, title);
+					toUpdate.addSong(title, artist);
 					return "Song " + title + " by " + artist + "added.\n";
 				}
 			}
