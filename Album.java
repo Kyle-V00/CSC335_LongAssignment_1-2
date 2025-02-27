@@ -140,6 +140,20 @@ public class Album extends Object {
 		return songsString;
 	}
 	
+	public String[][] songList() {
+		// Return an array of songs, each with
+		// its own array denoting [title, artist].
+		String[][] songList = new String[songs.size()][2];
+		for (int i = 0; i < songs.size(); i++) {
+			String[] newSong = new String[2];
+			Song cur = songs.get(i);
+			newSong[0] = cur.getName();
+			newSong[1] = cur.getArtist();
+			songList[i] = newSong;
+		}
+		return songList;
+	}
+	
 	/*
 	 * public Song getSong(String songName)
 	 * Purpose: Search for a song in the album by song name.

@@ -258,8 +258,29 @@ public class LibraryModel {
 		// was unsuccessful.
 		Album toAdd = store.getAlbum(title, artist);
 		if (toAdd != null) {
-			this.albums.add(toAdd);
-			return "Successfully added album " + title + " by " + artist + "\n";
+			boolean contains = false;
+			// Check if an album by the same name is already in the library
+			for (int i = 0; i < this.albums.size(); i ++) {
+				if (this.albums.get(i).getName().equals(toAdd.getName())) {
+					contains = true;
+				}
+			}
+			// If so, update the album
+			if (contains) {
+				Album existing = this.getAlbum(title);
+				String[][] songList = toAdd.songList();
+				for (int i = 0; i < songList.length; i++) {
+					if (!existing.containsSong(songList[i][0])) {
+						existing.addSong(songList[i][0], songList[i][1]);
+					}
+				}
+				return "Successfully updated album " + title + " by " + artist + "\n";
+			}
+			// If not, add the album to albums
+			else {
+				this.albums.add(toAdd);
+				return "Successfully added album " + title + " by " + artist + "\n";
+			}
 		}
 		else {
 			return "Album " + title + " by " + artist + " is not in store.\n";
