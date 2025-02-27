@@ -55,7 +55,7 @@ public class LibraryModel {
 	
 	// -- Search by Album --
 	
-	private Album searchAlbum(String title) {
+	private Album getAlbum(String title) {
 		for (int i = 0; i < albums.size(); i ++) {
 			if (albums.get(i).getName().equals(title)) {
 				return albums.get(i);
@@ -91,6 +91,15 @@ public class LibraryModel {
 	}
 	
 	// -- Search by Playlist --
+	private Playlist getPlaylist(String title) {
+		for (int i = 0; i < playlists.size(); i ++) {
+			if (playlists.get(i).getName().equals(title)) {
+				return playlists.get(i);
+			}
+		}
+		return null;
+	}
+	
 	public String libSearchPlaylist(String name) {
 		// Return String with title and songs
 		// Return null if album not found
@@ -111,24 +120,63 @@ public class LibraryModel {
 		String[] song = store.searchSongTitleAndArtist(title, artist);
 		if (song != null) {
 			// If the album containing song is not in library, add album
-			if (searchAlbum(song[3]) == null) {
+			if (getAlbum(song[3]) == null) {
 				this.albums.add(new Album(song[2], artist));
-				return "Song " + title + " by " + artist + "added.";
+				return "Song " + title + " by " + artist + "added.\n";
 			}
 			else {
-				Album toUpdate = searchAlbum(song[2]);
+				Album toUpdate = getAlbum(song[2]);
 				if (toUpdate.containsSong(title)) {
-					return "Song " + title + " by " + artist + " is already in library.";
+					return "Song " + title + " by " + artist + " is already in library.\n";
 				}
 				else {
 					toUpdate.addSong(artist, title);
-					return "Song " + title + " by " + artist + "added.";
+					return "Song " + title + " by " + artist + "added.\n";
 				}
 			}
 			
 		}
 		else {
-			return "Song " + title + " by " + artist + " is not in store.";
+			return "Song " + title + " by " + artist + " is not in store.\n";
 		}
+	}
+	
+	public String addAlbum(String title, String artist) {
+		// Add album with name <title> to library.
+		// If the album is not found in store, return
+		// a message explaining that the operation
+		// was unsuccessful.
+		Album toAdd = store.getAlbum(title, artist);
+		if (toAdd != null) {
+			this.albums.add(toAdd);
+			return "Successfully added album " + title + " by " + artist + "\n";
+		}
+		else {
+			return "Album " + title + " by " + artist + " is not in store.\n";
+		}
+	}
+	
+	public String addPlaylist(String title) {
+		// Add playlist with name <title> to library.
+		// If a playlist with the same name already exists,
+		// alert user and do not add a duplicate.
+		if (libSearchPlaylist(title) == null) {
+			this.playlists.add(new Playlist(title));
+			return "Created playlist " + title + "\n";
+		}
+		return "Playlist " + title + " already exists.\n";
+	}
+	
+	public String addSongToPlaylist(String playlistTitle, String title, String artist) {
+		// Add a song with name <title> by <artist> to a playlist
+		Playlist playlist = getPlaylist(playlistTitle);
+		if (playlist == null) {
+			return "Playlist " + playlistTitle + " does not exist. Please create playlist.\n";
+		}
+		if (playlist.containsSong(title, artist)) {
+			return "Playlist " + playlistTitle + " already contains song.\n";
+		}
+		playlist.addSong(title, artist);
+		return "Added song " + title + " by " + artist + " to " + playlistTitle + "\n";
 	}
 }
