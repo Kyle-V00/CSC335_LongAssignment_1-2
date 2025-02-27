@@ -64,9 +64,7 @@ public class Album extends Object {
 	}
 	
 	public String getSongByTitle(String title) {
-		System.out.print("calling getSong\n");
 		Song query = getSong(title);
-		System.out.print("query = " + query + "\n");
 		if (query != null) {
 			return query.toString();
 		}
@@ -150,14 +148,11 @@ public class Album extends Object {
 	 * Output:	Song				song with name songName
 	 */
 	private Song getSong(String songName) {
-		System.out.print("Looking for song " + songName + "\n");
 		for (int i = 0; i < this.songs.size(); i ++) {
 			if (this.songs.get(i).getName().equals(songName)) {
-				System.out.print("Returning " + songs.get(i) + "\n");
 				return songs.get(i);
 			}
 		}
-		System.out.print("Returning null\n");
 		return null;
 	}
 	
