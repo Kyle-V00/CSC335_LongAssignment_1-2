@@ -342,7 +342,7 @@ public class LibraryModel {
 		// Output:	String			Confirmation of action or
 		//							alert of failure.
 		if (!(1 <= rating && rating <= 5)) {
-			return "Please enter a number from 1 to 5.\n";
+			return "Please enter an integer from 1 to 5.\n";
 		}
 		for (int i = 0; i < albums.size(); i++) {
 			if (albums.get(i).getArtist().equals(artist) && albums.get(i).containsSong(title)) {
