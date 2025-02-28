@@ -13,19 +13,28 @@ import java.util.Scanner;
 
 public class view {
 	private Scanner scanner;
+	private LibraryModel lm;
+	private MusicStore ms;
+	
 
     public view() {
         scanner = new Scanner(System.in);
+        LibraryModel lm = new LibraryModel();
+    	MusicStore ms = new MusicStore();
+    	
     }
 
     public String userInput() {
-    	System.out.print("Options\n");
-        System.out.print("'s' = search, 'a' = add, 'l' = list,\n"
-        		+ 		 "'p' = playlist, 'f' = favorite, 'r' = rate,\n"
-        		+ 		 "'e' = exit\n" );
-        System.out.print("Enter command: ");
-        
-        checkCommand(scanner.nextLine());
+    	do {
+    		System.out.print("Options\n");
+            System.out.print("'s' = search, 'a' = add, 'l' = list,\n"
+            		+ 		 "'p' = playlist, 'f' = favorite, 'r' = rate,\n"
+            		+ 		 "'e' = exit\n" );
+            System.out.print("Enter command: ");
+            String cmd = scanner.nextLine();
+            checkCommand(cmd.toLowerCase());
+    	} while(scanner.nextLine().toLowerCase() != "b");
+  
 //        return scanner.nextLine();
         return "Thank you, for using our service";
     }
@@ -60,7 +69,7 @@ public class view {
     	System.out.print("\n");
     	System.out.print("Menu Options:\n");
 		System.out.print("'s' = search store, 'l' = search library, 'b' = back\n");
-    	String nxtCmd = scanner.nextLine();
+    	;
     	while (nxtCmd != "b"){
     		System.out.print("Menu Options:\n");
     		System.out.print("'s' = search store, 'l' = search library, 'b' = back\n");
@@ -85,6 +94,11 @@ public class view {
     						+"'aa' = search album artist, 'b' = back\n");
     		if (nxtCmd == "st") {
 //    			searchStore();
+    		}
+    		if (nxtCmd == "sa") {
+    			System.out.print("Type artist's name:\n");
+    			String nxtCmd = scanner.nextLine();
+    			ms.searchAlbumArtist(nxtCmd);
     		}
     	}
     	return;
