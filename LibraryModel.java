@@ -229,6 +229,8 @@ public class LibraryModel {
 			// If the album containing song is not in library, add album
 			if (getAlbum(song[2]) == null) {
 				Album newAl = new Album(song[2], artist);
+				newAl.setGenre(song[3]);
+				newAl.setYear(song[4]);
 				newAl.addSong(title, artist);
 				this.albums.add(newAl);
 				return "Song " + title + " by " + artist + " added.\n";

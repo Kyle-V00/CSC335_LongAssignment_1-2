@@ -41,6 +41,14 @@ public class Album extends Object {
 		return name;
 	}
 	
+	public String getGenre() {
+		return genre;
+	}
+	
+	public String getYear() {
+		return year;
+	}
+	
 	public String getSongs() {
 		String songList = "Songs:\n";
 		for (int i = 0; i < this.songs.size(); i++) {
