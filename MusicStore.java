@@ -53,8 +53,19 @@ public class MusicStore extends Object {
 	}
 
 	public String searchSongTitle(String title) {
-		// TODO Auto-generated method stub
-		return "";
+		// Return String with title, artist, and album
+		// Return null if song not found
+		String retStr = "";
+		for (int i = 0; i < albums.size(); i++) {
+			String str = albums.get(i).getSongByTitle(title);
+			if (str != null) {
+				retStr += str + " from " + albums.get(i).getName() + "\n";
+			}
+		}
+		if (retStr.equals("")) {
+			return null;
+		}
+		return retStr;
 	}
 
 	public String searchSongArtist(String artist) {
@@ -63,13 +74,35 @@ public class MusicStore extends Object {
 	}
 
 	public String searchAlbumTitle(String title) {
-		// TODO Auto-generated method stub
-		return "";
+		// Return String with title, artist, and songs
+		// Return null if album not found
+		String retStr = "";
+		for (int i = 0; i < albums.size(); i++) {
+			if (albums.get(i).getName().equals(title)) {
+				retStr += albums.get(i).toString() + "\n";
+				retStr += albums.get(i).getSongs();
+			}
+		}
+		if (retStr.equals("")) {
+			return null;
+		}
+		return retStr;
 	}
 
 	public String searchAlbumArtist(String artist) {
-		// TODO Auto-generated method stub
-		return "";
+		// Return String with title, artist, and songs
+		// Return null if album not found
+		String retStr = "";
+		for (int i = 0; i < albums.size(); i++) {
+			if (albums.get(i).getArtist().equals(artist)) {
+				retStr += albums.get(i).toString() + "\n";
+				retStr += albums.get(i).getSongs();
+			}
+		}
+		if (retStr.equals("")) {
+			return null;
+		}
+		return retStr;
 	}
 
 	public String[] searchSongTitleAndArtist(String title, String artist) {
