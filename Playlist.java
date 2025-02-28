@@ -64,6 +64,27 @@ public class Playlist {
 	}
 	
 	/*
+	 * public boolean removeSong(String songName, String songTitle)
+	 * Purpose: Remove a song from the ArrayList
+	 * of songs in the playlist.
+	 * Input:	String songName		name of the song to add
+	 * 			String songTitle	title of the song to add
+	 * Output:	boolean				true if song removed, false otherwise
+	 * 
+	 * @pre: songName != null, songTitle != null
+	 */
+	public boolean removeSong(String songName, String artist) {
+		// Search ArrayList for song
+		for (int i = 0; i < songs.size(); i ++) {
+			Song cur = songs.get(i);
+			if (cur.getName().equals(songName) && cur.getArtist().equals(artist)) {
+				return songs.remove(cur);
+			}
+		}
+		return false;
+	}
+	
+	/*
 	 * public String toString()
 	 * Purpose: Return a string representation of playlist info.
 	 * Input:	None
