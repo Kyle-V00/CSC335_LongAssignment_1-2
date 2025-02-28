@@ -86,44 +86,44 @@ public class Album extends Object {
 		this.songs.add(new Song(songName, artist));
 	}
 	
-	/*
-	 * public String songSearch(String songName)
-	 * Purpose: Search for a song in the album by song name.
-	 * If the song is found, return a string representation
-	 * of the song.
-	 * Input:	String songName		name of the song to find
-	 * Output:	String				string representation of song,
-	 * 								or null if song not found.
-	 */
-	public String songSearch(String songName) {
-		for (int i = 0; i < this.songs.size(); i ++) {
-			if (this.songs.get(i).getName().equals(songName)) {
-				return this.songs.get(i).toString();
-			}
-		}
-		return null;
-	}
-	
-	/*
-	 * public String songSearch(String songName, songArtist)
-	 * Purpose: Search for a song in the album by song name AND artist.
-	 * If the song is found, return a string representation
-	 * of the song.
-	 * Input:	String songName		name of the song to find
-	 * 			String songArtist	artist of the song to find
-	 * Output:	String				string representation of song,
-	 * 								or null if song not found.
-	 */
-	public String songSearch(String songName, String songArtist) {
-		if (this.artist.equals(songArtist)) {
-			for (int i = 0; i < this.songs.size(); i ++) {
-				if (this.songs.get(i).getName().equals(songName)) {
-					return this.songs.get(i).toString();
-				}
-			}
-		}
-		return null;
-	}
+//	/*
+//	 * public String songSearch(String songName)
+//	 * Purpose: Search for a song in the album by song name.
+//	 * If the song is found, return a string representation
+//	 * of the song.
+//	 * Input:	String songName		name of the song to find
+//	 * Output:	String				string representation of song,
+//	 * 								or null if song not found.
+//	 */
+//	public String songSearch(String songName) {
+//		for (int i = 0; i < this.songs.size(); i ++) {
+//			if (this.songs.get(i).getName().equals(songName)) {
+//				return this.songs.get(i).toString();
+//			}
+//		}
+//		return null;
+//	}
+//	
+//	/*
+//	 * public String songSearch(String songName, songArtist)
+//	 * Purpose: Search for a song in the album by song name AND artist.
+//	 * If the song is found, return a string representation
+//	 * of the song.
+//	 * Input:	String songName		name of the song to find
+//	 * 			String songArtist	artist of the song to find
+//	 * Output:	String				string representation of song,
+//	 * 								or null if song not found.
+//	 */
+//	public String songSearch(String songName, String songArtist) {
+//		if (this.artist.equals(songArtist)) {
+//			for (int i = 0; i < this.songs.size(); i ++) {
+//				if (this.songs.get(i).getName().equals(songName)) {
+//					return this.songs.get(i).toString();
+//				}
+//			}
+//		}
+//		return null;
+//	}
 	
 	/*
 	 * public String albumSongs(String songName)

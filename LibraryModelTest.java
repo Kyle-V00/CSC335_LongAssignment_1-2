@@ -64,14 +64,33 @@ class LibraryModelTest {
 	}
 	
 	@Test
+	void testLibSearchSongArtist_4Songs() {
+		lib.addSong("A Rush of Blood to the Head", "Coldplay");
+		lib.addSong("In My Place", "Coldplay");
+		lib.addSong("Good Life", "OneRepublic");
+		lib.addSong("Daydreamer", "Adele");
+		lib.addSong("Lovesong", "Adele");
+		assertEquals(lib.libSearchSongArtist("Coldplay"), "A Rush of Blood to the Head by Coldplay\n"
+				+ "In My Place by Coldplay\n");
+	}
+	
+	@Test
 	void testStoreSearchSongArtist() {
 		// TODO: Create test
 				assertTrue(true);
 	}
 	
 	@Test
-	void testLibSearchAlbumTitle() {
+	void testLibSearchAlbumTitle_NoAlbums() {
 		assertEquals(lib.libSearchAlbumTitle("Hurry Up Tomorrow"), null);
+	}
+	
+	@Test
+	void testLibSearchAlbumTitle_2Albums() {
+		lib.addAlbum("A Rush of Blood to the Head", "Coldplay");
+		lib.addSong("Good Life", "OneRepublic");
+		assertEquals(lib.libSearchAlbumTitle("Waking Up"), "Album: Waking Up by OneRepublic\nSongs:\n"
+				+ "Good Life by OneRepublic\n");
 	}
 	
 	@Test
@@ -81,8 +100,19 @@ class LibraryModelTest {
 	}
 	
 	@Test
-	void testLibSearchAlbumArtist() {
+	void testLibSearchAlbumArtist_NoAlbums() {
 		assertEquals(lib.libSearchAlbumArtist("The Weeknd"), null);
+	}
+	
+	@Test
+	void testLibSearchAlbumArtist_4Albums() {
+		lib.addAlbum("A Rush of Blood to the Head", "Coldplay");
+		lib.addSong("Good Life", "OneRepublic");
+		lib.addSong("Daydreamer", "Adele");
+		lib.addSong("Lovesong", "Adele");
+		assertEquals(lib.libSearchAlbumArtist("Adele"), "Album: 19 by Adele\nSongs:\n"
+				+ "Daydreamer by Adele\nAlbum: 21 by Adele\nSongs:\n"
+				+ "Lovesong by Adele\n");
 	}
 	
 	@Test
@@ -91,10 +121,42 @@ class LibraryModelTest {
 				assertTrue(true);
 	}
 	
-//	@Test
-//	void testLibSearchPlaylist() {
-//		fail("Not yet implemented");
-//	}
+	@Test
+	void testLibSearchPlaylist() {
+		lib.addAlbum("A Rush of Blood to the Head", "Coldplay");
+		lib.addAlbum("19", "Adele");
+		lib.addAlbum("Waking Up", "OneRepublic");
+		lib.addAlbum("21", "Adele");
+		lib.addPlaylist("Good vibes");
+		lib.addSongToPlaylist("Good vibes", "Politik", "Coldplay");
+		lib.addSongToPlaylist("Good vibes", "Politik", "Coldplay");
+		lib.addSongToPlaylist("Good vibes", "Amsterdam", "Coldplay");
+		lib.addSongToPlaylist("Good vibes", "Daydreamer", "Adele");
+		lib.addSongToPlaylist("Good vibes", "Good Life", "OneRepublic");
+		lib.addSongToPlaylist("Good vibes", "Lovesong", "Adele");
+		
+		assertEquals(lib.libSearchPlaylist("Good vibes"), "Playlist: Good vibes | 5 songs\nSongs in playlist:\n"
+				+ "Politik by Coldplay\nAmsterdam by Coldplay\n"
+				+ "Daydreamer by Adele\nGood Life by OneRepublic\n"
+				+ "Lovesong by Adele\n");
+	}
+	
+	@Test
+	void testLibSearchPlaylist_DoesntExist() {
+		lib.addAlbum("A Rush of Blood to the Head", "Coldplay");
+		lib.addAlbum("19", "Adele");
+		lib.addAlbum("Waking Up", "OneRepublic");
+		lib.addAlbum("21", "Adele");
+		lib.addPlaylist("Good vibes");
+		lib.addSongToPlaylist("Good vibes", "Politik", "Coldplay");
+		lib.addSongToPlaylist("Good vibes", "Politik", "Coldplay");
+		lib.addSongToPlaylist("Good vibes", "Amsterdam", "Coldplay");
+		lib.addSongToPlaylist("Good vibes", "Daydreamer", "Adele");
+		lib.addSongToPlaylist("Good vibes", "Good Life", "OneRepublic");
+		lib.addSongToPlaylist("Good vibes", "Lovesong", "Adele");
+		
+		assertEquals(lib.libSearchPlaylist("Good vibes!"), null);
+	}
 	
 	@Test
 	void testAddSong() {
@@ -114,6 +176,11 @@ class LibraryModelTest {
 	void testAddAlbum() {
 		System.out.print(lib.addAlbum("A Rush of Blood to the Head", "Coldplay"));
 		assertEquals(lib.allAlbumTitles(), "Album: A Rush of Blood to the Head by Coldplay\n");
+	}
+	
+	@Test
+	void testAddAlbum_DoesntExist() {
+		assertEquals(lib.addAlbum("Hello", "Coldplay"), "Album Hello by Coldplay is not in store.\n");
 	}
 	
 	@Test
@@ -144,12 +211,53 @@ class LibraryModelTest {
 	}
 	
 	@Test
+	void testAddSongToPlaylist_NoPlaylist() {
+		lib.addAlbum("A Rush of Blood to the Head", "Coldplay");
+		assertEquals(lib.addSongToPlaylist("Good vibes", "Politik", "Coldplay"), "Playlist Good vibes does not exist. "
+				+ "Please create playlist.\n");
+	}
+	
+	@Test
+	void testAddSongToPlaylist_DoesntExist() {
+		lib.addPlaylist("Good vibes");
+		lib.addAlbum("A Rush of Blood to the Head", "Coldplay");
+		assertEquals(lib.addSongToPlaylist("Chill", "Politik", "Coldplay"), "Playlist Chill does not exist. "
+				+ "Please create playlist.\n");
+	}
+	
+	@Test
+	void testAddPlaylist_AlreadyExists() {
+		lib.addAlbum("A Rush of Blood to the Head", "Coldplay");
+		lib.addPlaylist("Good vibes");
+		assertEquals(lib.addPlaylist("Good vibes"), "Playlist Good vibes already exists.\n");
+	}
+	
+	@Test
 	void testFavorite() {
 		lib.addAlbum("A Rush of Blood to the Head", "Coldplay");
 		lib.favorite("A Rush of Blood to the Head", "Coldplay");
 		lib.favorite("A Rush of Blood to the Head", "Coldplay");
 		lib.favorite("In My Place", "Coldplay");
 		assertEquals(lib.allFavorites(), ("In My Place by Coldplay\nA Rush of Blood to the Head by Coldplay\n"));
+	}
+	
+	@Test
+	void testFavoriteSongDoesntExist() {
+		lib.addAlbum("A Rush of Blood to the Head", "Coldplay");
+		assertEquals(lib.favorite("Chill", "Coldplay"), "Song Chill by Coldplay could not be located.\n");
+	}
+	
+	@Test
+	void testRateBadInt() {
+		lib.addAlbum("A Rush of Blood to the Head", "Coldplay");
+		assertEquals(lib.rate("In My Place", "Coldplay", 6), "Please enter an integer from 1 to 5.\n");
+		assertEquals(lib.rate("In My Place", "Coldplay", -1), "Please enter an integer from 1 to 5.\n");
+	}
+	
+	@Test
+	void testRateMissingSong() {
+		lib.addAlbum("A Rush of Blood to the Head", "Coldplay");
+		assertEquals(lib.rate("Chill", "Coldplay", 4), "Song Chill by Coldplay could not be located.\n");
 	}
 	
 	@Test
