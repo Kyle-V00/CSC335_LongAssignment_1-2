@@ -1,4 +1,11 @@
-// Authors: Kyle Velasco and Liam Mohajeri Norris
+/*
+ * Class: MusicStore
+ * Authors: Kyle Velasco & Liam Mohajeri Norris
+ * Purpose: simulate a music store,
+ * based on an albums.txt file that contains
+ * a list of albums, and individual album files
+ * with songs.
+ */
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -12,7 +19,7 @@ public class MusicStore extends Object {
 	public MusicStore() {
 		albums = new ArrayList<Album>();
 		ArrayList<String[]> albumInfo = new ArrayList<String[]>();
-		File albumFile = new File("/Users/liam/eclipse-workspace/LA1/src/albums.txt");
+		File albumFile = new File("/Users/liam/Downloads/albums/albums.txt");
 		Scanner albumNames = null;
 		try {
 			albumNames = new Scanner(albumFile);
@@ -71,12 +78,16 @@ public class MusicStore extends Object {
 	}
 
 	public String searchSongArtist(String artist) {
+		String retStr = "";
 		for (int i = 0; i < albums.size(); i++) {
 			if (albums.get(i).getArtist().equals(artist)) {
-				return albums.get(i).albumSongs();
+				retStr += albums.get(i).albumSongs();
 			}
 		}
-		return null;
+		if (retStr.equals("")) {
+			return null;
+		}
+		return retStr;
 	}
 
 	public String searchAlbumTitle(String title) {
