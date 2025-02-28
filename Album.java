@@ -13,12 +13,23 @@ import java.util.ArrayList;
 public class Album extends Object {
 	private String artist;
 	private String name;
+	private String genre;
+	private String year;
 	private ArrayList<Song> songs;
 	
 	public Album(String name, String artist) {
 		this.artist = artist;
 		this.name = name;
 		songs = new ArrayList<Song>();
+	}
+	
+	// Setter methods:
+	public void setGenre(String genre) {
+		this.genre = genre;
+	}
+	
+	public void setYear(String year) {
+		this.year = year;
 	}
 	
 	// Getter methods:
@@ -218,6 +229,8 @@ public class Album extends Object {
 	 */
 	public Album copy() {
 		Album newAlbum = new Album(this.name, this.artist);
+		newAlbum.setGenre(this.genre);
+		newAlbum.setYear(this.year);
 		for (int i = 0; i < songs.size(); i ++) {
 			newAlbum.addSong(songs.get(i).getName(), songs.get(i).getArtist());
 		}
@@ -232,6 +245,6 @@ public class Album extends Object {
 	 */
 	@Override
 	public String toString() {
-		return "Album: " + this.name + " by " + artist;
+		return "Album: " + this.name + " by " + artist + " | " + genre + " | " + year;
 	}
 }

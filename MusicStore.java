@@ -1,4 +1,7 @@
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
+import java.util.Scanner;
 
 public class MusicStore extends Object {
 	
@@ -6,61 +9,46 @@ public class MusicStore extends Object {
 	
 	public MusicStore() {
 		albums = new ArrayList<Album>();
-		albums.add(new Album("A Rush of Blood to the Head", "Coldplay"));
-		albums.get(0).addSong("Politik", albums.get(0).getArtist());
-		albums.get(0).addSong("In My Place", albums.get(0).getArtist());
-		albums.get(0).addSong("God Put a Smile Upon Your Face", albums.get(0).getArtist());
-		albums.get(0).addSong("The Scientist", albums.get(0).getArtist());
-		albums.get(0).addSong("Clocks", albums.get(0).getArtist());
-		albums.get(0).addSong("Daylight", albums.get(0).getArtist());
-		albums.get(0).addSong("Green Eyes", albums.get(0).getArtist());
-		albums.get(0).addSong("Warning Sign", albums.get(0).getArtist());
-		albums.get(0).addSong("A Whisper", albums.get(0).getArtist());
-		albums.get(0).addSong("A Rush of Blood to the Head", albums.get(0).getArtist());
-		albums.get(0).addSong("Amsterdam", albums.get(0).getArtist());
-
-		albums.add(new Album("Waking Up", "OneRepublic"));
-		albums.get(1).addSong("Made for You", albums.get(1).getArtist());
-		albums.get(1).addSong("All the Right Moves", albums.get(1).getArtist());
-		albums.get(1).addSong("Secrets", albums.get(1).getArtist());
-		albums.get(1).addSong("Everybody Loves Me", albums.get(1).getArtist());
-		albums.get(1).addSong("Missing Persons 1 & 2", albums.get(1).getArtist());
-		albums.get(1).addSong("Good Life", albums.get(1).getArtist());
-		albums.get(1).addSong("All This Time", albums.get(1).getArtist());
-		albums.get(1).addSong("Fear", albums.get(1).getArtist());
-		albums.get(1).addSong("Waking Up", albums.get(1).getArtist());
-		albums.get(1).addSong("Marchin On", albums.get(1).getArtist());
-		albums.get(1).addSong("Lullaby", albums.get(1).getArtist());
-		
-		Album adele1 = new Album("19", "Adele");
-		adele1.addSong("Daydreamer", adele1.getArtist());
-		adele1.addSong("Best for Last", adele1.getArtist());
-		adele1.addSong("Chasing Pavements", adele1.getArtist());
-		adele1.addSong("Cold Shoulder", adele1.getArtist());
-		adele1.addSong("Crazy for You", adele1.getArtist());
-		adele1.addSong("Melt My Heart to Stone", adele1.getArtist());
-		adele1.addSong("First Love", adele1.getArtist());
-		adele1.addSong("Right as Rain", adele1.getArtist());
-		adele1.addSong("Make You Feel My Love", adele1.getArtist());
-		adele1.addSong("My Same", adele1.getArtist());
-		adele1.addSong("Tired", adele1.getArtist());
-		adele1.addSong("Hometown Glory", adele1.getArtist());
-		albums.add(adele1);
-		
-		adele1 = new Album("21", "Adele");
-		adele1.addSong("Rolling in the Deep", adele1.getArtist());
-		adele1.addSong("Rumour Has It", adele1.getArtist());
-		adele1.addSong("Turning Tables", adele1.getArtist());
-		adele1.addSong("Don't You Remember", adele1.getArtist());
-		adele1.addSong("Set Fire to the Rain", adele1.getArtist());
-		adele1.addSong("He Won't Go", adele1.getArtist());
-		adele1.addSong("Take It All", adele1.getArtist());
-		adele1.addSong("I'll Be Waiting", adele1.getArtist());
-		adele1.addSong("One and Only", adele1.getArtist());
-		adele1.addSong("Lovesong", adele1.getArtist());
-		adele1.addSong("Someone Like You", adele1.getArtist());
-		adele1.addSong("I Found a Boy", adele1.getArtist());
-		albums.add(adele1);
+		ArrayList<String[]> albumInfo = new ArrayList<String[]>();
+		File albumFile = new File("/Users/liam/eclipse-workspace/LA1/src/albums.txt");
+		Scanner albumNames = null;
+		try {
+			albumNames = new Scanner(albumFile);
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		}
+		// Construct an ArrayList of String[] objects with [title, artist]
+		int j = 0;
+		while (albumNames.hasNextLine()) {
+			albumInfo.add(albumNames.nextLine().strip().split(","));
+			j ++;
+		}
+		// Loop through the ArrayList, open each file based on [title, artist],
+		// and create an Album object with the info from that class.
+		Scanner songs;
+		for (int i = 0; i< albumInfo.size(); i++) {
+			String[] curInfo = albumInfo.get(i);
+			Album newAl = new Album(curInfo[0], curInfo[1]);
+			File albumDetails = new File(albumFile.getParent(), curInfo[0] + "_" + curInfo[1] + ".txt");
+			songs = null;
+			// Open the file with this album's songs
+			try {
+				songs = new Scanner(albumDetails);
+			} catch (FileNotFoundException e) {
+				System.err.print("Error: File " + curInfo[0] + "_" + curInfo[1] + ".txt not found\n");
+				e.printStackTrace();
+			}
+			// Parse the first line of the album.
+			if (songs.hasNextLine()) {
+				String[] genreYear = songs.nextLine().strip().split(",");
+				newAl.setGenre(genreYear[2]);
+				newAl.setYear(genreYear[3]);
+			}
+			// Loop through the album's songs, adding each to the newAl Album object
+			while (songs.hasNextLine()) {
+				newAl.addSong(songs.next().strip(), curInfo[1]); ;
+			}
+		}
 	}
 
 	public String searchSongTitle(String title) {
