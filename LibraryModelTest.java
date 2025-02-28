@@ -233,6 +233,38 @@ class LibraryModelTest {
 	}
 	
 	@Test
+	void testRemoveSongFromPlaylist() {
+		lib.addAlbum("A Rush of Blood to the Head", "Coldplay");
+		lib.addPlaylist("Good vibes");
+		lib.addSongToPlaylist("Good vibes", "Politik", "Coldplay");
+		lib.addSongToPlaylist("Good vibes", "Amsterdam", "Coldplay");
+		assertEquals(lib.removeSongFromPlaylist("Good vibes", "Politik", "Coldplay"), 
+				"Song Politik by Coldplay successfully removed from Good vibes\n");
+		assertEquals(lib.libSearchPlaylist("Good vibes"), "Playlist: Good vibes | 1 songs\nSongs in playlist:\n"
+				+ "Amsterdam by Coldplay\n");
+	}
+	
+	@Test
+	void testRemoveSongFromPlaylistNoPlaylsit() {
+		lib.addAlbum("A Rush of Blood to the Head", "Coldplay");
+		lib.addPlaylist("Good vibes");
+		lib.addSongToPlaylist("Good vibes", "Politik", "Coldplay");
+		lib.addSongToPlaylist("Good vibes", "Amsterdam", "Coldplay");
+		assertEquals(lib.removeSongFromPlaylist("Chill vibes", "Politik", "Coldplay"), 
+				"Playlist Chill vibes does not exist. Please create playlist.\n");
+	}
+	
+	@Test
+	void testRemoveSongFromPlaylistWrongSong() {
+		lib.addAlbum("A Rush of Blood to the Head", "Coldplay");
+		lib.addPlaylist("Good vibes");
+		lib.addSongToPlaylist("Good vibes", "Politik", "Coldplay");
+		lib.addSongToPlaylist("Good vibes", "Amsterdam", "Coldplay");
+		assertEquals(lib.removeSongFromPlaylist("Good vibes", "In My Place", "Coldplay"), 
+				"Playlist Good vibes does not contain song.\n");
+	}
+	
+	@Test
 	void testFavorite() {
 		lib.addAlbum("A Rush of Blood to the Head", "Coldplay");
 		lib.favorite("A Rush of Blood to the Head", "Coldplay");

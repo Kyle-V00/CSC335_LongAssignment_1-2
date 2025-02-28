@@ -302,7 +302,8 @@ public class LibraryModel {
 	public String addSongToPlaylist(String playlistTitle, String title, String artist) {
 		// addSongToPlaylist(String playlistTitle, String title, String artist)
 		// Add a song with name <title> by <artist> to a playlist
-		// Input:	String	title	title of song to favorite
+		// Input:	String	playlistTitle	title of playlist to add to
+		//			String	title	title of song to favorite
 		//			String	artist	artist of song to favorite
 		// Output:	String			Confirmation of action or
 		//							alert of failure.
@@ -315,6 +316,27 @@ public class LibraryModel {
 		}
 		playlist.addSong(title, artist);
 		return "Added song " + title + " by " + artist + " to " + playlistTitle + "\n";
+	}
+	
+	public String removeSongFromPlaylist(String playlistTitle, String title, String artist) {
+		// removeSongFromPlaylist(String playlistTitle, String title, String artist)
+		// Remove a song with name <title> by <artist> from a playlist
+		// Input:	String	playlistTitle	title of playlist to remove from
+		//			String	title	title of song to favorite
+		//			String	artist	artist of song to favorite
+		// Output:	String			Confirmation of action or
+		//							alert of failure.
+		Playlist playlist = getPlaylist(playlistTitle);
+		if (playlist == null) {
+			return "Playlist " + playlistTitle + " does not exist. Please create playlist.\n";
+		}
+		if (playlist.removeSong(title, artist)) {
+			return "Song " + title + " by " + artist + " successfully removed from " 
+						+ playlistTitle + "\n";
+		}
+		else {
+			return "Playlist " + playlistTitle + " does not contain song.\n";
+		}
 	}
 	
 	public String favorite(String title, String artist) {
