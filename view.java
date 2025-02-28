@@ -39,7 +39,7 @@ public class view {
             		+ 		 "'e' = exit\n" );
             System.out.print("Enter command: ");
             cmd = scanner.nextLine();
-    	} while(cmd.toLowerCase().equals("e"));
+    	} while(!cmd.toLowerCase().equals("e"));
   
 //        return scanner.nextLine();
         return "Thank you, for using our service";
@@ -87,7 +87,7 @@ public class view {
     		if (nxtCmd.equals("l")) {
     			searchStore();
     		} 
-    	} while(!scanner.nextLine().toLowerCase().equals("b"));
+    	} while(!nxtCmd.equals("b"));
     	return;
 	}
 
@@ -126,6 +126,17 @@ public class view {
     			}
     			else {
     				System.out.printf("%s's songs:\n%s", artistName,val);
+    			}
+    		}
+    		if (nxtCmd.equals("aa")){
+    			System.out.print("Type album artist: ");
+    			String albumArtist = scanner.nextLine();
+    			String val = lm.storeSearchAlbumArtist(albumArtist);
+    			if (val.equals(null)) {
+    				System.out.printf("Artist %s not found in MusicStore\n", albumArtist);
+    			}
+    			else {
+    				System.out.printf(val);
     			}
     		}
     		if (nxtCmd.equals("at")){

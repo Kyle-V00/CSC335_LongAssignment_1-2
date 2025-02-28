@@ -112,6 +112,9 @@ public class MusicStore extends Object {
 		String retStr = "";
 		for (int i = 0; i < albums.size(); i++) {
 			if (albums.get(i).getArtist().equals(artist)) {
+				if (!retStr.equals("")) {
+					retStr += "\n";
+				}
 				retStr += albums.get(i).toString() + "\n";
 				retStr += albums.get(i).getSongs();
 			}
