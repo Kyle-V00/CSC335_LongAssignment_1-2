@@ -1,6 +1,6 @@
 /*
  * Class: LibraryModel
- * Author: Liam Mohajeri Norris & Kyle Velasco
+ * Authors: Kyle Velasco & Liam Mohajeri Norris
  * Purpose: simulate a virtual music library,
  * containing songs within Album objects.
  * Interfaces with View and MusicStore to
@@ -171,6 +171,9 @@ public class LibraryModel {
 		String retStr = "";
 		for (int i = 0; i < albums.size(); i++) {
 			if (albums.get(i).getArtist().equals(artist)) {
+				if (!retStr.equals("")) {
+					retStr += "\n";
+				}
 				retStr += albums.get(i).toString() + "\n";
 				retStr += albums.get(i).getSongs();
 			}
