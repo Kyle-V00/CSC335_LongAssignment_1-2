@@ -85,7 +85,7 @@ public class view {
     		}
     		// TODO: need to finish this
     		if (nxtCmd.equals("l")) {
-    			searchStore();
+    			searchLibrary();
     		} 
     	} while(!nxtCmd.equals("b"));
     	return;
@@ -109,7 +109,7 @@ public class view {
     			System.out.print("song name: ");
     			String songName = scanner.nextLine();
     			String val = lm.storeSearchSongTitle(songName);
-    			if (val.equals(null)) {
+    			if (val == null) {
     				System.out.printf("%s not found in MusicStore\n", songName);
     			}
     			else {
@@ -121,7 +121,7 @@ public class view {
     			System.out.print("Type artist's name: ");
     			String artistName = scanner.nextLine();
     			String val = lm.storeSearchSongArtist(artistName);
-    			if (val.equals(null)) {
+    			if (val == null) {
     				System.out.printf("%s not found in MusicStore\n", artistName);
     			}
     			else {
@@ -132,7 +132,7 @@ public class view {
     			System.out.print("Type album artist: ");
     			String albumArtist = scanner.nextLine();
     			String val = lm.storeSearchAlbumArtist(albumArtist);
-    			if (val.equals(null)) {
+    			if (val == null) {
     				System.out.printf("Artist %s not found in MusicStore\n", albumArtist);
     			}
     			else {
@@ -143,7 +143,7 @@ public class view {
     			System.out.print("Type album title: ");
     			String albumTitle = scanner.nextLine();
     			String val = lm.storeSearchAlbumTitle(albumTitle);
-    			if (val.equals(null)) {
+    			if (val == null) {
     				System.out.printf("%s not found in MusicStore\n", albumTitle);
     			}
     			else {
@@ -153,11 +153,64 @@ public class view {
     	} while (!nxtCmd.equals("b"));
     	return;
 	}
-
-	public void displayUserDetails(String name, int age) {
-        System.out.println("User Details:");
-        System.out.println("Name: " + name);
-        System.out.println("Age: " + age);
+	
+// todo: literally copied straight from search store
+	private void searchLibrary() {
+		String nxtCmd = "";
+		do {
+			System.out.print("\n");
+    		System.out.print("Search Library Options:\n");
+    		System.out.print("'st' = search song title, 'sa' = search song "
+    						+"artist,\n 'at' = search album title, "
+    						+"'aa' = search album artist, 'b' = back\nEnter command: ");
+    		nxtCmd = scanner.nextLine();
+    		if (nxtCmd.equals("st")) {
+    			System.out.print("song name: ");
+    			String songName = scanner.nextLine();
+    			String val = lm.libSearchSongTitle(songName);
+    			if (val == null) {
+    				System.out.printf("%s not found in LibraryModel\n", songName);
+    			}
+    			else {
+//    				System.out.printf("%s's songs: %s", songName,val);
+    				System.out.printf("%s",val);
+    			}
+    		}
+    		if (nxtCmd.equals("sa")) {
+    			System.out.print("Type artist's name: ");
+    			String artistName = scanner.nextLine();
+    			String val = lm.libSearchSongArtist(artistName);
+    			if (val == null) {
+    				System.out.printf("%s not found in LibraryModel\n", artistName);
+    			}
+    			else {
+    				System.out.printf("%s's songs:\n%s", artistName,val);
+    			}
+    		}
+    		if (nxtCmd.equals("aa")){
+    			System.out.print("Type album artist: ");
+    			String albumArtist = scanner.nextLine();
+    			String val = lm.libSearchAlbumArtist(albumArtist);
+    			if (val == null) {
+    				System.out.printf("Artist %s not found in LibraryModel\n", albumArtist);
+    			}
+    			else {
+    				System.out.printf(val);
+    			}
+    		}
+    		if (nxtCmd.equals("at")){
+    			System.out.print("Type album title: ");
+    			String albumTitle = scanner.nextLine();
+    			String val = lm.libSearchAlbumTitle(albumTitle);
+    			if (val == null) {
+    				System.out.printf("%s not found in libraryModel\n", albumTitle);
+    			}
+    			else {
+    				System.out.printf(val);
+    			}
+    		}
+    	} while (!nxtCmd.equals("b"));
+    	return;
 	}
 	
 	private void addMenu() {
