@@ -7,7 +7,6 @@
  * Note: ended up coding this by hand and not Ai. Since the direction we went had some special nuances 
  * that made training the Ai too tedious.
  */
-package view;
 
 import java.util.Scanner;
 
@@ -15,29 +14,36 @@ public class view {
 	private Scanner scanner;
 	private LibraryModel lm;
 	private MusicStore ms;
-	
 
     public view() {
         scanner = new Scanner(System.in);
-        LibraryModel lm = new LibraryModel();
-    	MusicStore ms = new MusicStore();
-    	
+        lm = new LibraryModel();
+    	ms = new MusicStore();
+    	userInput();
     }
 
     public String userInput() {
+    	String cmd = "";
     	do {
-    		System.out.print("Options\n");
+            if (!cmd.equals("e")) {
+            	checkCommand(cmd.toLowerCase());
+            }
+            else {
+            	break;
+            }
+            System.out.print("\n");
+            System.out.print("Library Options\n");
             System.out.print("'s' = search, 'a' = add, 'l' = list,\n"
             		+ 		 "'p' = playlist, 'f' = favorite, 'r' = rate,\n"
             		+ 		 "'e' = exit\n" );
             System.out.print("Enter command: ");
-            String cmd = scanner.nextLine();
-            checkCommand(cmd.toLowerCase());
-    	} while(scanner.nextLine().toLowerCase() != "b");
+            cmd = scanner.nextLine();
+    	} while(cmd.toLowerCase() != "e");
   
 //        return scanner.nextLine();
         return "Thank you, for using our service";
     }
+    
     private void checkCommand(String cmd_name){
     	String cmd = cmd_name.toLowerCase();
     	switch (cmd) {
@@ -48,7 +54,7 @@ public class view {
 			addMenu();
 			break;
 	    case "l":
-			addMenu();
+			listMenu();
 			break;
 		case "p":
 			playlistMenu();
@@ -60,7 +66,7 @@ public class view {
 			rateMenu();
 			break;
 		case "e":
-			blank();
+			// blank();
 			break;
 		}
     }
@@ -69,7 +75,7 @@ public class view {
     	System.out.print("\n");
     	System.out.print("Menu Options:\n");
 		System.out.print("'s' = search store, 'l' = search library, 'b' = back\n");
-    	;
+		String nxtCmd = scanner.nextLine();
     	while (nxtCmd != "b"){
     		System.out.print("Menu Options:\n");
     		System.out.print("'s' = search store, 'l' = search library, 'b' = back\n");
@@ -92,12 +98,12 @@ public class view {
     		System.out.print("'st' = search song title, 'sa' = search song "
     						+"artist,\n 'at' = search album title, "
     						+"'aa' = search album artist, 'b' = back\n");
-    		if (nxtCmd == "st") {
+    		if (nxtCmd.equals("st")) {
 //    			searchStore();
     		}
-    		if (nxtCmd == "sa") {
+    		if (nxtCmd.equals("sa")) {
     			System.out.print("Type artist's name:\n");
-    			String nxtCmd = scanner.nextLine();
+    			nxtCmd = scanner.nextLine();
     			ms.searchAlbumArtist(nxtCmd);
     		}
     	}
@@ -108,5 +114,191 @@ public class view {
         System.out.println("User Details:");
         System.out.println("Name: " + name);
         System.out.println("Age: " + age);
+	}
+	
+	private void addMenu() {
+		// Give user opportunity to add song or album
+		System.out.print("\n");
+		System.out.print("Add Options:\n");
+		System.out.print("'s' = add song, 'a' = add album, 'b' = back\nEnter command: ");
+		String nxtCmd = scanner.nextLine().strip();
+    	while (!nxtCmd.equals("b")){
+    		// Check for add song
+    		if (nxtCmd.equals("s")) {
+    			System.out.print("Enter song title:\n");
+    			String title = scanner.nextLine().strip();
+    			System.out.print("Enter song artist:\n");
+    			String artist = scanner.nextLine().strip();
+    			System.out.print(lm.addSong(title, artist));
+    		}
+    		// Check for add album
+    		else if(nxtCmd.equals("a")) {
+    			System.out.print("Enter album title:\n");
+    			String title = scanner.nextLine().strip();
+    			System.out.print("Enter album artist:\n");
+    			String artist = scanner.nextLine().strip();
+    			System.out.print(lm.addAlbum(title, artist));
+    		}
+    		System.out.print("\n");
+    		System.out.print("Add Options:\n");
+    		System.out.print("'s' = add song, 'a' = add album, 'b' = back\nEnter command: ");
+    		nxtCmd = scanner.nextLine().strip();
+    	}
+    	return;
+	}
+	
+	private void listMenu() {
+		// Give user opportunity to see list of songs, artists,
+		// albums, playlists, and favorite songs.
+		System.out.print("\n");
+		System.out.print("List Options:\n");
+		System.out.print("'s' = song titles, 'r' = artists, 'a' = albums,\n"
+				+ "'p' = playlists, 'f' = favorite songs, 'b' = back\nEnter command: ");
+		String nxtCmd = scanner.nextLine().strip();
+    	while (!nxtCmd.equals("b")){
+    		// Check for song titles
+    		if (nxtCmd.equals("s")) {
+    			System.out.print("Song titles:\n");
+    			System.out.print(lm.allSongTitles());
+    		}
+    		// Check for artists
+    		else if (nxtCmd.equals("r")) {
+    			System.out.print("Artists:\n");
+    			System.out.print(lm.allArtists());
+    		}
+    		// Check for albums
+    		else if (nxtCmd.equals("a")) {
+    			System.out.print("Albums:\n");
+    			System.out.print(lm.allAlbumTitles());
+    		}
+    		// Check for playlists
+    		else if (nxtCmd.equals("p")) {
+    			System.out.print("Playlists:\n");
+    			System.out.print(lm.allPlaylists());
+    		}
+    		// Check for favorite songs
+    		else if (nxtCmd.equals("f")) {
+    			System.out.print("Favorite songs:\n");
+    			System.out.print(lm.allFavorites());
+    		}
+    		System.out.print("\n");
+    		System.out.print("List Options:\n");
+    		System.out.print("'s' = song titles, 'r' = artists, 'a' = albums,\n"
+    				+ "'p' = playlists, 'f' = favorite songs, 'b' = back\nEnter command: ");
+    		nxtCmd = scanner.nextLine().strip();
+    	}
+    	return;
+	}
+	
+	private void playlistMenu() {
+		// Can create playlist or add song to playlist.
+		System.out.print("\n");
+		System.out.print("Playlist Options:\n");
+		System.out.print("'c' = create playlist, 'a' = add song to playlist,"
+				+ "'r' = remove song from playlist, 'b' = back\nEnter command: ");
+		String nxtCmd = scanner.nextLine().strip();
+    	while (!nxtCmd.equals("b")){
+    		// Check for create playlist
+    		if (nxtCmd.equals("c")) {
+    			System.out.print("Enter new playlist name:\n");
+    			String title = scanner.nextLine().strip();
+    			System.out.print(lm.addPlaylist(title));
+    		}
+    		// Check for add song
+    		else if(nxtCmd.equals("a")) {
+    			System.out.print("Enter name of playlist to add to:\n");
+    			String playlist = scanner.nextLine().strip();
+    			System.out.print("Enter song title:\n");
+    			String title = scanner.nextLine().strip();
+    			System.out.print("Enter song artist:\n");
+    			String artist = scanner.nextLine().strip();
+    			System.out.print(lm.addSongToPlaylist(playlist, title, artist));
+    		}
+    		// Check for remove song
+    		else if(nxtCmd.equals("r")) {
+    			System.out.print("Enter name of playlist to remove from:\n");
+    			String playlist = scanner.nextLine().strip();
+    			System.out.print("Enter title of song to remove:\n");
+    			String title = scanner.nextLine().strip();
+    			System.out.print("Enter artist of song to remove:\n");
+    			String artist = scanner.nextLine().strip();
+    			System.out.print(lm.removeSongFromPlaylist(playlist, title, artist));
+    		}
+    		System.out.print("\n");
+    		System.out.print("Playlist Options:\n");
+    		System.out.print("'c' = create playlist, 'a' = add song to playlist,"
+    				+ "'r' = remove song from playlist, 'b' = back\nEnter command: ");
+    		nxtCmd = scanner.nextLine().strip();
+    	}
+    	return;
+	}
+	
+	private void favMenu() {
+		// Let user favorite songs
+		System.out.print("\n");
+		System.out.print("Favorite Options:\n");
+		System.out.print("'f' = favorite song, 'b' = back\nEnter command: ");
+		String nxtCmd = scanner.nextLine().strip();
+    	while (!nxtCmd.equals("b")){
+    		// Check for favorite
+    		if (nxtCmd.equals("f")) {
+    			System.out.print("Enter title of song to favorite:\n");
+    			String title = scanner.nextLine().strip();
+    			System.out.print("Enter artist of song to favorite:\n");
+    			String artist = scanner.nextLine().strip();
+    			System.out.print(lm.favorite(title, artist));
+    		}
+    		System.out.print("\n");
+    		System.out.print("Favorite Options:\n");
+    		System.out.print("'f' = favorite song, 'b' = back\nEnter command: ");
+    		nxtCmd = scanner.nextLine().strip();
+    	}
+    	return;
+	}
+	
+	private void rateMenu() {
+		// Give user opportunity to add song or album
+		System.out.print("\n");
+		System.out.print("Rate Options:\n");
+		System.out.print("'r' = rate song, 'b' = back\nEnter command: ");
+		String nxtCmd = scanner.nextLine().strip();
+    	while (!nxtCmd.equals("b")){
+    		// Check for favorite
+    		if (nxtCmd.equals("r")) {
+    			System.out.print("Enter title of song to favorite:\n");
+    			String title = scanner.nextLine().strip();
+    			System.out.print("Enter artist of song to favorite:\n");
+    			String artist = scanner.nextLine().strip();
+    			System.out.print("Enter rating from 1 to 5:\n");
+    			String rating = scanner.nextLine().strip();
+    			int rate = 0;
+    			if (rating.equals("1")) {
+    				rate = 1;
+    			}
+    			else if (rating.equals("2")) {
+    				rate = 2;
+    			}
+    			else if (rating.equals("3")) {
+    				rate = 3;
+    			}
+    			else if (rating.equals("4")) {
+    				rate = 4;
+    			}
+    			else if (rating.equals("5")) {
+    				rate = 5;
+    			}
+    			if (rate <= 0) {
+    				System.out.print("Please enter an integer from 1 to 5\n");
+    			}
+    			else {
+    				System.out.print(lm.rate(title, artist, rate));
+    			}
+    		}
+    		System.out.print("\n");
+    		System.out.print("Rate Options:\n");
+    		System.out.print("'r' = rate song, 'b' = back\nEnter command: ");
+    		nxtCmd = scanner.nextLine().strip();
+    	}
+    	return;
 	}
 }
