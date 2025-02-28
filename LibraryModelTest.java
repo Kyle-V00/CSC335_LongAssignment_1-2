@@ -15,8 +15,8 @@ class LibraryModelTest {
 	void testAllSongTitles_2Songs() {
 		lib.addSong("In My Place", "Coldplay");
 		System.out.print(lib.addSong("Good Life", "OneRepublic"));
-		assertEquals(lib.allAlbumTitles(),"Album: A Rush of Blood to the Head by Coldplay\n"
-				+ "Album: Waking Up by OneRepublic\n");
+		assertEquals(lib.allAlbumTitles(),"Album: A Rush of Blood to the Head by Coldplay | Alternative | 2002\n"
+				+ "Album: Waking Up by OneRepublic | Rock | 2009\n");
 		assertEquals(lib.allSongTitles(), "In My Place\nGood Life\n");
 	}
 	
@@ -89,7 +89,7 @@ class LibraryModelTest {
 	void testLibSearchAlbumTitle_2Albums() {
 		lib.addAlbum("A Rush of Blood to the Head", "Coldplay");
 		lib.addSong("Good Life", "OneRepublic");
-		assertEquals(lib.libSearchAlbumTitle("Waking Up"), "Album: Waking Up by OneRepublic\nSongs:\n"
+		assertEquals(lib.libSearchAlbumTitle("Waking Up"), "Album: Waking Up by OneRepublic | Rock | 2009\nSongs:\n"
 				+ "Good Life by OneRepublic\n");
 	}
 	
@@ -110,8 +110,8 @@ class LibraryModelTest {
 		lib.addSong("Good Life", "OneRepublic");
 		lib.addSong("Daydreamer", "Adele");
 		lib.addSong("Lovesong", "Adele");
-		assertEquals(lib.libSearchAlbumArtist("Adele"), "Album: 19 by Adele\nSongs:\n"
-				+ "Daydreamer by Adele\nAlbum: 21 by Adele\nSongs:\n"
+		assertEquals(lib.libSearchAlbumArtist("Adele"), "Album: 19 by Adele | Pop | 2008\nSongs:\n"
+				+ "Daydreamer by Adele\nAlbum: 21 by Adele | Pop | 2011\nSongs:\n"
 				+ "Lovesong by Adele\n");
 	}
 	
@@ -163,7 +163,7 @@ class LibraryModelTest {
 		System.out.print(lib.addSong("In My Place", "Coldplay"));
 		assertEquals(lib.libSearchSongTitle("In My Place"), 
 				"In My Place by Coldplay from A Rush of Blood to the Head\n");
-		assertEquals(lib.allAlbumTitles(), "Album: A Rush of Blood to the Head by Coldplay\n");
+		assertEquals(lib.allAlbumTitles(), "Album: A Rush of Blood to the Head by Coldplay | Alternative | 2002\n");
 	}
 	
 	@Test
@@ -175,7 +175,7 @@ class LibraryModelTest {
 	@Test
 	void testAddAlbum() {
 		System.out.print(lib.addAlbum("A Rush of Blood to the Head", "Coldplay"));
-		assertEquals(lib.allAlbumTitles(), "Album: A Rush of Blood to the Head by Coldplay\n");
+		assertEquals(lib.allAlbumTitles(), "Album: A Rush of Blood to the Head by Coldplay | Alternative | 2002\n");
 	}
 	
 	@Test
@@ -187,7 +187,7 @@ class LibraryModelTest {
 	void testAddAlbumAfterSong() {
 		System.out.print(lib.addSong("In My Place", "Coldplay"));
 		System.out.print(lib.addAlbum("A Rush of Blood to the Head", "Coldplay"));
-		assertEquals(lib.allAlbumTitles(), "Album: A Rush of Blood to the Head by Coldplay\n");
+		assertEquals(lib.allAlbumTitles(), "Album: A Rush of Blood to the Head by Coldplay | Alternative | 2002\n");
 	}
 	
 	@Test

@@ -46,7 +46,7 @@ public class MusicStore extends Object {
 			}
 			// Loop through the album's songs, adding each to the newAl Album object
 			while (songs.hasNextLine()) {
-				newAl.addSong(songs.next().strip(), curInfo[1]); ;
+				newAl.addSong(songs.nextLine().strip(), curInfo[1]); ;
 			}
 			this.albums.add(newAl);
 		}
@@ -77,10 +77,12 @@ public class MusicStore extends Object {
 		// Return null if not found.
 		for (int i = 0; i < albums.size(); i ++) {
 			if (albums.get(i).containsSong(title) && albums.get(i).getArtist().equals(artist)) {
-				String[] info = new String[3];
+				String[] info = new String[5];
 				info[0] = title;
 				info[1] = artist;
 				info[2] = albums.get(i).getName();
+				info[3] = albums.get(i).getGenre();
+				info[4] = albums.get(i).getYear();
 				return info;
 			}
 		}
