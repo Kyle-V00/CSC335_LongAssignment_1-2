@@ -48,6 +48,7 @@ public class MusicStore extends Object {
 			while (songs.hasNextLine()) {
 				newAl.addSong(songs.next().strip(), curInfo[1]); ;
 			}
+			this.albums.add(newAl);
 		}
 	}
 
