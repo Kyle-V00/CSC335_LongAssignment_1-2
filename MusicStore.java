@@ -1,3 +1,5 @@
+// Authors: Kyle Velasco and Liam Mohajeri Norris
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
@@ -46,15 +48,26 @@ public class MusicStore extends Object {
 			}
 			// Loop through the album's songs, adding each to the newAl Album object
 			while (songs.hasNextLine()) {
-				newAl.addSong(songs.next().strip(), curInfo[1]); ;
+				newAl.addSong(songs.nextLine().strip(), curInfo[1]); ;
 			}
 			this.albums.add(newAl);
 		}
 	}
 
 	public String searchSongTitle(String title) {
-		// TODO Auto-generated method stub
-		return "";
+		// Return String with title, artist, and album
+		// Return null if song not found
+		String retStr = "";
+		for (int i = 0; i < albums.size(); i++) {
+			String str = albums.get(i).getSongByTitle(title);
+			if (str != null) {
+				retStr += str + " from " + albums.get(i).getName() + "\n";
+			}
+		}
+		if (retStr.equals("")) {
+			return null;
+		}
+		return retStr;
 	}
 
 	public String searchSongArtist(String artist) {
@@ -67,13 +80,35 @@ public class MusicStore extends Object {
 	}
 
 	public String searchAlbumTitle(String title) {
-		// TODO Auto-generated method stub
-		return "";
+		// Return String with title, artist, and songs
+		// Return null if album not found
+		String retStr = "";
+		for (int i = 0; i < albums.size(); i++) {
+			if (albums.get(i).getName().equals(title)) {
+				retStr += albums.get(i).toString() + "\n";
+				retStr += albums.get(i).getSongs();
+			}
+		}
+		if (retStr.equals("")) {
+			return null;
+		}
+		return retStr;
 	}
 
 	public String searchAlbumArtist(String artist) {
-		// TODO Auto-generated method stub
-		return "";
+		// Return String with title, artist, and songs
+		// Return null if album not found
+		String retStr = "";
+		for (int i = 0; i < albums.size(); i++) {
+			if (albums.get(i).getArtist().equals(artist)) {
+				retStr += albums.get(i).toString() + "\n";
+				retStr += albums.get(i).getSongs();
+			}
+		}
+		if (retStr.equals("")) {
+			return null;
+		}
+		return retStr;
 	}
 
 	public String[] searchSongTitleAndArtist(String title, String artist) {
@@ -81,10 +116,12 @@ public class MusicStore extends Object {
 		// Return null if not found.
 		for (int i = 0; i < albums.size(); i ++) {
 			if (albums.get(i).containsSong(title) && albums.get(i).getArtist().equals(artist)) {
-				String[] info = new String[3];
+				String[] info = new String[5];
 				info[0] = title;
 				info[1] = artist;
 				info[2] = albums.get(i).getName();
+				info[3] = albums.get(i).getGenre();
+				info[4] = albums.get(i).getYear();
 				return info;
 			}
 		}
