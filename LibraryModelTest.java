@@ -76,8 +76,17 @@ class LibraryModelTest {
 	
 	@Test
 	void testStoreSearchSongArtist() {
-		// TODO: Create test
-				assertTrue(true);
+		assertEquals(lib.storeSearchSongArtist("Coldplay"), "Politik by Coldplay\n" + 
+				"In My Place by Coldplay\n" + "God Put a Smile Upon Your Face by Coldplay\n" + 
+				"The Scientist by Coldplay\n" + "Clocks by Coldplay\n" + "Daylight by Coldplay\n" +
+				"Green Eyes by Coldplay\n" + "Warning Sign by Coldplay\n" + "A Whisper by Coldplay\n" + 
+				"A Rush of Blood to the Head by Coldplay\n" + "Amsterdam by Coldplay\n");
+	}
+	
+	@Test
+	void testStoreSearchSongTitle() {
+		assertEquals(lib.storeSearchSongTitle("Lullaby"), "Lullaby by Leonard Cohen from Old Ideas\n" + 
+				"Lullaby by OneRepublic from Waking Up\n");
 	}
 	
 	@Test

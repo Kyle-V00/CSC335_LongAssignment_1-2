@@ -20,6 +20,7 @@ public class MusicStore extends Object {
 		albums = new ArrayList<Album>();
 		ArrayList<String[]> albumInfo = new ArrayList<String[]>();
 		File albumFile = new File("/Users/liam/Downloads/albums/albums.txt");
+		albumFile.getParent();
 		Scanner albumNames = null;
 		try {
 			albumNames = new Scanner(albumFile);
