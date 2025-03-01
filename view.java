@@ -42,7 +42,7 @@ public class view {
     	} while(!cmd.toLowerCase().equals("e"));
   
 //        return scanner.nextLine();
-	    System.out.print("Thank you, for using our service");
+	    System.out.print("Thank you, for using our service\n");
         return;
     }
     
