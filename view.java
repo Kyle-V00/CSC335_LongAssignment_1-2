@@ -23,7 +23,7 @@ public class view {
 
     }
 
-    public String userInput() {
+    private void userInput() {
     	String cmd = "";
     	do {
             if (!cmd.equals("e")) {
@@ -42,7 +42,8 @@ public class view {
     	} while(!cmd.toLowerCase().equals("e"));
   
 //        return scanner.nextLine();
-        return "Thank you, for using our service";
+	    System.out.print("Thank you, for using our service");
+        return;
     }
     
     private void checkCommand(String cmd_name){
