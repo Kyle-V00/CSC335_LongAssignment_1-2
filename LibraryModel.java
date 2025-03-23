@@ -67,6 +67,7 @@ public class LibraryModel {
 		String retStr = "";
 		for (int i = 0; i < playlists.size(); i++) {
 			retStr += playlists.get(i).toString() + "\n";
+			retStr += playlists.get(i).getSongs();
 		}
 		if (retStr.equals("")) {
 			return "Library contains no playlists.\n";
@@ -132,6 +133,23 @@ public class LibraryModel {
 		return store.searchSongArtist(artist);
 	}
 	
+	public String[] searchSongTitleAndArtist(String title, String artist) {
+		// Return String[title, artist, album]
+		// Return null if not found.
+		for (int i = 0; i < albums.size(); i ++) {
+			if (albums.get(i).containsSong(title) && albums.get(i).getArtist().equals(artist)) {
+				String[] info = new String[5];
+				info[0] = title;
+				info[1] = artist;
+				info[2] = albums.get(i).getName();
+				info[3] = albums.get(i).getGenre();
+				info[4] = albums.get(i).getYear();
+				return info;
+			}
+		}
+		return null;
+	}
+	
 	// -- Search by Album --
 	
 	private Album getAlbum(String title) {
@@ -149,8 +167,8 @@ public class LibraryModel {
 		String retStr = "";
 		for (int i = 0; i < albums.size(); i++) {
 			if (albums.get(i).getName().equals(title)) {
-				retStr += albums.get(i).toString() + "\n";
-				retStr += albums.get(i).getSongs();
+				retStr += albums.get(i).toString() + "\nSongs:\n";
+				retStr += albums.get(i).getSongsWithoutArtist();
 			}
 		}
 		if (retStr.equals("")) {
@@ -171,11 +189,8 @@ public class LibraryModel {
 		String retStr = "";
 		for (int i = 0; i < albums.size(); i++) {
 			if (albums.get(i).getArtist().equals(artist)) {
-				if (!retStr.equals("")) {
-					retStr += "\n";
-				}
-				retStr += albums.get(i).toString() + "\n";
-				retStr += albums.get(i).getSongs();
+				retStr += albums.get(i).toString() + "\nSongs:\n";
+				retStr += albums.get(i).getSongsWithoutArtist();
 			}
 		}
 		if (retStr.equals("")) {
@@ -319,8 +334,14 @@ public class LibraryModel {
 		if (playlist.containsSong(title, artist)) {
 			return "Playlist " + playlistTitle + " already contains song.\n";
 		}
-		playlist.addSong(title, artist);
-		return "Added song " + title + " by " + artist + " to " + playlistTitle + "\n";
+		// TODO: Add a catch for incorrect artist
+		if (searchSongTitleAndArtist(title, artist) != null) {
+			playlist.addSong(title, artist);
+			return "Added song " + title + " by " + artist + " to " + playlistTitle + "\n";
+		}
+		else {
+			return "Song " + title + " by " + artist + " not found in library.\n";
+		}
 	}
 	
 	public String removeSongFromPlaylist(String playlistTitle, String title, String artist) {

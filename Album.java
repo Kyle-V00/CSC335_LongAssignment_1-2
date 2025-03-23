@@ -52,7 +52,7 @@ public class Album extends Object {
 	public String getSongs() {
 		String songList = "Songs:\n";
 		for (int i = 0; i < this.songs.size(); i++) {
-			songList += songs.get(i).toString() + "\n";
+			songList += "\t" + songs.get(i).toString() + "\n";
 		}
 		return songList;
 	}
@@ -60,7 +60,7 @@ public class Album extends Object {
 	public String getSongsWithoutArtist() {
 		String songList = "";
 		for (int i = 0; i < this.songs.size(); i++) {
-			songList += songs.get(i).getName() + "\n";
+			songList += "\t" + songs.get(i).getName() + "\n";
 		}
 		return songList;
 	}
@@ -69,7 +69,7 @@ public class Album extends Object {
 		String favorites = "";
 		for (int i = 0; i < this.songs.size(); i++) {
 			if (songs.get(i).getFavorite()) {
-				favorites += songs.get(i).toString() + "\n";
+				favorites += "\t" + songs.get(i).toString() + "\n";
 			}
 		}
 		return favorites;

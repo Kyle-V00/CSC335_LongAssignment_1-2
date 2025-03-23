@@ -14,11 +14,14 @@ public class view {
 	private Scanner scanner;
 	private LibraryModel lm;
 	private MusicStore ms;
+	private String username;
 
-    public view() {
+    public view(LibraryModel userLibrary, String username) {
         scanner = new Scanner(System.in);
-        lm = new LibraryModel();
+        lm = userLibrary;
     	ms = new MusicStore();
+    	this.username = username;
+    	System.out.println("Welcome to your Music Library, " + username + "!\n");
     	userInput();
 
     }
@@ -42,7 +45,9 @@ public class view {
     	} while(!cmd.toLowerCase().equals("e"));
   
 //        return scanner.nextLine();
-	    System.out.print("Thank you, for using our service\n");
+    	System.out.println();
+	    System.out.print("User " + this.username + " successfully logged out.\n");
+	    System.out.println();
         return;
     }
     
@@ -155,7 +160,7 @@ public class view {
     	return;
 	}
 	
-// todo: literally copied straight from search store
+// some of this copied straight from search store
 	private void searchLibrary() {
 		String nxtCmd = "";
 		do {
@@ -163,7 +168,9 @@ public class view {
     		System.out.print("Search Library Options:\n");
     		System.out.print("'st' = search song title, 'sa' = search song "
     						+"artist,\n 'at' = search album title, "
-    						+"'aa' = search album artist, 'b' = back\nEnter command: ");
+    						+"'aa' = search album artist, "
+    						+ "'pt' = search playlist title, "
+    						+ "'b' = back\nEnter command: ");
     		nxtCmd = scanner.nextLine();
     		if (nxtCmd.equals("st")) {
     			System.out.print("song name: ");
@@ -205,6 +212,17 @@ public class view {
     			String val = lm.libSearchAlbumTitle(albumTitle);
     			if (val == null) {
     				System.out.printf("%s not found in libraryModel\n", albumTitle);
+    			}
+    			else {
+    				System.out.printf(val);
+    			}
+    		}
+    		if (nxtCmd.equals("pt")){
+    			System.out.print("Type playlist title: ");
+    			String playlistTitle = scanner.nextLine();
+    			String val = lm.libSearchPlaylist(playlistTitle);
+    			if (val == null) {
+    				System.out.printf("%s not found in libraryModel\n", playlistTitle);
     			}
     			else {
     				System.out.printf(val);
