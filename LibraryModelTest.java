@@ -1,10 +1,14 @@
 import static org.junit.jupiter.api.Assertions.*;
 
+import java.io.IOException;
+import java.security.NoSuchAlgorithmException;
+
 import org.junit.jupiter.api.Test;
 
 class LibraryModelTest {
 	
 	LibraryModel lib = new LibraryModel();
+	UserManager manager;
 
 	@Test
 	void testAllSongTitles_NoSongs() {
@@ -17,7 +21,7 @@ class LibraryModelTest {
 		System.out.print(lib.addSong("Good Life", "OneRepublic"));
 		assertEquals(lib.allAlbumTitles(),"Album: A Rush of Blood to the Head by Coldplay | Alternative | 2002\n"
 				+ "Album: Waking Up by OneRepublic | Rock | 2009\n");
-		assertEquals(lib.allSongTitles(), "In My Place\nGood Life\n");
+		assertEquals(lib.allSongTitles(), "\tIn My Place\n\tGood Life\n");
 	}
 	
 	@Test
@@ -99,13 +103,24 @@ class LibraryModelTest {
 		lib.addAlbum("A Rush of Blood to the Head", "Coldplay");
 		lib.addSong("Good Life", "OneRepublic");
 		assertEquals(lib.libSearchAlbumTitle("Waking Up"), "Album: Waking Up by OneRepublic | Rock | 2009\nSongs:\n"
-				+ "Good Life by OneRepublic\n");
+				+ "\tGood Life\n");
 	}
 	
 	@Test
 	void testStoreSearchAlbumTitle() {
-		// TODO: Create test
-				assertTrue(true);
+		assertEquals(lib.storeSearchAlbumTitle("19"), "Album: 19 by Adele | Pop | 2008\nSongs:\n"
+				+ "\tDaydreamer\n"
+				+ "\tBest for Last\n"
+				+ "\tChasing Pavements\n"
+				+ "\tCold Shoulder\n"
+				+ "\tCrazy for You\n"
+				+ "\tMelt My Heart to Stone\n"
+				+ "\tFirst Love\n"
+				+ "\tRight as Rain\n"
+				+ "\tMake You Feel My Love\n"
+				+ "\tMy Same\n"
+				+ "\tTired\n"
+				+ "\tHometown Glory\n");
 	}
 	
 	@Test
@@ -120,14 +135,38 @@ class LibraryModelTest {
 		lib.addSong("Daydreamer", "Adele");
 		lib.addSong("Lovesong", "Adele");
 		assertEquals(lib.libSearchAlbumArtist("Adele"), "Album: 19 by Adele | Pop | 2008\nSongs:\n"
-				+ "Daydreamer by Adele\nAlbum: 21 by Adele | Pop | 2011\nSongs:\n"
-				+ "Lovesong by Adele\n");
+				+ "\tDaydreamer\nAlbum: 21 by Adele | Pop | 2011\nSongs:\n"
+				+ "\tLovesong\n");
 	}
 	
 	@Test
 	void testStoreSearchAlbumArtist() {
-		// TODO: Create test
-				assertTrue(true);
+		assertEquals(lib.storeSearchAlbumArtist("Adele"), "Album: 19 by Adele | Pop | 2008\nSongs:\n"
+				+ "\tDaydreamer\n"
+				+ "\tBest for Last\n"
+				+ "\tChasing Pavements\n"
+				+ "\tCold Shoulder\n"
+				+ "\tCrazy for You\n"
+				+ "\tMelt My Heart to Stone\n"
+				+ "\tFirst Love\n"
+				+ "\tRight as Rain\n"
+				+ "\tMake You Feel My Love\n"
+				+ "\tMy Same\n"
+				+ "\tTired\n"
+				+ "\tHometown Glory\n"
+				+ "Album: 21 by Adele | Pop | 2011\nSongs:\n"
+				+ "\tRolling in the Deep\n"
+				+ "\tRumour Has It\n"
+				+ "\tTurning Tables\n"
+				+ "\tDon't You Remember\n"
+				+ "\tSet Fire to the Rain\n"
+				+ "\tHe Won't Go\n"
+				+ "\tTake It All\n"
+				+ "\tI'll Be Waiting\n"
+				+ "\tOne and Only\n"
+				+ "\tLovesong\n"
+				+ "\tSomeone Like You\n"
+				+ "\tI Found a Boy\n");
 	}
 	
 	@Test
@@ -145,9 +184,9 @@ class LibraryModelTest {
 		lib.addSongToPlaylist("Good vibes", "Lovesong", "Adele");
 		
 		assertEquals(lib.libSearchPlaylist("Good vibes"), "Playlist: Good vibes | 5 songs\nSongs in playlist:\n"
-				+ "Politik by Coldplay\nAmsterdam by Coldplay\n"
-				+ "Daydreamer by Adele\nGood Life by OneRepublic\n"
-				+ "Lovesong by Adele\n");
+				+ "\tPolitik by Coldplay\n\tAmsterdam by Coldplay\n"
+				+ "\tDaydreamer by Adele\n\tGood Life by OneRepublic\n"
+				+ "\tLovesong by Adele\n");
 	}
 	
 	@Test
@@ -204,7 +243,8 @@ class LibraryModelTest {
 		lib.addAlbum("A Rush of Blood to the Head", "Coldplay");
 		lib.addPlaylist("Good vibes");
 		lib.addSongToPlaylist("Good vibes", "Politik", "Coldplay");
-		assertEquals(lib.allPlaylists(), "Playlist: Good vibes | 1 songs\n");
+		assertEquals(lib.allPlaylists(), "Playlist: Good vibes | 1 songs\nSongs in playlist:\n"
+				+ "\tPolitik by Coldplay\n");
 	}
 	
 	@Test
@@ -214,9 +254,10 @@ class LibraryModelTest {
 		lib.addSongToPlaylist("Good vibes", "Politik", "Coldplay");
 		lib.addSongToPlaylist("Good vibes", "Politik", "Coldplay");
 		lib.addSongToPlaylist("Good vibes", "Amsterdam", "Coldplay");
-		assertEquals(lib.allPlaylists(), "Playlist: Good vibes | 2 songs\n");
+		assertEquals(lib.allPlaylists(), "Playlist: Good vibes | 2 songs\nSongs in playlist:\n"
+				+ "\tPolitik by Coldplay\n\tAmsterdam by Coldplay\n");
 		assertEquals(lib.libSearchPlaylist("Good vibes"), "Playlist: Good vibes | 2 songs\nSongs in playlist:\n"
-				+ "Politik by Coldplay\nAmsterdam by Coldplay\n");
+				+ "\tPolitik by Coldplay\n\tAmsterdam by Coldplay\n");
 	}
 	
 	@Test
@@ -250,7 +291,7 @@ class LibraryModelTest {
 		assertEquals(lib.removeSongFromPlaylist("Good vibes", "Politik", "Coldplay"), 
 				"Song Politik by Coldplay successfully removed from Good vibes\n");
 		assertEquals(lib.libSearchPlaylist("Good vibes"), "Playlist: Good vibes | 1 songs\nSongs in playlist:\n"
-				+ "Amsterdam by Coldplay\n");
+				+ "\tAmsterdam by Coldplay\n");
 	}
 	
 	@Test
@@ -279,7 +320,7 @@ class LibraryModelTest {
 		lib.favorite("A Rush of Blood to the Head", "Coldplay");
 		lib.favorite("A Rush of Blood to the Head", "Coldplay");
 		lib.favorite("In My Place", "Coldplay");
-		assertEquals(lib.allFavorites(), ("In My Place by Coldplay\nA Rush of Blood to the Head by Coldplay\n"));
+		assertEquals(lib.allFavorites(), ("\tIn My Place by Coldplay\n\tA Rush of Blood to the Head by Coldplay\n"));
 	}
 	
 	@Test
@@ -307,20 +348,82 @@ class LibraryModelTest {
 		lib.rate("A Rush of Blood to the Head", "Coldplay", 3);
 		lib.rate("A Rush of Blood to the Head", "Coldplay", 5);
 		lib.rate("In My Place", "Coldplay", 5);
-		assertEquals(lib.allFavorites(), ("In My Place by Coldplay\nA Rush of Blood to the Head by Coldplay\n"));
+		assertEquals(lib.allFavorites(), ("\tIn My Place by Coldplay\n\tA Rush of Blood to the Head by Coldplay\n"));
 	}
 	
 	@Test
 	void testAddSongTwice() {
 		System.out.print(lib.addSong("In My Place", "Coldplay"));
 		System.out.print(lib.addSong("In My Place", "Coldplay"));
-		assertEquals(lib.allSongTitles(), "In My Place\n");
+		assertEquals(lib.allSongTitles(), "\tIn My Place\n");
 	}
 	
 	@Test
 	void testAddSongToExistingAlbum() {
 		System.out.print(lib.addSong("In My Place", "Coldplay"));
 		System.out.print(lib.addSong("Amsterdam", "Coldplay"));
-		assertEquals(lib.allSongTitles(), "In My Place\nAmsterdam\n");
+		assertEquals(lib.allSongTitles(), "\tIn My Place\n\tAmsterdam\n");
 	}
+	
+	
+	////////////////////////////
+	// TEST UserManager BELOW //
+	////////////////////////////
+	
+	@Test
+	void testAddUser() throws NoSuchAlgorithmException, IOException {
+		manager = new UserManager();
+		assertTrue(manager.addUser("Steve"));
+	}
+	
+	@Test
+	void testAddUserAlreadyExists() throws NoSuchAlgorithmException, IOException {
+		manager = new UserManager();
+		manager.addUser("Steve");
+		assertFalse(manager.addUser("Steve"));
+	}
+	
+	@Test
+	void testAddPassword() throws NoSuchAlgorithmException, IOException {
+		manager = new UserManager();
+		manager.addUser("Steve");
+		assertTrue(manager.addPassword("Steve", "imsteve"));
+	}
+	
+	@Test
+	void testAddPasswordNoUser() throws NoSuchAlgorithmException, IOException {
+		manager = new UserManager();
+		assertTrue(manager.addPassword("Steve", "imsteve"));
+	}
+	
+	@Test
+	void testLogin() throws NoSuchAlgorithmException, IOException {
+		manager = new UserManager();
+		manager.addUser("Steve");
+		manager.addPassword("Steve", "imsteve");
+		assertTrue(manager.login("Steve", "imsteve", false));
+	}
+	
+	@Test
+	void testLoginWrongPassword() throws NoSuchAlgorithmException, IOException {
+		manager = new UserManager();
+		manager.addUser("Steve");
+		manager.addPassword("Steve", "imsteve");
+		assertFalse(manager.login("Steve", "imSTEVE", false));
+	}
+	
+	@Test
+	void testLoginWrongName() throws NoSuchAlgorithmException, IOException {
+		manager = new UserManager();
+		manager.addUser("Steve");
+		manager.addPassword("Steve", "imsteve");
+		assertFalse(manager.login("Jack", "imSTEVE", false));
+	}
+	
+	@Test
+	void testLoginNoUser() throws NoSuchAlgorithmException, IOException {
+		manager = new UserManager();
+		assertFalse(manager.login("Jack", "imSTEVE", false));
+	}
+	
 }

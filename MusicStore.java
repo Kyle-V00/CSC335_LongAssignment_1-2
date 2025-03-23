@@ -97,8 +97,8 @@ public class MusicStore extends Object {
 		String retStr = "";
 		for (int i = 0; i < albums.size(); i++) {
 			if (albums.get(i).getName().equals(title)) {
-				retStr += albums.get(i).toString() + "\n";
-				retStr += albums.get(i).getSongs();
+				retStr += albums.get(i).toString() + "\nSongs:\n";
+				retStr += albums.get(i).getSongsWithoutArtist();
 			}
 		}
 		if (retStr.equals("")) {
@@ -113,11 +113,8 @@ public class MusicStore extends Object {
 		String retStr = "";
 		for (int i = 0; i < albums.size(); i++) {
 			if (albums.get(i).getArtist().equals(artist)) {
-				if (!retStr.equals("")) {
-					retStr += "\n";
-				}
-				retStr += albums.get(i).toString() + "\n";
-				retStr += albums.get(i).getSongs();
+				retStr += albums.get(i).toString() + "\nSongs:\n";
+				retStr += albums.get(i).getSongsWithoutArtist();
 			}
 		}
 		if (retStr.equals("")) {
@@ -144,7 +141,6 @@ public class MusicStore extends Object {
 	}
 
 	public Album getAlbum(String title, String artist) {
-		// TODO Auto-generated method stub
 		// return null if album not found
 		// Otherwise return a copy of the album object
 		for (int i = 0; i < albums.size(); i ++) {

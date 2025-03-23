@@ -31,7 +31,7 @@ public class Playlist {
 		}
 		else {
 			for (int i = 0; i < this.songs.size(); i++) {
-				songList += songs.get(i).toString() + "\n";
+				songList += "\t" + songs.get(i).toString() + "\n";
 			}
 		}
 		return songList;
