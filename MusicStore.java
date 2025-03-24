@@ -150,5 +150,17 @@ public class MusicStore extends Object {
 		}
 		return null;
 	}
+	
+	public Object[] getAlbumInfo(String title, String artist) {
+		for (int i = 0; i < albums.size(); i++) {
+			if (albums.get(i).getArtist().equals(artist) && albums.get(i).containsSong(title)) {
+				Object[] info = new Object[2];
+				info[0] = albums.get(i).toString();
+				info[1] = albums.get(i).songList().length;
+				return info;
+			}
+		}
+		return null;
+	}
 
 }

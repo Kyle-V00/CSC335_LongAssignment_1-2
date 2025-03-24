@@ -199,6 +199,16 @@ public class LibraryModel {
 		return null;
 	}
 	
+	public int getAlbumLength(String title, String artist) {
+		// Get the length of a given album in the library
+		for (int i = 0; i < albums.size(); i++) {
+			if (albums.get(i).getArtist().equals(artist) && albums.get(i).containsSong(title)) {
+				return albums.get(i).songList().length;
+			}
+		}
+		return 0;
+	}
+	
 	// -- Search by Album --
 	
 	private Album getAlbum(String title) {
