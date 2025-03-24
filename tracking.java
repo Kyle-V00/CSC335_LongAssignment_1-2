@@ -41,7 +41,7 @@ public class tracking {
 		}
 		for (int k = 0; k < this.playlists.size(); k++) {
 			if (this.playlists[k].containSong(song.getName(),song.getArtist())){
-				ArrayList<Song> songListP = this.albums[i].getSongs();
+				ArrayList<Song> songListP = this.playlists[i].getSongs();
 				for (int j = 0; j < songListP.size(); j++) {
 					if (songListP[j].getTitle() == song.getTitle()) {
 						playlistSong = songListP[j];
@@ -78,35 +78,53 @@ public class tracking {
 	}
 	
 	public void updateFrequents() {
-//		for (int i = 0; i < this.albums.size(); i++) {
-//			if (this.albums[i].getArtist() == song.getArtist()){
-//				ArrayList<Song> songListA = this.albums[i].getSongs();
-//				for (int j = 0; j < songListA.size(); j++) {
-//					if (songListA[i].getTitle() == song.getTitle()) {
-//						albumSong = songListA[i];
-//						albumFlag = 1;
-//						break;
-//					}
-//				}
-//			}
-//		}
-//		for (int k = 0; k < this.playlists.size(); k++) {
-//			if (this.playlists[k].containSong(song.getName(),song.getArtist())){
-//				ArrayList<Song> songListP = this.albums[i].getSongs();
-//				for (int j = 0; j < songListP.size(); j++) {
-//					if (songListP[j].getTitle() == song.getTitle()) {
-//						playlistSong = songListP[j];
-//						playlistFlag = 1;
-//						break;
-//					}
-//				}
-//			}
-//		}
+		int countMax = 0;
+		for (int i = 0; i < this.albums.size(); i++) {
+			ArrayList<Song> songListA = this.albums[i].getSongs();
+			for (int j = 0; j < songListA.size(); j++) {
+				Song song = songListA[i];
+				if (song.getReplayCount() >= countMax) {
+					if (countMax < song.getReplayCount()) {
+//						frequents.remove(frequents.indexOf(song));	
+						countMax = song.getReplayCount();
+					}
+					else if (frequents.size() < 10) {
+						frequents.addFirst(song);				
+					}
+					else {
+						frequents.addFirst(song);
+						frequents.removeLast();
+					}
+				}
+			}
+		}
+		
+		for (int k = 0; k < this.playlists.size(); k++) {
+			ArrayList<Song> songListP = this.playlists[i].getSongs();
+			for (int j = 0; j < songListP.size(); j++) {
+				Song playlistSong = songListP[j];
+				if (playlistSong.getReplayCount() >= countMax) {
+					if (countMax < song.getReplayCount()) {
+//						frequents.remove(frequents.indexOf(song));	
+						countMax = song.getReplayCount();
+					}
+					if (!frequents.contains(playlistSong)) {
+						if (frequents.size() < 10) {
+							frequents.addFirst(song);				
+						}
+						else {
+							frequents.addFirst(song);
+							frequents.removeLast();
+						}
+					}
+				}
+			}
+		}
 	}
 	
 	
 	public void getFrequents() {
-		
+		return this.frequents;
 	}
 	
 	
