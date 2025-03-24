@@ -456,9 +456,11 @@ class LibraryModelTest {
 	@Test
 	void testGetAlbumInfo() {
 		Object[] o = new Object[2];
-		o[0] = "A Rush of Blood to the Head by Coldplay | 2003 | Alternative";
-		o[1] = 12;
-		assertEquals(store.getAlbumInfo("A Rush of Blood to the Head", "Coldplay"), o);
+		o[0] = "Album: A Rush of Blood to the Head by Coldplay | Alternative | 2002";
+		o[1] = 11;
+		Object[] i = store.getAlbumInfo("A Rush of Blood to the Head", "Coldplay");
+		assertEquals(o[0], i[0]);
+		assertEquals(o[1], i[1]);
 	}
 	
 	
