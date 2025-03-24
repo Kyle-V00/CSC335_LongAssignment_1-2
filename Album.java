@@ -163,6 +163,19 @@ public class Album extends Object {
 		return null;
 	}
 	
+	public int getSongRating(String title) {
+		if (this.getSong(title) == null) {
+			return 0;
+		}
+		String rating = this.getSong(title).getRating();
+		if (rating == "1 star") return 1;
+		else if (rating == "2 stars") return 2;
+		else if (rating == "3 stars") return 3;
+		else if (rating == "4 stars") return 4;
+		else if (rating == "5 stars") return 5;
+		else return 0;
+	}
+	
 	/*
 	 * public void addSong(String songName, String songTitle)
 	 * Purpose: Add a song to the ArrayList

@@ -23,11 +23,17 @@ public class LibraryModel {
 	private ArrayList<Album> albums;
 	private ArrayList<Playlist> playlists;
 	private MusicStore store;
+	private Playlist favorites;
+	private Playlist topRated;
 	
 	public LibraryModel() {
 		this.albums = new ArrayList<Album>();
 		this.playlists = new ArrayList<Playlist>();
 		this.store = new MusicStore();
+		this.favorites = new Playlist("Favorites");
+		this.topRated = new Playlist("Top Rated");
+		this.playlists.add(favorites);
+		this.playlists.add(topRated);
 	}
 	
 	//////////////////////////////
@@ -427,21 +433,18 @@ public class LibraryModel {
 		// addSongToPlaylist(String playlistTitle, String title, String artist)
 		// Add a song with name <title> by <artist> to a playlist
 		// Input:	String	playlistTitle	title of playlist to add to
-		//			String	title	title of song to favorite
-		//			String	artist	artist of song to favorite
+		//			String	title	title of song to add to the playlist
+		//			String	artist	artist of song to add to the playlist
 		// Output:	String			Confirmation of action or
 		//							alert of failure.
 		Playlist playlist = getPlaylist(playlistTitle);
 		if (playlist == null) {
 			return "Playlist " + playlistTitle + " does not exist. Please create playlist.\n";
 		}
-		if (playlist.containsSong(title, artist)) {
-			return "Playlist " + playlistTitle + " already contains song.\n";
-		}
 		// TODO: Add a catch for incorrect artist
 		if (searchSongTitleAndArtist(title, artist) != null) {
-			playlist.addSong(title, artist);
-			return "Added song " + title + " by " + artist + " to " + playlistTitle + "\n";
+			if (playlist.addSong(title, artist)) return "Added song " + title + " by " + artist + " to " + playlistTitle + "\n";
+			else return "Playlist " + playlistTitle + " already contains song.\n";
 		}
 		else {
 			return "Song " + title + " by " + artist + " not found in library.\n";
@@ -522,6 +525,7 @@ public class LibraryModel {
 		for (int i = 0; i < albums.size(); i++) {
 			if (albums.get(i).getArtist().equals(artist) && albums.get(i).containsSong(title)) {
 				albums.get(i).favorite(title);
+				this.favorites.addSong(title, artist);
 				return "Song " + title + " by " + artist + " set to favorite.\n";
 			}
 		}
@@ -541,6 +545,24 @@ public class LibraryModel {
 		}
 		for (int i = 0; i < albums.size(); i++) {
 			if (albums.get(i).getArtist().equals(artist) && albums.get(i).containsSong(title)) {
+				// Check if rating is 5
+				if (rating == 5) {
+					this.favorites.addSong(title, artist);
+				}
+				if (rating >= 4) {
+					this.topRated.addSong(title, artist);
+				}
+				int prevRating = albums.get(i).getSongRating(title);
+				if (prevRating > rating) {
+					// Remove the song from the proper playlists
+					favorites.removeSong(title, artist);
+					if (rating < 4) {
+						this.topRated.removeSong(title, artist);
+					}
+				}
+				else if (rating <= 4 && this.favorites.containsSong(title, artist)) {
+					this.favorites.removeSong(title, artist);
+				}
 				albums.get(i).rate(title, rating);
 				return "Song " + title + " by " + artist + " rated.\n";
 			}
