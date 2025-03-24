@@ -16,23 +16,27 @@ public class tracking {
 	
 	// Setter
 	// if there is an uptate in either album or playlist
+	
+	// takes an updated version of album 
 	private void updateAlbum(ArrayList<Album> album) {
 		this.albums = album;
 	}
-	private void updatePlaylist(ArrayList<Playlist> playlists) {
+	
+	// takes an updated version of playlists
+	private void updatePlaylists(ArrayList<Playlist> playlists) {
 		this.playlists = playlists;
 	}
 	
-	public void playing(Song song) {
+	public void playing(String title, String artist) {
 		// TODO: need to test if this functions properly
 		Song albumSong = null, playlistSong = null;
 		int albumFlag = 0, playlistFlag = 0;
 		for (int i = 0; i < this.albums.size(); i++) {
-			if (this.albums[i].getArtist() == song.getArtist()){
+			if (this.albums[i].getArtist().equals(artist)){
 				ArrayList<Song> songListA = this.albums[i].getSongs();
 				for (int j = 0; j < songListA.size(); j++) {
-					if (songListA[i].getTitle() == song.getTitle()) {
-						albumSong = songListA[i];
+					if (songListA[j].getTitle().equals(title)) {
+						albumSong = songListA[j];
 						albumFlag = 1;
 						break;
 					}
@@ -42,9 +46,9 @@ public class tracking {
 		for (int k = 0; k < this.playlists.size(); k++) {
 			if (this.playlists[k].containSong(song.getName(),song.getArtist())){
 				ArrayList<Song> songListP = this.playlists[i].getSongs();
-				for (int j = 0; j < songListP.size(); j++) {
-					if (songListP[j].getTitle() == song.getTitle()) {
-						playlistSong = songListP[j];
+				for (int l = 0; l < songListP.size(); l++) {
+					if (songListP[l].getTitle().equals(title)) {
+						playlistSong = songListP[l];
 						playlistFlag = 1;
 						break;
 					}

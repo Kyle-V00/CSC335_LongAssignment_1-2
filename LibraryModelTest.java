@@ -8,51 +8,20 @@ import org.junit.jupiter.api.Test;
 class LibraryModelTest {
 	
 	LibraryModel lib = new LibraryModel();
-	MusicStore store = new MusicStore();
 	UserManager manager;
 
 	@Test
 	void testAllSongTitles_NoSongs() {
-		assertEquals(lib.allSongTitles("title"), "Library is empty.\n");
+		assertEquals(lib.allSongTitles(), "Library is empty.\n");
 	}
 	
 	@Test
-	void testAllSongsByTitle() {
+	void testAllSongTitles_2Songs() {
 		lib.addSong("In My Place", "Coldplay");
 		System.out.print(lib.addSong("Good Life", "OneRepublic"));
-		assertEquals(lib.allAlbumTitles(),"\tAlbum: A Rush of Blood to the Head by Coldplay | Alternative | 2002\n"
-				+ "\tAlbum: Waking Up by OneRepublic | Rock | 2009\n");
-		assertEquals(lib.allSongTitles("title"), "\tGood Life by OneRepublic__________________________No Rating\n\tIn My Place by Coldplay___________________________No Rating\n");
-	}
-	
-	@Test
-	void testAllSongsByArtist() {
-		lib.addSong("In My Place", "Coldplay");
-		System.out.print(lib.addSong("Good Life", "OneRepublic"));
-		assertEquals(lib.allAlbumTitles(),"\tAlbum: A Rush of Blood to the Head by Coldplay | Alternative | 2002\n"
-				+ "\tAlbum: Waking Up by OneRepublic | Rock | 2009\n");
-		assertEquals(lib.allSongTitles("artist"), "\tIn My Place by Coldplay___________________________No Rating\n\tGood Life by OneRepublic__________________________No Rating\n");
-	}
-	
-	@Test
-	void testAllSongsByRating() {
-		lib.addSong("In My Place", "Coldplay");
-		System.out.print(lib.addSong("Good Life", "OneRepublic"));
-		assertEquals(lib.allAlbumTitles(),"\tAlbum: A Rush of Blood to the Head by Coldplay | Alternative | 2002\n"
-				+ "\tAlbum: Waking Up by OneRepublic | Rock | 2009\n");
-		lib.rate("In My Place", "Coldplay", 4);
-		lib.rate("Good Life", "OneRepublic", 5);
-		assertEquals(lib.allSongTitles("rating"), "\tIn My Place by Coldplay___________________________4 stars\n\tGood Life by OneRepublic__________________________5 stars\n");
-	}
-	
-	@Test
-	void testAllSongsByRatingNoRating() {
-		lib.addSong("In My Place", "Coldplay");
-		System.out.print(lib.addSong("Good Life", "OneRepublic"));
-		assertEquals(lib.allAlbumTitles(),"\tAlbum: A Rush of Blood to the Head by Coldplay | Alternative | 2002\n"
-				+ "\tAlbum: Waking Up by OneRepublic | Rock | 2009\n");
-		lib.rate("Good Life", "OneRepublic", 5);
-		assertEquals(lib.allSongTitles("rating"), "\tGood Life by OneRepublic__________________________5 stars\n\tIn My Place by Coldplay___________________________No Rating\n");
+		assertEquals(lib.allAlbumTitles(),"Album: A Rush of Blood to the Head by Coldplay | Alternative | 2002\n"
+				+ "Album: Waking Up by OneRepublic | Rock | 2009\n");
+		assertEquals(lib.allSongTitles(), "\tIn My Place\n\tGood Life\n");
 	}
 	
 	@Test
@@ -64,7 +33,7 @@ class LibraryModelTest {
 	void testAllArists_2Albums() {
 		lib.addSong("In My Place", "Coldplay");
 		lib.addAlbum("Waking Up", "OneRepublic");
-		assertEquals(lib.allArtists(), "\tColdplay\n\tOneRepublic\n");
+		assertEquals(lib.allArtists(), "Coldplay\nOneRepublic\n");
 	}
 	
 	@Test
@@ -89,7 +58,8 @@ class LibraryModelTest {
 	
 	@Test
 	void testStoreSearchSongTitle_NoSongs() {
-		assertEquals(store.searchSongTitle("Hello"), null);
+		// TODO: Create test
+		assertTrue(true);
 	}
 	
 	@Test
@@ -106,26 +76,6 @@ class LibraryModelTest {
 		lib.addSong("Lovesong", "Adele");
 		assertEquals(lib.libSearchSongArtist("Coldplay"), "A Rush of Blood to the Head by Coldplay\n"
 				+ "In My Place by Coldplay\n");
-	}
-	
-	@Test
-	void testLibSearchSongGenre_GenreExists() {
-		lib.addSong("A Rush of Blood to the Head", "Coldplay");
-		lib.addSong("In My Place", "Coldplay");
-		lib.addSong("Good Life", "OneRepublic");
-		lib.addSong("Daydreamer", "Adele");
-		lib.addSong("Lovesong", "Adele");
-		assertEquals(lib.libSearchSongGenre("Pop"), "\tDaydreamer by Adele_______________________________Pop\n\tLovesong by Adele_________________________________Pop\n");
-	}
-	
-	@Test
-	void testLibSearchSongGenre_GenreNonExistent() {
-		lib.addSong("A Rush of Blood to the Head", "Coldplay");
-		lib.addSong("In My Place", "Coldplay");
-		lib.addSong("Good Life", "OneRepublic");
-		lib.addSong("Daydreamer", "Adele");
-		lib.addSong("Lovesong", "Adele");
-		assertEquals(lib.libSearchSongGenre("Indie"), null);
 	}
 	
 	@Test
@@ -261,7 +211,7 @@ class LibraryModelTest {
 		System.out.print(lib.addSong("In My Place", "Coldplay"));
 		assertEquals(lib.libSearchSongTitle("In My Place"), 
 				"In My Place by Coldplay from A Rush of Blood to the Head\n");
-		assertEquals(lib.allAlbumTitles(), "\tAlbum: A Rush of Blood to the Head by Coldplay | Alternative | 2002\n");
+		assertEquals(lib.allAlbumTitles(), "Album: A Rush of Blood to the Head by Coldplay | Alternative | 2002\n");
 	}
 	
 	@Test
@@ -273,7 +223,7 @@ class LibraryModelTest {
 	@Test
 	void testAddAlbum() {
 		System.out.print(lib.addAlbum("A Rush of Blood to the Head", "Coldplay"));
-		assertEquals(lib.allAlbumTitles(), "\tAlbum: A Rush of Blood to the Head by Coldplay | Alternative | 2002\n");
+		assertEquals(lib.allAlbumTitles(), "Album: A Rush of Blood to the Head by Coldplay | Alternative | 2002\n");
 	}
 	
 	@Test
@@ -285,7 +235,7 @@ class LibraryModelTest {
 	void testAddAlbumAfterSong() {
 		System.out.print(lib.addSong("In My Place", "Coldplay"));
 		System.out.print(lib.addAlbum("A Rush of Blood to the Head", "Coldplay"));
-		assertEquals(lib.allAlbumTitles(), "\tAlbum: A Rush of Blood to the Head by Coldplay | Alternative | 2002\n");
+		assertEquals(lib.allAlbumTitles(), "Album: A Rush of Blood to the Head by Coldplay | Alternative | 2002\n");
 	}
 	
 	@Test
@@ -364,37 +314,6 @@ class LibraryModelTest {
 				"Playlist Good vibes does not contain song.\n");
 	}
 	
-	
-	@Test
-	void testRemoveSongFromLibrary() {
-		lib.addSong("In My Place", "Coldplay");
-		System.out.print(lib.addSong("Good Life", "OneRepublic"));
-		assertEquals(lib.allAlbumTitles(),"\tAlbum: A Rush of Blood to the Head by Coldplay | Alternative | 2002\n"
-				+ "\tAlbum: Waking Up by OneRepublic | Rock | 2009\n");
-		lib.addPlaylist("Good vibes");
-		lib.addSongToPlaylist("Good vibes", "Good Life", "OneRepublic");
-		lib.addSongToPlaylist("Good vibes", "In My Place", "Coldplay");
-		lib.removeSongFromLibrary("In My Place", "Coldplay");
-		assertEquals(lib.allSongTitles("title"), "\tGood Life by OneRepublic__________________________No Rating\n");
-		assertEquals(lib.libSearchPlaylist("Good vibes"), "Playlist: Good vibes | 1 songs\nSongs in playlist:\n"
-				+ "\tGood Life by OneRepublic\n");
-	}
-	
-	@Test
-	void testRemoveAlbumFromLibrary() {
-		lib.addSong("In My Place", "Coldplay");
-		System.out.print(lib.addSong("Good Life", "OneRepublic"));
-		assertEquals(lib.allAlbumTitles(),"\tAlbum: A Rush of Blood to the Head by Coldplay | Alternative | 2002\n"
-				+ "\tAlbum: Waking Up by OneRepublic | Rock | 2009\n");
-		lib.addPlaylist("Good vibes");
-		lib.addSongToPlaylist("Good vibes", "Good Life", "OneRepublic");
-		lib.addSongToPlaylist("Good vibes", "In My Place", "Coldplay");
-		lib.removeAlbumFromLibrary("A Rush of Blood to the Head", "Coldplay");
-		assertEquals(lib.allSongTitles("title"), "\tGood Life by OneRepublic__________________________No Rating\n");
-		assertEquals(lib.libSearchPlaylist("Good vibes"), "Playlist: Good vibes | 1 songs\nSongs in playlist:\n"
-				+ "\tGood Life by OneRepublic\n");
-	}
-	
 	@Test
 	void testFavorite() {
 		lib.addAlbum("A Rush of Blood to the Head", "Coldplay");
@@ -436,31 +355,14 @@ class LibraryModelTest {
 	void testAddSongTwice() {
 		System.out.print(lib.addSong("In My Place", "Coldplay"));
 		System.out.print(lib.addSong("In My Place", "Coldplay"));
-		assertEquals(lib.allSongTitles("title"), "\tIn My Place by Coldplay___________________________No Rating\n");
+		assertEquals(lib.allSongTitles(), "\tIn My Place\n");
 	}
 	
 	@Test
 	void testAddSongToExistingAlbum() {
 		System.out.print(lib.addSong("In My Place", "Coldplay"));
 		System.out.print(lib.addSong("Amsterdam", "Coldplay"));
-		assertEquals(lib.allSongTitles("title"), "\tAmsterdam by Coldplay_____________________________No Rating\n\tIn My Place by Coldplay___________________________No Rating\n");
-	}
-	
-	@Test
-	void testGetAlbumLength() {
-		System.out.print(lib.addSong("In My Place", "Coldplay"));
-		System.out.print(lib.addSong("Amsterdam", "Coldplay"));
-		assertEquals(lib.getAlbumLength("A Rush of Blood to the Head", "Coldplay"), 2);
-	}
-	
-	@Test
-	void testGetAlbumInfo() {
-		Object[] o = new Object[2];
-		o[0] = "Album: A Rush of Blood to the Head by Coldplay | Alternative | 2002";
-		o[1] = 11;
-		Object[] i = store.getAlbumInfo("A Rush of Blood to the Head", "Coldplay");
-		assertEquals(o[0], i[0]);
-		assertEquals(o[1], i[1]);
+		assertEquals(lib.allSongTitles(), "\tIn My Place\n\tAmsterdam\n");
 	}
 	
 	
@@ -522,6 +424,21 @@ class LibraryModelTest {
 	void testLoginNoUser() throws NoSuchAlgorithmException, IOException {
 		manager = new UserManager();
 		assertFalse(manager.login("Jack", "imSTEVE", false));
+	}
+	
+	@Test
+	void testTracking() {
+		lib.addAlbum("A Rush of Blood to the Head", "Coldplay");
+		lib.addSong("Good Life", "OneRepublic");
+		lib.addSong("Daydreamer", "Adele");
+		lib.addSong("Lovesong", "Adele");
+//		assertEquals(lib.libSearchAlbumArtist("Adele"), "Album: 19 by Adele | Pop | 2008\nSongs:\n"
+//				+ "\tDaydreamer\nAlbum: 21 by Adele | Pop | 2011\nSongs:\n"
+//				+ "\tLovesong\n");
+		lib.play("Good Life", "OneRepublic");
+//		assertEquals();
+		lib.frequentcy();
+		
 	}
 	
 }

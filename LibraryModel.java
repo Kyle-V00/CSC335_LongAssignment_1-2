@@ -20,6 +20,7 @@ import java.util.Hashtable;
 import java.util.Set;
 
 public class LibraryModel {
+//   TODO: Need to update albums and playlist if a change occurs
 	private ArrayList<Album> albums;
 	private ArrayList<Playlist> playlists;
 	private MusicStore store;
@@ -616,5 +617,12 @@ public class LibraryModel {
 			this.playlists.remove(getPlaylist(genre));
 		}
 	}
+	public void play(String title, String artist) {
+		track.playing(title, artist);
+	}
 	
+	public void frequency() {
+//		track.getFrequents();
+		System.out.print(track.getFrequents());
+	}
 }
