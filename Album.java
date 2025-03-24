@@ -50,13 +50,13 @@ public class Album extends Object {
 		return year;
 	}
 	
-	public String getSongs() {
-		String songList = "Songs:\n";
-		for (int i = 0; i < this.songs.size(); i++) {
-			songList += "\t" + songs.get(i).toString() + "\n";
-		}
-		return songList;
-	}
+//	public String getSongs() {
+//		String songList = "Songs:\n";
+//		for (int i = 0; i < this.songs.size(); i++) {
+//			songList += "\t" + songs.get(i).toString() + "\n";
+//		}
+//		return songList;
+//	}
 	
 	public String getSongsGenres() {
 		String songList = "";

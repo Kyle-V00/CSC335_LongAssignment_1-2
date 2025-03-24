@@ -60,7 +60,7 @@ public class LibraryModel {
 		String temp;
 		for (int i = 0; i < keys.length; i ++) {
 			temp = table.get(keys[i]);
-			retStr += "\t" + temp + "\n";
+			retStr += "\t" + temp;
 		}
 	
 		if (retStr.equals("")) {
@@ -202,7 +202,7 @@ public class LibraryModel {
 	public int getAlbumLength(String title, String artist) {
 		// Get the length of a given album in the library
 		for (int i = 0; i < albums.size(); i++) {
-			if (albums.get(i).getArtist().equals(artist) && albums.get(i).containsSong(title)) {
+			if (albums.get(i).getArtist().equals(artist) && albums.get(i).getName().equals(title)) {
 				return albums.get(i).songList().length;
 			}
 		}
