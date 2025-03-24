@@ -11,8 +11,6 @@ public class Song {
 	private String name;
 	private boolean like;
 	private Rating rating;
-	private int replayCount;
-	
 	
 	/*
 	 *  @pre: artist_name != null, song_name != null
@@ -25,7 +23,6 @@ public class Song {
 		this.name = song_name;
 		this.like = false;
 		this.rating = Rating.NONE;
-		this.replayCount = 0;
 	}
 	
 	// Getters:
@@ -45,8 +42,13 @@ public class Song {
 		return this.rating.toString();
 	}
 	
-	public String getReplayCount() {
-		return this.replayCount;
+	public String getFormattedInfo() {
+		String retStr = this.toString();
+		String temp = this.toString();
+		for (int j = temp.length(); j < 50; j++) {
+			retStr += "_";
+		}
+		return retStr + this.getRating() + "\n";
 	}
 	
 	// Setters:
@@ -74,11 +76,6 @@ public class Song {
 			this.rating = Rating.FIVE;
 			this.like = true; // Automatically favorite song if rating == 5
 		}
-	}
-	
-	// added
-	public void replayCountInc() {
-		this.replayCount++;
 	}
 	
 	@Override

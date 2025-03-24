@@ -20,7 +20,6 @@ import java.util.Hashtable;
 import java.util.Set;
 
 public class LibraryModel {
-//   TODO: Need to update albums and playlist if a change occurs
 	private ArrayList<Album> albums;
 	private ArrayList<Playlist> playlists;
 	private MusicStore store;
@@ -86,7 +85,7 @@ public class LibraryModel {
 		
 		String songs = "";
 		for (int i = 0; i < songNames.size(); i++) {
-			songs += songNames.get(i);
+			songs += "\t" + songNames.get(i);
 		}
 		if (songs == "") {
 			return "Library is empty.\n";
@@ -515,7 +514,7 @@ public class LibraryModel {
 				for (int j = 0; j < this.playlists.size(); j++) {
 					String[][] songs = a.songList();
 					for (int k = 0; k < songs.length; k++) {
-						this.playlists.get(i).removeSong(songs[k][0], songs[k][1]);
+						this.playlists.get(j).removeSong(songs[k][0], songs[k][1]);
 					}
 				}
 				updateGenre(a.getGenre());
@@ -617,12 +616,5 @@ public class LibraryModel {
 			this.playlists.remove(getPlaylist(genre));
 		}
 	}
-	public void play(String title, String artist) {
-		track.playing(title, artist);
-	}
 	
-	public void frequency() {
-//		track.getFrequents();
-		System.out.print(track.getFrequents());
-	}
 }
