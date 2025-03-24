@@ -9,6 +9,8 @@
  */
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 public class Playlist {
 	private String name;
@@ -32,6 +34,21 @@ public class Playlist {
 		else {
 			for (int i = 0; i < this.songs.size(); i++) {
 				songList += "\t" + songs.get(i).toString() + "\n";
+			}
+		}
+		return songList;
+	}
+	
+	public String getShuffledSongs() {
+		String songList = "Shuffled songs in playlist:\n";
+		if (this.songs.size() == 0) {
+			return "Playlist is empty.\n";
+		}
+		else {
+			Object shuffled = songs.clone();
+			Collections.shuffle((List<?>) shuffled);
+			for (int i = 0; i < this.songs.size(); i++) {
+				songList += "\t" + ((ArrayList<Song>) shuffled).get(i).toString() + "\n";
 			}
 		}
 		return songList;

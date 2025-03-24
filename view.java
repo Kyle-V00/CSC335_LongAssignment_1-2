@@ -315,8 +315,8 @@ public class view {
 		// albums, playlists, and favorite songs.
 		System.out.print("\n");
 		System.out.print("List Options:\n");
-		System.out.print("List songs:\t'st' = songs by title, 'sa' = songs by artist, 'sr' = songs by rating,"
-				+ "\nOther Lists:\t'r' = artists, 'a' = albums, 'p' = playlists, 'f' = favorite songs, 'b' = back\nEnter command: ");
+		System.out.print("List songs:\t'st' = songs by title, 'sa' = songs by artist, 'sr' = songs by rating, 'ss' = shuffle songs,"
+				+ "\nOther Lists:\t'r' = artists, 'a' = albums, 'p' = playlists, 'ps' = playlists (shuffle songs), 'f' = favorite songs, 'b' = back\nEnter command: ");
 		String nxtCmd = scanner.nextLine().strip();
     	while (!nxtCmd.equals("b")){
     		// Check for song title
@@ -334,6 +334,11 @@ public class view {
     			System.out.print("Songs by rating:\n");
     			System.out.print(lm.allSongTitles("rating"));
     		}
+    		// Check for shuffle songs
+    		if (nxtCmd.equals("ss")) {
+    			System.out.print("Shuffled Songs:\n");
+    			System.out.print(lm.shuffleAllSongs());
+    		}
     		// Check for artists
     		else if (nxtCmd.equals("r")) {
     			System.out.print("Artists:\n");
@@ -349,6 +354,11 @@ public class view {
     			System.out.print("Playlists:\n");
     			System.out.print(lm.allPlaylists());
     		}
+    		// Check for playlist song shuffle
+    		else if (nxtCmd.equals("ps")) {
+    			System.out.print("Playlists: Songs on shuffle:\n");
+    			System.out.print(lm.allPlaylistsShuffled());
+    		}
     		// Check for favorite songs
     		else if (nxtCmd.equals("f")) {
     			System.out.print("Favorite songs:\n");
@@ -356,8 +366,8 @@ public class view {
     		}
     		System.out.print("\n");
     		System.out.print("List Options:\n");
-    		System.out.print("List songs:\t'st' = songs by title, 'sa' = songs by artist, 'sr' = songs by rating,"
-    				+ "\nOther Lists:\t'r' = artists, 'a' = albums, 'p' = playlists, 'f' = favorite songs, 'b' = back\nEnter command: ");
+    		System.out.print("List songs:\t'st' = songs by title, 'sa' = songs by artist, 'sr' = songs by rating, 'ss' = shuffle songs,"
+    				+ "\nOther Lists:\t'r' = artists, 'a' = albums, 'p' = playlists, 'ps' = playlists (shuffle songs), 'f' = favorite songs, 'b' = back\nEnter command: ");
     		nxtCmd = scanner.nextLine().strip();
     	}
     	return;

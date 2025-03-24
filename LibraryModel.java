@@ -14,6 +14,7 @@ import java.lang.reflect.Array;
 import java.util.Arrays;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.Enumeration;
 import java.util.Hashtable;
 import java.util.Set;
@@ -69,6 +70,23 @@ public class LibraryModel {
 		return retStr;
 	}
 	
+	public String shuffleAllSongs() {
+		ArrayList<String> songNames = new ArrayList<String>();
+		for (int i = 0; i < this.albums.size(); i ++) {
+			songNames.addAll(this.albums.get(i).getSongList());
+		}
+		Collections.shuffle(songNames);
+		
+		String songs = "";
+		for (int i = 0; i < songNames.size(); i++) {
+			songs += songNames.get(i);
+		}
+		if (songs == "") {
+			return "Library is empty.\n";
+		}
+		return songs;
+	}
+	
 	private void mergeTables(Hashtable<String, String> table, Hashtable<String, String> temp) {
 		/*
 		 * Purpose: Merge two hash tables. When keys are equal,
@@ -78,7 +96,7 @@ public class LibraryModel {
 		Object[] keys = temp.keySet().toArray();
 		for (int i = 0; i < keys.length; i ++) {
 			if (table.containsKey(keys[i])) {
-				table.put(keys[i].toString(), table.get(keys[i]) + "\n\t" + temp.get(keys[i]));
+				table.put(keys[i].toString(), table.get(keys[i]) + "\t" + temp.get(keys[i]));
 			}
 			else {
 				table.put(keys[i].toString(), temp.get(keys[i]));
@@ -117,6 +135,18 @@ public class LibraryModel {
 		for (int i = 0; i < playlists.size(); i++) {
 			retStr += playlists.get(i).toString() + "\n";
 			retStr += playlists.get(i).getSongs();
+		}
+		if (retStr.equals("")) {
+			return "Library contains no playlists.\n";
+		}
+		return retStr;
+	}
+	
+	public String allPlaylistsShuffled() {
+		String retStr = "";
+		for (int i = 0; i < playlists.size(); i++) {
+			retStr += playlists.get(i).toString() + "\n";
+			retStr += playlists.get(i).getShuffledSongs();
 		}
 		if (retStr.equals("")) {
 			return "Library contains no playlists.\n";
