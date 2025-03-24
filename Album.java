@@ -58,6 +58,19 @@ public class Album extends Object {
 		return songList;
 	}
 	
+	public String getSongsGenres() {
+		String songList = "";
+		for (int i = 0; i < this.songs.size(); i++) {
+			String temp = songs.get(i).toString();
+			songList += "\t" + temp;
+			for (int j = temp.length(); j < 50; j++) {
+				songList += "_";
+			}
+			songList += this.genre + "\n";
+		}
+		return songList;
+	}
+	
 	public Hashtable<String, String> getSongsByTitle() {
 		Hashtable<String, String> table = new Hashtable<String, String>();
 		String temp;

@@ -209,6 +209,21 @@ public class LibraryModel {
 		return 0;
 	}
 	
+	// New Functionality
+	public String libSearchSongGenre(String genre) {
+		// Return String with list of songs of given genre
+		String retStr = "";
+		for (int i = 0; i < albums.size(); i++) {
+			if (albums.get(i).getGenre().equals(genre)) {
+				retStr += albums.get(i).getSongsGenres();
+			}
+		}
+		if (retStr.equals("")) {
+			return null;
+		}
+		return retStr;
+	}
+	
 	// -- Search by Album --
 	
 	private Album getAlbum(String title) {
