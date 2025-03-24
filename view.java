@@ -385,9 +385,9 @@ public class view {
     	while (!nxtCmd.equals("b")){
     		// Check for favorite
     		if (nxtCmd.equals("r")) {
-    			System.out.print("Enter title of song to favorite:\n");
+    			System.out.print("Enter title of song to rate:\n");
     			String title = scanner.nextLine().strip();
-    			System.out.print("Enter artist of song to favorite:\n");
+    			System.out.print("Enter artist of song to rate:\n");
     			String artist = scanner.nextLine().strip();
     			System.out.print("Enter rating from 1 to 5:\n");
     			String rating = scanner.nextLine().strip();

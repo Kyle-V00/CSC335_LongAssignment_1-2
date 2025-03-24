@@ -75,9 +75,11 @@ public class Playlist {
 	 * 
 	 * @pre: songName != null, songTitle != null
 	 */
-	public void addSong(String songName, String artist) {
+	public boolean addSong(String songName, String artist) {
 		// Create and add a song name
+		if (this.containsSong(songName, artist)) return false;
 		this.songs.add(new Song(songName, artist));
+		return true;
 	}
 	
 	/*
