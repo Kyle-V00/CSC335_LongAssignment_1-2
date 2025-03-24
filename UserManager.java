@@ -70,10 +70,6 @@ public class UserManager {
 		encrypt.update(password.getBytes());
 		byte[] hash = encrypt.digest();
 		
-		System.out.println("Password Bytes: " + password.getBytes());
-		System.out.println("Hash = " + hash);
-		System.out.println("Hash string = " + hash.toString());
-		
 		try (BufferedWriter w = Files.newBufferedWriter(userFile.toPath(), APPEND)) {
 			w.append(username + " ");
 			for (int i = 0; i < hash.length; i ++) {
@@ -114,9 +110,6 @@ public class UserManager {
 				encrypt.reset();
 				encrypt.update(password.getBytes());
 				byte[] hash = encrypt.digest();
-				
-				System.out.println("Password Bytes: " + password.getBytes());
-				System.out.println("Stored password: " + line[1]);
 				
 				String encryptedString = "";
 				for (int i = 0; i < hash.length; i ++) {

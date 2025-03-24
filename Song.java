@@ -42,6 +42,15 @@ public class Song {
 		return this.rating.toString();
 	}
 	
+	public String getFormattedInfo() {
+		String retStr = this.toString();
+		String temp = this.toString();
+		for (int j = temp.length(); j < 50; j++) {
+			retStr += "_";
+		}
+		return retStr + this.getRating() + "\n";
+	}
+	
 	// Setters:
 	public void favorite() {
 		this.like = true;

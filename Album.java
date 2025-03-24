@@ -9,6 +9,7 @@
  */
 
 import java.util.ArrayList;
+import java.util.Hashtable;
 
 public class Album extends Object {
 	private String artist;
@@ -55,6 +56,57 @@ public class Album extends Object {
 			songList += "\t" + songs.get(i).toString() + "\n";
 		}
 		return songList;
+	}
+	
+	public Hashtable<String, String> getSongsByTitle() {
+		Hashtable<String, String> table = new Hashtable<String, String>();
+		String temp;
+		for (int i = 0; i < this.songs.size(); i++) {
+			String cur = this.songs.get(i).getName();
+			if (table.containsKey(cur)) {
+				temp = table.get(cur);
+				temp += "\n\t" + this.songs.get(i).getFormattedInfo();
+			}
+			else {
+				temp = this.songs.get(i).getFormattedInfo();
+			}
+			table.put(this.songs.get(i).getName(), temp);
+		}
+		return table;
+	}
+	
+	public Hashtable<String, String> getSongsByArtist() {
+		Hashtable<String, String> table = new Hashtable<String, String>();
+		String temp;
+		for (int i = 0; i < this.songs.size(); i++) {
+			String cur = this.songs.get(i).getArtist();
+			if (table.containsKey(cur)) {
+				temp = table.get(cur);
+				temp += "\n\t" + this.songs.get(i).getFormattedInfo();
+			}
+			else {
+				temp = this.songs.get(i).getFormattedInfo();
+			}
+			table.put(this.songs.get(i).getArtist(), temp);
+		}
+		return table;
+	}
+	
+	public Hashtable<String, String> getSongsByRating() {
+		Hashtable<String, String> table = new Hashtable<String, String>();
+		String temp;
+		for (int i = 0; i < this.songs.size(); i++) {
+			String cur = this.songs.get(i).getRating();
+			if (table.containsKey(cur)) {
+				temp = table.get(cur);
+				temp += "\n\t" + this.songs.get(i).getFormattedInfo();
+			}
+			else {
+				temp = this.songs.get(i).getFormattedInfo();
+			}
+			table.put(this.songs.get(i).getRating(), temp);
+		}
+		return table;
 	}
 	
 	public String getSongsWithoutArtist() {
