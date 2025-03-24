@@ -23,7 +23,7 @@ public class UserManager {
 	private File userFile;
 	private Hashtable<String, LibraryModel> users;
 	private MessageDigest encrypt;
-	
+
 	public UserManager() throws IOException, NoSuchAlgorithmException {
 		// Build the userFile File
 		this.userFile = new File("users.txt");
@@ -38,7 +38,7 @@ public class UserManager {
 		}
 		this.encrypt = MessageDigest.getInstance("SHA-256");
 	}
-	
+
 	public boolean addUser(String username) {
 		/*
 		 * boolean addUser(String username)
@@ -47,7 +47,7 @@ public class UserManager {
 		 * Input:	String username		name of new user
 		 * Output:	true if user added, false if user already exists
 		 */
-		
+
 		if (users.containsKey(username)) {
 			return false;
 		}
@@ -57,7 +57,7 @@ public class UserManager {
 			return true;
 		}
 	}
-	
+
 	public boolean addPassword(String username, String password) throws NoSuchAlgorithmException {
 		/*
 		 * boolean addPassword(String username, String password) throws NoSuchAlgorithmException
@@ -69,7 +69,7 @@ public class UserManager {
 
 		encrypt.update(password.getBytes());
 		byte[] hash = encrypt.digest();
-		
+
 		try (BufferedWriter w = Files.newBufferedWriter(userFile.toPath(), APPEND)) {
 			w.append(username + " ");
 			for (int i = 0; i < hash.length; i ++) {
@@ -83,7 +83,7 @@ public class UserManager {
 			return false;
 		}
 	}
-	
+
 	public boolean login(String username, String password, boolean noTest) throws FileNotFoundException {
 		/*
 		 * boolean login(String username, String password) throws FileNotFoundException
@@ -95,11 +95,11 @@ public class UserManager {
 		 * 			boolean noTest		used for avoiding infinite runtime when testing
 		 * Output:	true if username and password match records. Return false otherwise
 		 */
-		
+
 		// Structure: Call View and feed it a LibraryModel from the hash table
-		
+
 		Scanner s = new Scanner(userFile);
-		
+
 		// Check if the user exists
 		while (s.hasNextLine()) {
 			String[] line = s.nextLine().split(" ");
@@ -110,12 +110,12 @@ public class UserManager {
 				encrypt.reset();
 				encrypt.update(password.getBytes());
 				byte[] hash = encrypt.digest();
-				
+
 				String encryptedString = "";
 				for (int i = 0; i < hash.length; i ++) {
 					encryptedString += String.valueOf(hash[i]);
 				}
-	
+
 				if (encryptedString.equals(line[1])) {
 					System.out.println("Success! Logging in...\n");
 					if (noTest) {
@@ -129,7 +129,7 @@ public class UserManager {
 				}
 			}
 		}
-		
+
 		return false;
 	}
 }
