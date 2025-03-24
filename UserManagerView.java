@@ -60,7 +60,7 @@ public class UserManagerView {
 			}
 		}
 		
-		System.out.println("Thank you for using our service.");
+		System.out.println("Thank you, for using our service.");
 	}
 	
 	private void login() throws FileNotFoundException {
@@ -101,7 +101,7 @@ public class UserManagerView {
 		}
 		System.out.println("Enter password: ");
 		if (manager.addPassword(username, scanner.next())) {
-			System.out.println("User " + username + " successfully created. Please log in.");
+			System.out.println("User " + username + " successfully created. Please log in.\n");
 		}
 		else {
 			System.out.println("Password error. Please try again.");

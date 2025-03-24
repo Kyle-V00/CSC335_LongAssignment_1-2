@@ -10,7 +10,13 @@
  * playlists, using class Playlist.
  */
 
+import java.lang.reflect.Array;
+import java.util.Arrays;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Enumeration;
+import java.util.Hashtable;
+import java.util.Set;
 
 public class LibraryModel {
 	private ArrayList<Album> albums;
@@ -26,15 +32,58 @@ public class LibraryModel {
 	//////////////////////////////
 	// List methods (getters)	//
 	//////////////////////////////
-	public String allSongTitles() {
-		String retStr = "";
-		for (int i = 0; i < albums.size(); i++) {
-			retStr += albums.get(i).getSongsWithoutArtist();
+	public String allSongTitles(String param) {
+		Hashtable<String, String> table = new Hashtable<String, String>();
+		if (param.equals("title")) {
+			for (int i = 0; i < albums.size(); i++) {
+				Hashtable<String, String> temp = albums.get(i).getSongsByTitle();
+				mergeTables(table, temp);
+			}
 		}
+		else if (param.equals("artist")) {
+			for (int i = 0; i < albums.size(); i++) {
+				Hashtable<String, String> temp = albums.get(i).getSongsByArtist();
+				mergeTables(table, temp);
+			}
+		}
+		else {
+			for (int i = 0; i < albums.size(); i++) {
+				Hashtable<String, String> temp = albums.get(i).getSongsByRating();
+				mergeTables(table, temp);
+			}
+		}
+		
+		Object[] keys = table.keySet().toArray();
+		Arrays.sort(keys);
+		
+		String retStr = "";
+		String temp;
+		for (int i = 0; i < keys.length; i ++) {
+			temp = table.get(keys[i]);
+			retStr += "\t" + temp + "\n";
+		}
+	
 		if (retStr.equals("")) {
 			return "Library is empty.\n";
 		}
 		return retStr;
+	}
+	
+	private void mergeTables(Hashtable<String, String> table, Hashtable<String, String> temp) {
+		/*
+		 * Purpose: Merge two hash tables. When keys are equal,
+		 * append the data from temp to table.
+		 */
+		
+		Object[] keys = temp.keySet().toArray();
+		for (int i = 0; i < keys.length; i ++) {
+			if (table.containsKey(keys[i])) {
+				table.put(keys[i].toString(), table.get(keys[i]) + "\n\t" + temp.get(keys[i]));
+			}
+			else {
+				table.put(keys[i].toString(), temp.get(keys[i]));
+			}
+		}
 	}
 	
 	public String allArtists() {
@@ -43,7 +92,7 @@ public class LibraryModel {
 		for (int i = 0; i < albums.size(); i++) {
 			if (!artists.contains(albums.get(i).getArtist())) {
 				artists.add(albums.get(i).getArtist());
-				retStr += albums.get(i).getArtist() + "\n";
+				retStr += "\t" + albums.get(i).getArtist() + "\n";
 			}
 		}
 		if (retStr.equals("")) {
@@ -55,7 +104,7 @@ public class LibraryModel {
 	public String allAlbumTitles() {
 		String retStr = "";
 		for (int i = 0; i < albums.size(); i++) {
-			retStr += albums.get(i).toString() + "\n";
+			retStr += "\t" + albums.get(i).toString() + "\n";
 		}
 		if (retStr.equals("")) {
 			return "Library is empty.\n";

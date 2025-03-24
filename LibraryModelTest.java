@@ -12,16 +12,46 @@ class LibraryModelTest {
 
 	@Test
 	void testAllSongTitles_NoSongs() {
-		assertEquals(lib.allSongTitles(), "Library is empty.\n");
+		assertEquals(lib.allSongTitles("title"), "Library is empty.\n");
 	}
 	
 	@Test
-	void testAllSongTitles_2Songs() {
+	void testAllSongsByTitle() {
 		lib.addSong("In My Place", "Coldplay");
 		System.out.print(lib.addSong("Good Life", "OneRepublic"));
 		assertEquals(lib.allAlbumTitles(),"Album: A Rush of Blood to the Head by Coldplay | Alternative | 2002\n"
 				+ "Album: Waking Up by OneRepublic | Rock | 2009\n");
-		assertEquals(lib.allSongTitles(), "\tIn My Place\n\tGood Life\n");
+		assertEquals(lib.allSongTitles("title"), "\tGood Life by OneRepublic | No Rating\n\tIn My Place by Coldplay | No Rating\n");
+	}
+	
+	@Test
+	void testAllSongsByArtist() {
+		lib.addSong("In My Place", "Coldplay");
+		System.out.print(lib.addSong("Good Life", "OneRepublic"));
+		assertEquals(lib.allAlbumTitles(),"Album: A Rush of Blood to the Head by Coldplay | Alternative | 2002\n"
+				+ "Album: Waking Up by OneRepublic | Rock | 2009\n");
+		assertEquals(lib.allSongTitles("artist"), "\tIn My Place by Coldplay | No Rating\n\tGood Life by OneRepublic | No Rating\n");
+	}
+	
+	@Test
+	void testAllSongsByRating() {
+		lib.addSong("In My Place", "Coldplay");
+		System.out.print(lib.addSong("Good Life", "OneRepublic"));
+		assertEquals(lib.allAlbumTitles(),"Album: A Rush of Blood to the Head by Coldplay | Alternative | 2002\n"
+				+ "Album: Waking Up by OneRepublic | Rock | 2009\n");
+		lib.rate("In My Place", "Coldplay", 4);
+		lib.rate("Good Life", "OneRepublic", 5);
+		assertEquals(lib.allSongTitles("rating"), "\tIn My Place by Coldplay | 4 stars\n\tGood Life by OneRepublic | 5 stars\n");
+	}
+	
+	@Test
+	void testAllSongsByRatingNoRating() {
+		lib.addSong("In My Place", "Coldplay");
+		System.out.print(lib.addSong("Good Life", "OneRepublic"));
+		assertEquals(lib.allAlbumTitles(),"Album: A Rush of Blood to the Head by Coldplay | Alternative | 2002\n"
+				+ "Album: Waking Up by OneRepublic | Rock | 2009\n");
+		lib.rate("Good Life", "OneRepublic", 5);
+		assertEquals(lib.allSongTitles("rating"), "\tGood Life by OneRepublic | 5 stars\n\tIn My Place by Coldplay | No Rating\n");
 	}
 	
 	@Test
@@ -355,14 +385,14 @@ class LibraryModelTest {
 	void testAddSongTwice() {
 		System.out.print(lib.addSong("In My Place", "Coldplay"));
 		System.out.print(lib.addSong("In My Place", "Coldplay"));
-		assertEquals(lib.allSongTitles(), "\tIn My Place\n");
+		assertEquals(lib.allSongTitles("title"), "\tIn My Place by Coldplay | No Rating\n");
 	}
 	
 	@Test
 	void testAddSongToExistingAlbum() {
 		System.out.print(lib.addSong("In My Place", "Coldplay"));
 		System.out.print(lib.addSong("Amsterdam", "Coldplay"));
-		assertEquals(lib.allSongTitles(), "\tIn My Place\n\tAmsterdam\n");
+		assertEquals(lib.allSongTitles("title"), "\tAmsterdam by Coldplay | No Rating\n\tIn My Place by Coldplay | No Rating\n");
 	}
 	
 	

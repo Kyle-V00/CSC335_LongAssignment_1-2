@@ -268,14 +268,24 @@ public class view {
 		// albums, playlists, and favorite songs.
 		System.out.print("\n");
 		System.out.print("List Options:\n");
-		System.out.print("'s' = song titles, 'r' = artists, 'a' = albums,\n"
-				+ "'p' = playlists, 'f' = favorite songs, 'b' = back\nEnter command: ");
+		System.out.print("List songs:\t'st' = songs by title, 'sa' = songs by artist, 'sr' = songs by rating,"
+				+ "\nOther Lists:\t'r' = artists, 'a' = albums, 'p' = playlists, 'f' = favorite songs, 'b' = back\nEnter command: ");
 		String nxtCmd = scanner.nextLine().strip();
     	while (!nxtCmd.equals("b")){
-    		// Check for song titles
-    		if (nxtCmd.equals("s")) {
-    			System.out.print("Song titles:\n");
-    			System.out.print(lm.allSongTitles());
+    		// Check for song title
+    		if (nxtCmd.equals("st")) {
+    			System.out.print("Songs by title:\n");
+    			System.out.print(lm.allSongTitles("title"));
+    		}
+    		// Check for song artist
+    		if (nxtCmd.equals("sa")) {
+    			System.out.print("Songs by artist:\n");
+    			System.out.print(lm.allSongTitles("artist"));
+    		}
+    		// Check for song rating
+    		if (nxtCmd.equals("sr")) {
+    			System.out.print("Songs by rating:\n");
+    			System.out.print(lm.allSongTitles("rating"));
     		}
     		// Check for artists
     		else if (nxtCmd.equals("r")) {
@@ -299,8 +309,8 @@ public class view {
     		}
     		System.out.print("\n");
     		System.out.print("List Options:\n");
-    		System.out.print("'s' = song titles, 'r' = artists, 'a' = albums,\n"
-    				+ "'p' = playlists, 'f' = favorite songs, 'b' = back\nEnter command: ");
+    		System.out.print("List songs:\t'st' = songs by title, 'sa' = songs by artist, 'sr' = songs by rating,"
+    				+ "\nOther Lists:\t'r' = artists, 'a' = albums, 'p' = playlists, 'f' = favorite songs, 'b' = back\nEnter command: ");
     		nxtCmd = scanner.nextLine().strip();
     	}
     	return;
