@@ -13,7 +13,6 @@ public class Song {
 	private Rating rating;
 	private int replayCount;
 	
-	
 	/*
 	 *  @pre: artist_name != null, song_name != null
 	 */
@@ -43,6 +42,15 @@ public class Song {
 	
 	public String getRating() {
 		return this.rating.toString();
+	}
+
+	public String getFormattedInfo() {
+		String retStr = this.toString();
+		String temp = this.toString();
+		for (int j = temp.length(); j < 50; j++) {
+			retStr += "_";
+		}
+		return retStr + this.getRating() + "\n";
 	}
 	
 	public String getReplayCount() {
