@@ -170,7 +170,7 @@ public class view {
 			System.out.print("\n");
     		System.out.print("Search Library Options:\n");
     		System.out.print("'st' = search song title, 'sa' = search song "
-    						+"artist,\n 'at' = search album title, "
+    						+"artist, 'si' = search song info\n 'at' = search album title, "
     						+"'aa' = search album artist, "
     						+ "'pt' = search playlist title, "
     						+ "'b' = back\nEnter command: ");
@@ -196,6 +196,24 @@ public class view {
     			}
     			else {
     				System.out.printf("%s's songs:\n%s", artistName,val);
+    			}
+    		}
+    		if (nxtCmd.equals("si")) {
+    			System.out.print("Enter song title: ");
+    			String songName = scanner.nextLine();
+    			System.out.print("Enter song artist: ");
+    			String artistName = scanner.nextLine();
+    			String[] val = lm.searchSongTitleAndArtist(songName, artistName);
+    			if (val == null) {
+    				System.out.printf("%s by %s not found in LibraryModel\n", songName, artistName);
+    			}
+    			else {
+    				System.out.printf("Show album info for %s by %s?\n", songName, artistName);
+    				System.out.print("'y' = yes, 'n' = no\nEnter command: ");
+    				nxtCmd = scanner.nextLine();
+    				if (nxtCmd.strip().equals("y")) {
+    					songInfo(songName, artistName);
+    				}
     			}
     		}
     		if (nxtCmd.equals("aa")){
@@ -233,6 +251,21 @@ public class view {
     		}
     	} while (!nxtCmd.equals("b"));
     	return;
+	}
+	
+	private void songInfo(String title, String artist) {
+		// Get full album info (from store) for album
+		// containing song title, artist
+		
+		Object[] info = ms.getAlbumInfo(title, artist);
+		int len = lm.getAlbumLength(title, artist);
+		System.out.println(info[0]);
+		if (info[1].equals(len)) {
+			System.out.println("Library contains full album.\n");
+		}
+		else {
+			System.out.println("Library contains " + len + " out of " + info[1] + " songs in album.\n");
+		}
 	}
 	
 	private void addMenu() {
