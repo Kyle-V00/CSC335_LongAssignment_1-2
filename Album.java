@@ -57,11 +57,24 @@ public class Album extends Object {
 //		}
 //		return songList;
 //	}
+
+	public int getNumSongs() {
+		return this.songs.size();
+	}
 	
 	public ArrayList<String> getSongList() {
 		ArrayList<String> songList = new ArrayList<String>();
 		for (int i = 0; i < songs.size(); i++) {
 			songList.add(songs.get(i).getFormattedInfo());
+		}
+		return songList;
+	}
+
+	public String[][] getSongInfo() {
+		String[][] songList = new String[songs.size()][2];
+		for (int i = 0; i < songs.size(); i++) {
+			songList[i][0] = songs.get(i).getName();
+			songList[i][1] = songs.get(i).getArtist();
 		}
 		return songList;
 	}
@@ -161,6 +174,19 @@ public class Album extends Object {
 			return query.toString();
 		}
 		return null;
+	}
+
+	public int getSongRating(String title) {
+		if (this.getSong(title) == null) {
+			return 0;
+		}
+		String rating = this.getSong(title).getRating();
+		if (rating == "1 star") return 1;
+		else if (rating == "2 stars") return 2;
+		else if (rating == "3 stars") return 3;
+		else if (rating == "4 stars") return 4;
+		else if (rating == "5 stars") return 5;
+		else return 0;
 	}
 	
 	/*
