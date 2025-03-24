@@ -169,10 +169,10 @@ public class view {
 		do {
 			System.out.print("\n");
     		System.out.print("Search Library Options:\n");
-    		System.out.print("'st' = search song title, 'sa' = search song "
-    						+"artist, 'si' = search song info\n 'at' = search album title, "
-    						+"'aa' = search album artist, "
-    						+ "'pt' = search playlist title, "
+    		System.out.print("'st' = search song by title, 'sa' = search song by "
+    						+"artist, 'sg' = search song by genre 'si' = search for song info\n 'at' = search album by title, "
+    						+"'aa' = search album by artist, "
+    						+ "'pt' = search playlist by title, "
     						+ "'b' = back\nEnter command: ");
     		nxtCmd = scanner.nextLine();
     		if (nxtCmd.equals("st")) {
@@ -180,7 +180,7 @@ public class view {
     			String songName = scanner.nextLine();
     			String val = lm.libSearchSongTitle(songName);
     			if (val == null) {
-    				System.out.printf("%s not found in LibraryModel\n", songName);
+    				System.out.printf("%s not found in Music Library\n", songName);
     			}
     			else {
 //    				System.out.printf("%s's songs: %s", songName,val);
@@ -192,10 +192,21 @@ public class view {
     			String artistName = scanner.nextLine();
     			String val = lm.libSearchSongArtist(artistName);
     			if (val == null) {
-    				System.out.printf("%s not found in LibraryModel\n", artistName);
+    				System.out.printf("%s not found in Music Library\n", artistName);
     			}
     			else {
     				System.out.printf("%s's songs:\n%s", artistName,val);
+    			}
+    		}
+    		if (nxtCmd.equals("sg")) {
+    			System.out.print("Type genre: ");
+    			String genre = scanner.nextLine();
+    			String val = lm.libSearchSongGenre(genre);
+    			if (val == null) {
+    				System.out.printf("Genre %s not found in Music Library\n", genre);
+    			}
+    			else {
+    				System.out.printf("All %s songs in library:\n%s", genre,val);
     			}
     		}
     		if (nxtCmd.equals("si")) {
@@ -205,7 +216,7 @@ public class view {
     			String artistName = scanner.nextLine();
     			String[] val = lm.searchSongTitleAndArtist(songName, artistName);
     			if (val == null) {
-    				System.out.printf("%s by %s not found in LibraryModel\n", songName, artistName);
+    				System.out.printf("%s by %s not found in Music Library\n", songName, artistName);
     			}
     			else {
     				System.out.printf("Show album info for %s by %s?\n", songName, artistName);
@@ -221,7 +232,7 @@ public class view {
     			String albumArtist = scanner.nextLine();
     			String val = lm.libSearchAlbumArtist(albumArtist);
     			if (val == null) {
-    				System.out.printf("Artist %s not found in LibraryModel\n", albumArtist);
+    				System.out.printf("Artist %s not found in Music Library\n", albumArtist);
     			}
     			else {
     				System.out.printf(val);
@@ -232,7 +243,7 @@ public class view {
     			String albumTitle = scanner.nextLine();
     			String val = lm.libSearchAlbumTitle(albumTitle);
     			if (val == null) {
-    				System.out.printf("%s not found in libraryModel\n", albumTitle);
+    				System.out.printf("%s not found in Music Library\n", albumTitle);
     			}
     			else {
     				System.out.printf(val);
@@ -243,7 +254,7 @@ public class view {
     			String playlistTitle = scanner.nextLine();
     			String val = lm.libSearchPlaylist(playlistTitle);
     			if (val == null) {
-    				System.out.printf("%s not found in libraryModel\n", playlistTitle);
+    				System.out.printf("%s not found in Music Library\n", playlistTitle);
     			}
     			else {
     				System.out.printf(val);
