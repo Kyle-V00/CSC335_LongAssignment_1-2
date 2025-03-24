@@ -361,6 +361,7 @@ public class LibraryModel {
 				newAl.setYear(song[4]);
 				newAl.addSong(title, artist);
 				this.albums.add(newAl);
+				updateGenre(newAl.getGenre());
 				return "Song " + title + " by " + artist + " added.\n";
 			}
 			else {
@@ -370,6 +371,7 @@ public class LibraryModel {
 				}
 				else {
 					toUpdate.addSong(title, artist);
+					updateGenre(toUpdate.getGenre());
 					return "Song " + title + " by " + artist + "added.\n";
 				}
 			}
@@ -404,11 +406,13 @@ public class LibraryModel {
 						existing.addSong(songList[i][0], songList[i][1]);
 					}
 				}
+				updateGenre(toAdd.getGenre());
 				return "Successfully updated album " + title + " by " + artist + "\n";
 			}
 			// If not, add the album to albums
 			else {
 				this.albums.add(toAdd);
+				updateGenre(toAdd.getGenre());
 				return "Successfully added album " + title + " by " + artist + "\n";
 			}
 		}
@@ -482,9 +486,13 @@ public class LibraryModel {
 		for (int i = 0; i < albums.size(); i++) {
 			if (albums.get(i).getArtist().equals(artist)) {
 				if (albums.get(i).remove(title)) {
+					if (albums.get(i).getNumSongs() == 0) {
+						removeAlbumFromLibrary(albums.get(i).getName(), albums.get(i).getArtist());
+					}
 					for (int j = 0; j < this.playlists.size(); j++) {
 						this.playlists.get(j).removeSong(title, artist);
 					}
+					updateGenre(albums.get(i).getGenre());
 					return "Song " + title + " by " + artist + " successfully removed from library.\n";
 				}
 			}
@@ -509,6 +517,7 @@ public class LibraryModel {
 						this.playlists.get(i).removeSong(songs[k][0], songs[k][1]);
 					}
 				}
+				updateGenre(a.getGenre());
 				return "Album " + title + " by " + artist + " successfully removed from library.\n";
 			}
 		}
@@ -569,4 +578,43 @@ public class LibraryModel {
 		}
 		return "Song " + title + " by " + artist + " could not be located.\n";
 	}
+	
+	
+	public void updateGenre(String genre) {
+		// Loop through all the albums, count
+		// the number of songs with genre "genre",
+		// and update a genre-specific playlist accordingly.
+		int genreSongs = 0;
+		for (int i = 0; i < this.albums.size(); i ++) {
+			if (albums.get(i).getGenre().equals(genre)) {
+				genreSongs += albums.get(i).getNumSongs();
+			}
+		}
+		// If there are at least 10 songs of this genre, create/add to genre playlist
+		if (genreSongs >= 10) {
+			// Remove the playlist
+			this.playlists.remove(getPlaylist(genre));
+			
+			// Create new playlist
+			Playlist genrePlaylist = new Playlist(genre);
+			this.playlists.add(genrePlaylist);
+			
+			// Add all songs of this genre to the playlist
+			for (int i = 0; i < this.albums.size(); i ++) {
+				// Check if the album has the correct genre
+				if (albums.get(i).getGenre().equals(genre)) {
+					String[][] songs = albums.get(i).getSongInfo();
+					// For each song in the album, add it to the playlist.
+					for (int j = 0; j < songs.length; j++) {
+						genrePlaylist.addSong(songs[j][0], songs[j][1]);
+					}
+				}
+			}
+		}
+		else {
+			// Remove the playlist (if it exists)
+			this.playlists.remove(getPlaylist(genre));
+		}
+	}
+	
 }

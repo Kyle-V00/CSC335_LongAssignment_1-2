@@ -58,10 +58,23 @@ public class Album extends Object {
 //		return songList;
 //	}
 	
+	public int getNumSongs() {
+		return this.songs.size();
+	}
+	
 	public ArrayList<String> getSongList() {
 		ArrayList<String> songList = new ArrayList<String>();
 		for (int i = 0; i < songs.size(); i++) {
 			songList.add(songs.get(i).getFormattedInfo());
+		}
+		return songList;
+	}
+	
+	public String[][] getSongInfo() {
+		String[][] songList = new String[songs.size()][2];
+		for (int i = 0; i < songs.size(); i++) {
+			songList[i][0] = songs.get(i).getName();
+			songList[i][1] = songs.get(i).getArtist();
 		}
 		return songList;
 	}
