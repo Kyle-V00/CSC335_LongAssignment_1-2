@@ -281,6 +281,18 @@ public class Album extends Object {
 	}
 	
 	/*
+	 * public boolean remove(String songName)
+	 * Purpose: Remove a song from the album. If song is
+	 * found and removed, return true. Otherwise, return false.
+	 * Input:	String 	songName	name of the song to remove
+	 * Output:	boolean				true if found and removed; 
+	 * 								else false
+	 */
+	public boolean remove(String songName) {
+		return songs.remove(getSong(songName));
+	}
+	
+	/*
 	 * public Album copy()
 	 * Purpose: Return a copy of this album,
 	 * with copies of all the songs

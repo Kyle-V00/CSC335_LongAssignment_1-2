@@ -397,8 +397,8 @@ public class LibraryModel {
 		// removeSongFromPlaylist(String playlistTitle, String title, String artist)
 		// Remove a song with name <title> by <artist> from a playlist
 		// Input:	String	playlistTitle	title of playlist to remove from
-		//			String	title	title of song to favorite
-		//			String	artist	artist of song to favorite
+		//			String	title	title of song to remove
+		//			String	artist	artist of song to remove
 		// Output:	String			Confirmation of action or
 		//							alert of failure.
 		Playlist playlist = getPlaylist(playlistTitle);
@@ -412,6 +412,49 @@ public class LibraryModel {
 		else {
 			return "Playlist " + playlistTitle + " does not contain song.\n";
 		}
+	}
+	
+	public String removeSongFromLibrary(String title, String artist) {
+		// removeSongFromLibrary(String title, String artist)
+		// Remove a song with name <title> by <artist> from the library
+		// Input:	String	title	title of song to remove
+		//			String	artist	artist of song to remove
+		// Output:	String			Confirmation of action or
+		//							alert of failure.
+		for (int i = 0; i < albums.size(); i++) {
+			if (albums.get(i).getArtist().equals(artist)) {
+				if (albums.get(i).remove(title)) {
+					for (int j = 0; j < this.playlists.size(); j++) {
+						this.playlists.get(j).removeSong(title, artist);
+					}
+					return "Song " + title + " by " + artist + " successfully removed from library.\n";
+				}
+			}
+		}
+		return "Library does not contain song " + title + " by " + artist + ".\n";
+	}
+	
+	public String removeAlbumFromLibrary(String title, String artist) {
+		// removeAlbumFromLibrary(String title, String artist)
+		// Remove an album with name <title> by <artist> from the library
+		// Input:	String	title	title of album to remove
+		//			String	artist	artist of album to remove
+		// Output:	String			Confirmation of action or
+		//							alert of failure.
+		for (int i = 0; i < albums.size(); i++) {
+			Album a = this.albums.get(i);
+			if (a.getName().equals(title) && a.getArtist().equals(artist)) {
+				albums.remove(a);
+				for (int j = 0; j < this.playlists.size(); j++) {
+					String[][] songs = a.songList();
+					for (int k = 0; k < songs.length; k++) {
+						this.playlists.get(i).removeSong(songs[k][0], songs[k][1]);
+					}
+				}
+				return "Album " + title + " by " + artist + " successfully removed from library.\n";
+			}
+		}
+		return "Library does not contain album " + title + " by " + artist + ".\n";
 	}
 	
 	public String favorite(String title, String artist) {

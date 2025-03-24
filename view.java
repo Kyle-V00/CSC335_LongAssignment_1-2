@@ -39,7 +39,7 @@ public class view {
             System.out.print("Library Options\n");
             System.out.print("'s' = search, 'a' = add, 'l' = list,\n"
             		+ 		 "'p' = playlist, 'f' = favorite, 'r' = rate,\n"
-            		+ 		 "'e' = exit\n" );
+            		+ 		 "'x' = remove, 'e' = exit\n" );
             System.out.print("Enter command: ");
             cmd = scanner.nextLine();
     	} while(!cmd.toLowerCase().equals("e"));
@@ -72,6 +72,9 @@ public class view {
 	    case "r":
 			rateMenu();
 			break;
+	    case "x":
+	    	removeMenu();
+	    	break;
 		case "e":
 			// blank();
 			break;
@@ -423,6 +426,37 @@ public class view {
     		System.out.print("\n");
     		System.out.print("Rate Options:\n");
     		System.out.print("'r' = rate song, 'b' = back\nEnter command: ");
+    		nxtCmd = scanner.nextLine().strip();
+    	}
+    	return;
+	}
+	
+	private void removeMenu() {
+		// Remove a song or album from the library.
+		System.out.print("\n");
+		System.out.print("Remove Options:\n");
+		System.out.print("'s' = remove song, 'a' = remove album, 'b' = back\nEnter command: ");
+		String nxtCmd = scanner.nextLine().strip();
+    	while (!nxtCmd.equals("b")){
+    		// Check for remove song
+    		if (nxtCmd.equals("s")) {
+    			System.out.print("Enter title of song to remove:\n");
+    			String title = scanner.nextLine().strip();
+    			System.out.print("Enter artist of song to remove:\n");
+    			String artist = scanner.nextLine().strip();
+    			System.out.print(lm.removeSongFromLibrary(title, artist));
+    		}
+    		// Check for remove album
+    		else if (nxtCmd.equals("a")) {
+    			System.out.print("Enter title of album to remove:\n");
+    			String title = scanner.nextLine().strip();
+    			System.out.print("Enter artist of album to remove:\n");
+    			String artist = scanner.nextLine().strip();
+    			System.out.print(lm.removeAlbumFromLibrary(title, artist));
+    		}
+    		System.out.print("\n");
+    		System.out.print("Remove Options:\n");
+    		System.out.print("'s' = remove song, 'a' = remove album, 'b' = back\nEnter command: ");
     		nxtCmd = scanner.nextLine().strip();
     	}
     	return;
