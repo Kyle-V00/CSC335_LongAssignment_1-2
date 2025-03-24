@@ -13,9 +13,9 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class MusicStore extends Object {
-	
+
 	private ArrayList<Album> albums;
-	
+
 	public MusicStore() {
 		albums = new ArrayList<Album>();
 		ArrayList<String[]> albumInfo = new ArrayList<String[]>();
@@ -150,7 +150,7 @@ public class MusicStore extends Object {
 		}
 		return null;
 	}
-	
+
 	public Object[] getAlbumInfo(String title, String artist) {
 		for (int i = 0; i < albums.size(); i++) {
 			if (albums.get(i).getArtist().equals(artist) && albums.get(i).containsSong(title)) {

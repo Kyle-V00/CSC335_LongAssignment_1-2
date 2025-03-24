@@ -8,7 +8,7 @@
 
 public enum Rating {
 	NONE, ONE, TWO, THREE, FOUR, FIVE;
-	
+
 	public String toString() {
 		if (this.equals(NONE)) {
 			return "No Rating";

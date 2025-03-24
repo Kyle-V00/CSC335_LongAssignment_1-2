@@ -127,7 +127,7 @@ public class tracking {
 	}
 	
 	
-	public void getFrequents() {
+	public LinkedList<Song> getFrequents() {
 		return this.frequents;
 	}
 	

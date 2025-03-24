@@ -57,7 +57,7 @@ public class Album extends Object {
 //		}
 //		return songList;
 //	}
-	
+
 	public int getNumSongs() {
 		return this.songs.size();
 	}
@@ -69,7 +69,7 @@ public class Album extends Object {
 		}
 		return songList;
 	}
-	
+
 	public String[][] getSongInfo() {
 		String[][] songList = new String[songs.size()][2];
 		for (int i = 0; i < songs.size(); i++) {
@@ -175,7 +175,7 @@ public class Album extends Object {
 		}
 		return null;
 	}
-	
+
 	public int getSongRating(String title) {
 		if (this.getSong(title) == null) {
 			return 0;

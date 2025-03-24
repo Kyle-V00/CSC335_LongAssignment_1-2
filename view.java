@@ -39,7 +39,7 @@ public class view {
             System.out.print("Library Options\n");
             System.out.print("'s' = search, 'a' = add, 'l' = list,\n"
             		+ 		 "'p' = playlist, 'f' = favorite, 'r' = rate,\n"
-            		+ 		 "'x' = remove, 'e' = exit\n" );
+            		+ 		 "'x'= remove, 'pl' = play, 'e' = exit\n" );
             System.out.print("Enter command: ");
             cmd = scanner.nextLine();
     	} while(!cmd.toLowerCase().equals("e"));
@@ -69,12 +69,16 @@ public class view {
 		case "f":
 			favMenu();
 			break;
-	    case "r":
+		case "r":
 			rateMenu();
 			break;
-	    case "x":
-	    	removeMenu();
-	    	break;
+		case "x":
+			removeMenu();
+			break;
+		// added: goes to playMenu
+		case "pl":
+			playMenu();
+			break;
 		case "e":
 			// blank();
 			break;
@@ -198,7 +202,7 @@ public class view {
     				System.out.printf("%s's songs:\n%s", artistName,val);
     			}
     		}
-    		if (nxtCmd.equals("sg")) {
+			if (nxtCmd.equals("sg")) {
     			System.out.print("Type genre: ");
     			String genre = scanner.nextLine();
     			String val = lm.libSearchSongGenre(genre);
@@ -263,11 +267,11 @@ public class view {
     	} while (!nxtCmd.equals("b"));
     	return;
 	}
-	
+
 	private void songInfo(String title, String artist) {
 		// Get full album info (from store) for album
 		// containing song title, artist
-		
+
 		Object[] info = ms.getAlbumInfo(title, artist);
 		int len = lm.getAlbumLength(title, artist);
 		System.out.println(info[0]);
@@ -354,7 +358,7 @@ public class view {
     			System.out.print("Playlists:\n");
     			System.out.print(lm.allPlaylists());
     		}
-    		// Check for playlist song shuffle
+		// Check for playlist song shuffle
     		else if (nxtCmd.equals("ps")) {
     			System.out.print("Playlists: Songs on shuffle:\n");
     			System.out.print(lm.allPlaylistsShuffled());
@@ -484,7 +488,7 @@ public class view {
     	}
     	return;
 	}
-	
+
 	private void removeMenu() {
 		// Remove a song or album from the library.
 		System.out.print("\n");
@@ -514,5 +518,14 @@ public class view {
     		nxtCmd = scanner.nextLine().strip();
     	}
     	return;
+	
+	// added playMenu
+	private void playMenu() {
+		System.out.print("Enter song title:\n");
+		String title = scanner.nextLine().strip();
+		System.out.print("Enter song artist:\n");
+		String artist = scanner.nextLine().strip();
+		System.out.print(lm.play(title, artist));
+//		lm.play();
 	}
 }

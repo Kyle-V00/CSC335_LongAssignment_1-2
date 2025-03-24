@@ -15,17 +15,17 @@ import java.util.List;
 public class Playlist {
 	private String name;
 	private ArrayList<Song> songs;
-	
+
 	public Playlist(String name) {
 		this.name = name;
 		songs = new ArrayList<Song>();
 	}
-	
+
 	// Getter methods:
 	public String getName() {
 		return name;
 	}
-	
+
 	public String getSongs() {
 		String songList = "Songs in playlist:\n";
 		if (this.songs.size() == 0) {
@@ -38,7 +38,7 @@ public class Playlist {
 		}
 		return songList;
 	}
-	
+
 	public String getShuffledSongs() {
 		String songList = "Shuffled songs in playlist:\n";
 		if (this.songs.size() == 0) {
@@ -53,7 +53,7 @@ public class Playlist {
 		}
 		return songList;
 	}
-	
+
 	public boolean containsSong(String title, String artist) {
 		// Check if a Song object with title <title> 
 		// and artist <artist> is contained in the playlist.
@@ -64,7 +64,7 @@ public class Playlist {
 		}
 		return false;
 	}
-	
+
 	/*
 	 * public void addSong(String songName, String songTitle)
 	 * Purpose: Add a song to the ArrayList
@@ -81,7 +81,7 @@ public class Playlist {
 		this.songs.add(new Song(songName, artist));
 		return true;
 	}
-	
+
 	/*
 	 * public boolean removeSong(String songName, String songTitle)
 	 * Purpose: Remove a song from the ArrayList
@@ -102,7 +102,7 @@ public class Playlist {
 		}
 		return false;
 	}
-	
+
 	/*
 	 * public String toString()
 	 * Purpose: Return a string representation of playlist info.

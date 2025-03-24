@@ -36,7 +36,7 @@ public class UserManagerView {
 		System.out.println(" -------------------");
 		System.out.println("| Welcome to Music! |");
 		System.out.println(" -------------------\n");
-		System.out.println("To get started, please create an account.\n");
+		System.out.println("To get started, please log in or create an account.\n");
 		
 		while (!quit) {
 			System.out.println("Music Home:");
