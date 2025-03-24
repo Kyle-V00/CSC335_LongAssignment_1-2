@@ -58,6 +58,14 @@ public class Album extends Object {
 //		return songList;
 //	}
 	
+	public ArrayList<String> getSongList() {
+		ArrayList<String> songList = new ArrayList<String>();
+		for (int i = 0; i < songs.size(); i++) {
+			songList.add(songs.get(i).getFormattedInfo());
+		}
+		return songList;
+	}
+	
 	public String getSongsGenres() {
 		String songList = "";
 		for (int i = 0; i < this.songs.size(); i++) {
@@ -78,7 +86,7 @@ public class Album extends Object {
 			String cur = this.songs.get(i).getName();
 			if (table.containsKey(cur)) {
 				temp = table.get(cur);
-				temp += "\n\t" + this.songs.get(i).getFormattedInfo();
+				temp += "\t" + this.songs.get(i).getFormattedInfo();
 			}
 			else {
 				temp = this.songs.get(i).getFormattedInfo();
@@ -95,7 +103,7 @@ public class Album extends Object {
 			String cur = this.songs.get(i).getArtist();
 			if (table.containsKey(cur)) {
 				temp = table.get(cur);
-				temp += "\n\t" + this.songs.get(i).getFormattedInfo();
+				temp += "\t" + this.songs.get(i).getFormattedInfo();
 			}
 			else {
 				temp = this.songs.get(i).getFormattedInfo();
@@ -112,7 +120,7 @@ public class Album extends Object {
 			String cur = this.songs.get(i).getRating();
 			if (table.containsKey(cur)) {
 				temp = table.get(cur);
-				temp += "\n\t" + this.songs.get(i).getFormattedInfo();
+				temp += "\t" + this.songs.get(i).getFormattedInfo();
 			}
 			else {
 				temp = this.songs.get(i).getFormattedInfo();
