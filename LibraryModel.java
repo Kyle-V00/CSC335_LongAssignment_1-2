@@ -17,6 +17,7 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.Enumeration;
 import java.util.Hashtable;
+import java.util.LinkedList;
 import java.util.Set;
 
 public class LibraryModel {
@@ -33,6 +34,10 @@ public class LibraryModel {
 		this.store = new MusicStore();
 		this.favorites = new Playlist("Favorites");
 		this.topRated = new Playlist("Top Rated");
+		Playlist recentPlays = new Playlist("Recently Played");
+		this.playlists.add(recentPlays);
+		Playlist frequentlyPlayed = new Playlist("Frequently Played");
+		this.playlists.add(frequentlyPlayed);
 		this.playlists.add(favorites);
 		this.playlists.add(topRated);
 		this.track = new tracking(this.albums, this.playlists);
@@ -69,7 +74,7 @@ public class LibraryModel {
 		String temp;
 		for (int i = 0; i < keys.length; i ++) {
 			temp = table.get(keys[i]);
-			retStr += "\t" + temp + "\n";
+			retStr += "\t" + temp;
 		}
 	
 		if (retStr.equals("")) {
@@ -241,7 +246,7 @@ public class LibraryModel {
 	public int getAlbumLength(String title, String artist) {
 		// Get the length of a given album in the library
 		for (int i = 0; i < albums.size(); i++) {
-			if (albums.get(i).getArtist().equals(artist) && albums.get(i).containsSong(title)) {
+			if (albums.get(i).getArtist().equals(artist) && albums.get(i).getName().equals(title)) {
 				return albums.get(i).songList().length;
 			}
 		}
@@ -541,7 +546,7 @@ public class LibraryModel {
 				for (int j = 0; j < this.playlists.size(); j++) {
 					String[][] songs = a.songList();
 					for (int k = 0; k < songs.length; k++) {
-						this.playlists.get(i).removeSong(songs[k][0], songs[k][1]);
+						this.playlists.get(j).removeSong(songs[k][0], songs[k][1]);
 					}
 				}
 				updateGenre(a.getGenre());
@@ -645,7 +650,15 @@ public class LibraryModel {
 	}
 	
 	public void play(String title, String artist) {
-		track.playing(title, artist);
+		LinkedList<Song> recents = track.playing(title, artist);
+		if (recents != null) {
+			this.playlists.remove(getPlaylist("Recently Played"));
+			Playlist recentPlays = new Playlist("Recently Played");
+			for (int i = 0; i < recents.size(); i ++) {
+				recentPlays.addSong(recents.get(i).getName(), recents.get(i).getArtist());
+			}
+			this.playlists.add(recentPlays);
+		}
 	}
 	
 	public void frequency() {
