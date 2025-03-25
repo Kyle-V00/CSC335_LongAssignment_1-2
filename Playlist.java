@@ -102,6 +102,22 @@ public class Playlist {
 		}
 		return false;
 	}
+	
+	public Song incSongCount(String title, String artist) {
+//		String[][] songList = new String[songs.size()][2];
+//		Song temp = null;
+		for (int i = 0; i < songs.size(); i++) {
+//			songList[i][0] = songs.get(i).getName();
+//			songList[i][1] = songs.get(i).getArtist();
+			if ((songs.get(i).getName().equals(title)) && (songs.get(i).getArtist().equals(artist))) {
+				songs.get(i).replayCountInc();
+				return songs.get(i);
+			}
+		}
+//		songs.get(getNumSongs())
+//		return songList;
+		return null;
+	}
 
 	/*
 	 * public String toString()
