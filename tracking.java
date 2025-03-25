@@ -31,31 +31,42 @@ public class tracking {
 		// TODO: need to test if this functions properly
 		Song albumSong = null, playlistSong = null;
 		int albumFlag = 0, playlistFlag = 0;
+		int albumPlace = -1, playlistPlace = -1;
 		for (int i = 0; i < this.albums.size(); i++) {
-			if (this.albums[i].getArtist().equals(artist)){
-				ArrayList<Song> songListA = this.albums[i].getSongs();
-				for (int j = 0; j < songListA.size(); j++) {
-					if (songListA[j].getTitle().equals(title)) {
-						albumSong = songListA[j];
-						albumFlag = 1;
-						break;
-					}
-				}
+//			if (this.albums.get(i).getArtist().equals(artist)){
+//				ArrayList<Song> songListA = this.albums.get(i).getSongList();
+////				ArrayList<Song> songListA = this.albums.get(i).getSongs();
+//				for (int j = 0; j < songListA.size(); j++) {
+//					if (songListA[j].getTitle().equals(title)) {
+//						albumSong = songListA[j];
+//						albumFlag = 1;
+//						break;
+//					}
+//				}
+//			}
+			if (albums.get(i).containsSong(title)) {
+				albumFlag = 1; 
+				albumSong = albums.get(i).incSongCount(title);
+//				albumPlace = i;
 			}
 		}
 		for (int k = 0; k < this.playlists.size(); k++) {
-			if (this.playlists[k].containSong(song.getName(),song.getArtist())){
-				ArrayList<Song> songListP = this.playlists[i].getSongs();
-				for (int l = 0; l < songListP.size(); l++) {
-					if (songListP[l].getTitle().equals(title)) {
-						playlistSong = songListP[l];
-						playlistFlag = 1;
-						break;
-					}
-				}
-			}
+			if (playlists.get(k).containsSong(title,artist)){
+//				ArrayList<Song> songListP = this.playlists[i].getSongs();
+//				for (int l = 0; l < songListP.size(); l++) {
+//					if (songListP[l].getTitle().equals(title)) {
+//						playlistSong = songListP[l];
+//						playlistFlag = 1;
+//						break;
+//					}
+//				}
+				playlistFlag = 1;
+				playlistSong = playlists.get(k).incSongCount(title, artist);
+//				playlistPlace = k;
+			}			
 		}
 		if ((albumFlag == 1) || (playlistFlag == 1)) {
+			Song song = (albumFlag == 1) ? albumSong : playlistSong;
 			if (recent.contains(song)) {
 				recent.remove(recent.indexOf(song));
 				recent.addFirst(song);					
@@ -68,16 +79,16 @@ public class tracking {
 				recent.removeLast();
 			}
 			System.out.print("Playing: " + song);
-			if (albumFlag == 1) {
-				albumSong.replayCountInc();
-			}
-			if (playlistFlag == 1) {
-				playlistSong.replayCountInc();
-			}
+//			if (albumFlag == 1) {
+//				albumSong.replayCountInc();
+//			}
+//			if (playlistFlag == 1) {
+//				playlistSong.replayCountInc();
+//			}
 			updateFrequents();
 			return;
 		}
-		System.out.print(song + " does not exist in album or playlist");
+		System.out.print(title + " by "+ artist + " does not exist in album or playlist");
 		return;
 	}
 	
