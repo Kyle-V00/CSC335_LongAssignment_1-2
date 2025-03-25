@@ -80,7 +80,11 @@ class LibraryModelTest {
 
 	@Test
 	void testAllPlaylists_NoPlaylists() {
-		assertEquals(lib.allPlaylists(), "Playlist: Favorites | 0 songs\n"
+		assertEquals(lib.allPlaylists(), "Playlist: Recently Played | 0 songs\n"
+				+ "Playlist is empty.\n"
+				+ "Playlist: Frequently Played | 0 songs\n"
+				+ "Playlist is empty.\n"
+				+ "Playlist: Favorites | 0 songs\n"
 				+ "Playlist is empty.\n"
 				+ "Playlist: Top Rated | 0 songs\n"
 				+ "Playlist is empty.\n");
@@ -89,13 +93,19 @@ class LibraryModelTest {
 	@Test
 	void testshufflePlaylistSongs() {
 		lib.addSong("Politik", "Coldplay");
-		assertEquals(lib.allPlaylistsShuffled(), "Playlist: Favorites | 0 songs\n"
+		assertEquals(lib.allPlaylistsShuffled(), "Playlist: Recently Played | 0 songs\n"
+				+ "Playlist is empty.\n"
+				+ "Playlist: Frequently Played | 0 songs\n"
+				+ "Playlist is empty.\nPlaylist: Favorites | 0 songs\n"
 				+ "Playlist is empty.\n"
 				+ "Playlist: Top Rated | 0 songs\n"
 				+ "Playlist is empty.\n");
 		lib.addPlaylist("Good vibes");
 		lib.addSongToPlaylist("Good vibes", "Politik", "Coldplay");
-		assertEquals(lib.allPlaylistsShuffled(), "Playlist: Favorites | 0 songs\n"
+		assertEquals(lib.allPlaylistsShuffled(), "Playlist: Recently Played | 0 songs\n"
+				+ "Playlist is empty.\n"
+				+ "Playlist: Frequently Played | 0 songs\n"
+				+ "Playlist is empty.\nPlaylist: Favorites | 0 songs\n"
 				+ "Playlist is empty.\n"
 				+ "Playlist: Top Rated | 0 songs\n"
 				+ "Playlist is empty.\n"
@@ -320,7 +330,10 @@ class LibraryModelTest {
 		lib.addAlbum("A Rush of Blood to the Head", "Coldplay");
 		lib.addPlaylist("Good vibes");
 		lib.addSongToPlaylist("Good vibes", "Politik", "Coldplay");
-		assertEquals(lib.allPlaylists(), "Playlist: Favorites | 0 songs\n"
+		assertEquals(lib.allPlaylists(), "Playlist: Recently Played | 0 songs\n"
+				+ "Playlist is empty.\n"
+				+ "Playlist: Frequently Played | 0 songs\n"
+				+ "Playlist is empty.\nPlaylist: Favorites | 0 songs\n"
 				+ "Playlist is empty.\n"
 				+ "Playlist: Top Rated | 0 songs\n"
 				+ "Playlist is empty.\n"
@@ -349,7 +362,10 @@ class LibraryModelTest {
 		lib.addSongToPlaylist("Good vibes", "Politik", "Coldplay");
 		lib.addSongToPlaylist("Good vibes", "Politik", "Coldplay");
 		lib.addSongToPlaylist("Good vibes", "Amsterdam", "Coldplay");
-		assertEquals(lib.allPlaylists(), "Playlist: Favorites | 0 songs\n"
+		assertEquals(lib.allPlaylists(), "Playlist: Recently Played | 0 songs\n"
+				+ "Playlist is empty.\n"
+				+ "Playlist: Frequently Played | 0 songs\n"
+				+ "Playlist is empty.\nPlaylist: Favorites | 0 songs\n"
 				+ "Playlist is empty.\n"
 				+ "Playlist: Top Rated | 0 songs\n"
 				+ "Playlist is empty.\n"

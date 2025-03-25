@@ -27,7 +27,7 @@ public class tracking {
 		this.playlists = playlists;
 	}
 	
-	public void playing(String title, String artist) {
+	public LinkedList<Song> playing(String title, String artist) {
 		// TODO: need to test if this functions properly
 		Song albumSong = null, playlistSong = null;
 		int albumFlag = 0, playlistFlag = 0;
@@ -78,7 +78,7 @@ public class tracking {
 				recent.addFirst(song);
 				recent.removeLast();
 			}
-			System.out.print("Playing: " + song);
+			System.out.print("Playing: " + song + "\n");
 //			if (albumFlag == 1) {
 //				albumSong.replayCountInc();
 //			}
@@ -86,59 +86,59 @@ public class tracking {
 //				playlistSong.replayCountInc();
 //			}
 //			updateFrequents();
-			return;
+			return recent;
 		}
-		System.out.print(title + " by "+ artist + " does not exist in album or playlist");
-		return;
+		System.out.print(title + " by "+ artist + " does not exist in album or playlist\n");
+		return null;
 	}
 	
-	public void updateFrequents() {
-		Song albumSong = null, playlistSong = null;
-		int albumFlag = 0, playlistFlag = 0;
-		int countMax = 0;
-		
-		for (int i = 0; i < this.albums.size(); i++) {
-			Album album = this.albums.get(i);
-			for (int j = 0; j < album.getNumSongs(); j++) {
-				Song song = album[i];
-				if (song.getReplayCount() >= countMax) {
-					if (countMax < song.getReplayCount()) {
-//						frequents.remove(frequents.indexOf(song));	
-						countMax = song.getReplayCount();
-					}
-					else if (frequents.size() < 10) {
-						frequents.addFirst(song);				
-					}
-					else {
-						frequents.addFirst(song);
-						frequents.removeLast();
-					}
-				}
-			}
-		}
-		
-		for (int k = 0; k < this.playlists.size(); k++) {
-			ArrayList<Song> songListP = this.playlists[i].getSongs();
-			for (int j = 0; j < songListP.size(); j++) {
-				Song playlistSong = songListP[j];
-				if (playlistSong.getReplayCount() >= countMax) {
-					if (countMax < song.getReplayCount()) {
-//						frequents.remove(frequents.indexOf(song));	
-						countMax = song.getReplayCount();
-					}
-					if (!frequents.contains(playlistSong)) {
-						if (frequents.size() < 10) {
-							frequents.addFirst(song);				
-						}
-						else {
-							frequents.addFirst(song);
-							frequents.removeLast();
-						}
-					}
-				}
-			}
-		}
-	}
+//	public void updateFrequents() {
+//		Song albumSong = null, playlistSong = null;
+//		int albumFlag = 0, playlistFlag = 0;
+//		int countMax = 0;
+//		
+//		for (int i = 0; i < this.albums.size(); i++) {
+//			Album album = this.albums.get(i);
+//			for (int j = 0; j < album.getNumSongs(); j++) {
+//				Song song = album[i];
+//				if (song.getReplayCount() >= countMax) {
+//					if (countMax < song.getReplayCount()) {
+////						frequents.remove(frequents.indexOf(song));	
+//						countMax = song.getReplayCount();
+//					}
+//					else if (frequents.size() < 10) {
+//						frequents.addFirst(song);				
+//					}
+//					else {
+//						frequents.addFirst(song);
+//						frequents.removeLast();
+//					}
+//				}
+//			}
+//		}
+//		
+//		for (int k = 0; k < this.playlists.size(); k++) {
+//			ArrayList<Song> songListP = this.playlists[i].getSongs();
+//			for (int j = 0; j < songListP.size(); j++) {
+//				Song playlistSong = songListP[j];
+//				if (playlistSong.getReplayCount() >= countMax) {
+//					if (countMax < song.getReplayCount()) {
+////						frequents.remove(frequents.indexOf(song));	
+//						countMax = song.getReplayCount();
+//					}
+//					if (!frequents.contains(playlistSong)) {
+//						if (frequents.size() < 10) {
+//							frequents.addFirst(song);				
+//						}
+//						else {
+//							frequents.addFirst(song);
+//							frequents.removeLast();
+//						}
+//					}
+//				}
+//			}
+//		}
+//	}
 	
 	
 	public LinkedList<Song> getFrequents() {
