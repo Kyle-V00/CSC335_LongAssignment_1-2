@@ -14,6 +14,7 @@ import java.lang.reflect.Array;
 import java.util.Arrays;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.Enumeration;
 import java.util.Hashtable;
 import java.util.Set;
@@ -148,6 +149,19 @@ public class LibraryModel {
 		}
 		return retStr;
 	}
+	
+	public String allPlaylistsShuffled() {
+		String retStr = "";
+		for (int i = 0; i < playlists.size(); i++) {
+			retStr += playlists.get(i).toString() + "\n";
+			retStr += playlists.get(i).getShuffledSongs();
+		}
+		if (retStr.equals("")) {
+			return "Library contains no playlists.\n";
+		}
+		return retStr;
+	}
+	
 	
 	public String allFavorites() {
 		String retStr = "";
@@ -364,7 +378,7 @@ public class LibraryModel {
 					toUpdate.addSong(title, artist);
 					updateGenre(toUpdate.getGenre());
 					// kyle -added need to test
-					track.updateAlbum(toUpdate);
+					track.updateAlbum(albums);
 					return "Song " + title + " by " + artist + "added.\n";
 				}
 			}
@@ -409,7 +423,7 @@ public class LibraryModel {
 				this.albums.add(toAdd);
 				updateGenre(toAdd.getGenre());
 				// kyle -added need to test
-				track.updateAlbum();
+				track.updateAlbum(albums);
 				return "Successfully added album " + title + " by " + artist + "\n";
 			}
 		}
@@ -451,15 +465,13 @@ public class LibraryModel {
 		if (searchSongTitleAndArtist(title, artist) != null) {
 			if (playlist.addSong(title, artist)){
 				// kyle -added need to test
-				track.updatePlaylist(playlists);
+				track.updatePlaylists(playlists);
 				return "Added song " + title + " by " + artist + " to " + playlistTitle + "\n";
 			}
 			else return "Playlist " + playlistTitle + " already contains song.\n";
 		}
-			return "Added song " + title + " by " + artist + " to " + playlistTitle + "\n";
-		}
 		else {
-			return "Song " + title + " by " + artist + " not found in library.\n";
+			return "Song " + title + " by " + artist + " not found in library\n";
 		}
 	}
 	
@@ -505,7 +517,7 @@ public class LibraryModel {
 					updateGenre(albums.get(i).getGenre());
 					// kyle -added need to test
 					track.updateAlbum(albums);
-					track.updatePlaylist(playlists);
+					track.updatePlaylists(playlists);
 					return "Song " + title + " by " + artist + " successfully removed from library.\n";
 				}
 			}

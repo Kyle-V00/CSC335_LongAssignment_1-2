@@ -518,6 +518,7 @@ public class view {
     		nxtCmd = scanner.nextLine().strip();
     	}
     	return;
+	}
 	
 	// added playMenu
 	private void playMenu() {
@@ -525,7 +526,8 @@ public class view {
 		String title = scanner.nextLine().strip();
 		System.out.print("Enter song artist:\n");
 		String artist = scanner.nextLine().strip();
-		System.out.print(lm.play(title, artist));
+		lm.play(title, artist);
+//		System.out.println(lm.play(title, artist));
 //		lm.play();
 	}
 }

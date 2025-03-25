@@ -53,7 +53,7 @@ public class Song {
 		return retStr + this.getRating() + "\n";
 	}
 	
-	public String getReplayCount() {
+	public int getReplayCount() {
 		return this.replayCount;
 	}
 	

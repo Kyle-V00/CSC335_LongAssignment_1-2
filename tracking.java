@@ -1,5 +1,5 @@
 import java.util.ArrayList;
-import java.util.LinkedList:
+import java.util.LinkedList;
 
 public class tracking {
 	private LinkedList<Song> recent;
@@ -15,15 +15,15 @@ public class tracking {
 	}
 	
 	// Setter
-	// if there is an uptate in either album or playlist
+	// if there is an upDate in either album or playlist
 	
 	// takes an updated version of album 
-	private void updateAlbum(ArrayList<Album> album) {
+	void updateAlbum(ArrayList<Album> album) {
 		this.albums = album;
 	}
 	
 	// takes an updated version of playlists
-	private void updatePlaylists(ArrayList<Playlist> playlists) {
+	void updatePlaylists(ArrayList<Playlist> playlists) {
 		this.playlists = playlists;
 	}
 	

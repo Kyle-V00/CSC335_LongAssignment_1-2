@@ -19,7 +19,8 @@ public class MusicStore extends Object {
 	public MusicStore() {
 		albums = new ArrayList<Album>();
 		ArrayList<String[]> albumInfo = new ArrayList<String[]>();
-		File albumFile = new File("/Users/liam/Downloads/albums/albums.txt");
+//		File albumFile = new File("/Users/liam/Downloads/albums/albums.txt");
+		File albumFile = new File("/Users/kivel/Downloads/albums/albums.txt");
 		albumFile.getParent();
 		Scanner albumNames = null;
 		try {
