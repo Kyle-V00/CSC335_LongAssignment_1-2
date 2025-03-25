@@ -586,5 +586,14 @@ class LibraryModelTest {
 		manager = new UserManager();
 		assertFalse(manager.login("Jack", "imSTEVE", false));
 	}
+	
+	@Test
+	void testPlaying() throws NoSuchAlgorithmException, IOException {
+		System.out.print(lib.addSong("In My Place", "Coldplay"));
+		System.out.print(lib.addSong("Amsterdam", "Coldplay"));
+		lib.play("In My Place", "Coldplay");
+//		track = new tracking();
+//		assertFalse(tracking.login("Jack", "imSTEVE", false));
+	}
 
 }

@@ -85,7 +85,7 @@ public class tracking {
 //			if (playlistFlag == 1) {
 //				playlistSong.replayCountInc();
 //			}
-			updateFrequents();
+//			updateFrequents();
 			return;
 		}
 		System.out.print(title + " by "+ artist + " does not exist in album or playlist");
@@ -93,11 +93,14 @@ public class tracking {
 	}
 	
 	public void updateFrequents() {
+		Song albumSong = null, playlistSong = null;
+		int albumFlag = 0, playlistFlag = 0;
 		int countMax = 0;
+		
 		for (int i = 0; i < this.albums.size(); i++) {
-			ArrayList<Song> songListA = this.albums[i].getSongs();
-			for (int j = 0; j < songListA.size(); j++) {
-				Song song = songListA[i];
+			Album album = this.albums.get(i);
+			for (int j = 0; j < album.getNumSongs(); j++) {
+				Song song = album[i];
 				if (song.getReplayCount() >= countMax) {
 					if (countMax < song.getReplayCount()) {
 //						frequents.remove(frequents.indexOf(song));	
