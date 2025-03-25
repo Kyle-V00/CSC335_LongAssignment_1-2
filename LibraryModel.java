@@ -568,6 +568,7 @@ public class LibraryModel {
 		for (int i = 0; i < albums.size(); i++) {
 			if (albums.get(i).getArtist().equals(artist) && albums.get(i).containsSong(title)) {
 				albums.get(i).favorite(title);
+				this.favorites.addSong(title, artist);
 				return "Song " + title + " by " + artist + " set to favorite.\n";
 			}
 		}
